@@ -863,7 +863,12 @@
 
 #define MOVES_COUNT_GEN9 829
 
-#define MOVES_COUNT         MOVES_COUNT_GEN9
+// Silva Originals
+#define MOVE_THUNDER_DROP 829
+
+#define MOVES_COUNT_NEW 830
+
+#define MOVES_COUNT         MOVES_COUNT_NEW
 
 // Z Moves
 #define MOVE_BREAKNECK_BLITZ (MOVES_COUNT + 0)
