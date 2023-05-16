@@ -6066,6 +6066,8 @@ const struct ContestMove gContestMoves[MOVES_COUNT] =
     [MOVE_PSYBLADE] = {0}, // TODO
 
     [MOVE_HYDRO_STEAM] = {0}, // TODO
+
+	[MOVE_THUNDER_DROP] = {0}, //TODO
 };
 
 const struct ContestEffect gContestEffects[] =
