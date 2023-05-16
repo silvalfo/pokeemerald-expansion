@@ -763,12 +763,17 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
             case ABILITY_FLASH_FIRE:
                 if (moveType == TYPE_FIRE)
                     RETURN_SCORE_MINUS(20);
-                break;
+				break;
+			case ABILITY_EARTH_EATER:
+				if (moveType == TYPE_GROUND)
+					RETURN_SCORE_MINUS(20);
+				break;
             case ABILITY_WONDER_GUARD:
                 if (effectiveness < AI_EFFECTIVENESS_x2)
                     return 0;
                 break;
             case ABILITY_SAP_SIPPER:
+			case ABILITY_HERBIVORE:
                 if (moveType == TYPE_GRASS)
                     RETURN_SCORE_MINUS(20);
                 break;
@@ -776,6 +781,10 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                 if (moveType == TYPE_DARK && !IS_MOVE_STATUS(move))
                     RETURN_SCORE_MINUS(10);
                 break;
+			case ABILITY_THERMAL_EXCHANGE:
+				if (moveType == TYPE_FIRE && !IS_MOVE_STATUS(move))
+					RETURN_SCORE_MINUS(10);
+				break;
             case ABILITY_RATTLED:
                 if (!IS_MOVE_STATUS(move)
                   && (moveType == TYPE_DARK || moveType == TYPE_GHOST || moveType == TYPE_BUG))

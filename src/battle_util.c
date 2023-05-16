@@ -1001,6 +1001,7 @@ static const u8 sAbilitiesAffectedByMoldBreaker[] =
     [ABILITY_GOOD_AS_GOLD] = 1,
     [ABILITY_PURIFYING_SALT] = 1,
     [ABILITY_WELL_BAKED_BODY] = 1,
+	[ABILITY_HEAVY_DUTY] = 1,
 };
 
 static const u8 sAbilitiesNotTraced[ABILITIES_COUNT] =
@@ -4427,7 +4428,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
         case ABILITY_SLOW_START:
             if (!gSpecialStatuses[battler].switchInAbilityDone)
             {
-                gDisableStructs[battler].slowStartTimer = 5;
+                gDisableStructs[battler].slowStartTimer = 1;
                 gBattleCommunication[MULTISTRING_CHOOSER] = B_MSG_SWITCHIN_SLOWSTART;
                 gSpecialStatuses[battler].switchInAbilityDone = TRUE;
                 BattleScriptPushCursorAndCallback(BattleScript_SwitchInAbilityMsg);
@@ -5117,7 +5118,11 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
             case ABILITY_DRY_SKIN:
                 if (moveType == TYPE_WATER)
                     effect = 1;
-                break;
+				break;
+			case ABILITY_HERBIVORE:
+				if(moveType == TYPE_GRASS)
+					effect = 1;
+				break;
             case ABILITY_MOTOR_DRIVE:
                 if (moveType == TYPE_ELECTRIC)
                     effect = 2, statId = STAT_SPEED;
@@ -8930,7 +8935,7 @@ static u32 CalcMoveBasePowerAfterModifiers(u16 move, u8 battlerAtk, u8 battlerDe
         break;
     case ABILITY_GORILLA_TACTICS:
         if (IS_MOVE_PHYSICAL(move))
-            MulModifier(&modifier, UQ_4_12(1.5));
+            MulModifier(&modifier, UQ_4_12(1.33));
         break;
     case ABILITY_ROCKY_PAYLOAD:
         if (moveType == TYPE_ROCK)
@@ -8965,6 +8970,10 @@ static u32 CalcMoveBasePowerAfterModifiers(u16 move, u8 battlerAtk, u8 battlerDe
     case ABILITY_SUPREME_OVERLORD:
         MulModifier(&modifier, gBattleStruct->supremeOverlordModifier[battlerAtk]);
         break;
+	case ABILITY_OVERKILL:
+		if (basePower >= 100)
+			MulModifier(&modifier, UQ_4_12(1.2));
+		break;
     }
 
     // field abilities
@@ -9291,18 +9300,27 @@ static u32 CalcAttackStat(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, b
     case ABILITY_SWARM:
         if (moveType == TYPE_BUG && gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
             MulModifier(&modifier, UQ_4_12(1.5));
+		else if (moveType == TYPE_BUG)
+			MulModifier(&modifier, UQ_4_12(1.1));
         break;
     case ABILITY_TORRENT:
         if (moveType == TYPE_WATER && gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
             MulModifier(&modifier, UQ_4_12(1.5));
+		else if (moveType == TYPE_WATER)
+			MulModifier(&modifier, UQ_4_12(1.1));
         break;
     case ABILITY_BLAZE:
         if (moveType == TYPE_FIRE && gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
             MulModifier(&modifier, UQ_4_12(1.5));
+		else if (moveType == TYPE_FIRE)
+			MulModifier(&modifier, UQ_4_12(1.1));
         break;
     case ABILITY_OVERGROW:
-        if (moveType == TYPE_GRASS && gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
-            MulModifier(&modifier, UQ_4_12(1.5));
+		if (moveType == TYPE_GRASS && gBattleMons[battlerAtk].hp <= (gBattleMons[battlerAtk].maxHP / 3))
+			MulModifier(&modifier, UQ_4_12(1.5));
+		else if (moveType == TYPE_GRASS)
+			MulModifier(&modifier, UQ_4_12(1.1));
+
         break;
     #if B_PLUS_MINUS_INTERACTION >= GEN_5
     case ABILITY_PLUS:
@@ -9340,6 +9358,10 @@ static u32 CalcAttackStat(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, b
         if (gBattleMons[battlerAtk].status1 & STATUS1_ANY && IS_MOVE_PHYSICAL(move))
             MulModifier(&modifier, UQ_4_12(1.5));
         break;
+	case ABILITY_HEAVY_DUTY:
+		if (IS_MOVE_PHYSICAL(move))
+			MulModifier(&modifier, UQ_4_12(1.1));
+		break;
     }
 
     // target's abilities
@@ -9510,7 +9532,16 @@ static u32 CalcDefenseStat(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, 
         if (gBattleMoves[move].type == TYPE_GHOST)
             MulModifier(&modifier, UQ_4_12(2.0));
         break;
+	case ABILITY_HEAVY_DUTY:
+		if (usesDefStat)
+		{
+			MulModifier(&modifier, UQ_4_12(1.1));
+			if (updateFlags)
+				RecordAbilityBattle(battlerDef, ABILITY_HEAVY_DUTY);
+		}
+		break;
     }
+
 
     // ally's abilities
     if (IsBattlerAlive(BATTLE_PARTNER(battlerDef)))
