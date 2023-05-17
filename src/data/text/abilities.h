@@ -605,6 +605,7 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
 	[ABILITY_REFORESTATION] = _("Reforestation"),
 	[ABILITY_HYDRODYNAMIC] = _("Hydrodynamic"),
 	[ABILITY_SUNBRINGER] = _("Sunbringer"),
+	[ABILITY_CRYSTAL_GUARD] = _("Crystal Guard"),
 };
 #else   // 12 characters
 const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
@@ -915,6 +916,7 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
 	[ABILITY_REFORESTATION] = _("Reforestatin"),
 	[ABILITY_HYDRODYNAMIC] = _("Hydrodynamic"),
 	[ABILITY_SUNBRINGER] = _("Sunbringer"),
+	[ABILITY_CRYSTAL_GUARD] = _("CrystalGuard"),
 };
 #endif
 
@@ -1226,4 +1228,5 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
 	[ABILITY_REFORESTATION] = sReforestationDescription,
 	[ABILITY_HYDRODYNAMIC] = sHydrodynamicDescription,
 	[ABILITY_SUNBRINGER] = sSunbringerDescription,
+	[ABILITY_CRYSTAL_GUARD] = sMagicGuardDescription,
 };

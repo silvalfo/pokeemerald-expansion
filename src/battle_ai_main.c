@@ -734,6 +734,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
             switch (AI_DATA->abilities[battlerDef])
             {
             case ABILITY_MAGIC_GUARD:
+			case ABILITY_CRYSTAL_GUARD:
                 switch (moveEffect)
                 {
                 case EFFECT_POISON:
@@ -1856,11 +1857,11 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                 score -= 4;
             break;
         case EFFECT_RECOIL_IF_MISS:
-            if (AI_DATA->abilities[battlerAtk] != ABILITY_MAGIC_GUARD && AI_GetMoveAccuracy(battlerAtk, battlerDef, move) < 75)
+            if (AI_DATA->abilities[battlerAtk] != ABILITY_MAGIC_GUARD && AI_DATA->abilities[battlerAtk] != ABILITY_CRYSTAL_GUARD && AI_GetMoveAccuracy(battlerAtk, battlerDef, move) < 75)
                 score -= 6;
             break;
         case EFFECT_RECOIL_25:
-            if (AI_DATA->abilities[battlerAtk] != ABILITY_MAGIC_GUARD && AI_DATA->abilities[battlerAtk] != ABILITY_ROCK_HEAD)
+            if (AI_DATA->abilities[battlerAtk] != ABILITY_MAGIC_GUARD && AI_DATA->abilities[battlerAtk] != ABILITY_CRYSTAL_GUARD && AI_DATA->abilities[battlerAtk] != ABILITY_ROCK_HEAD)
             {
                 u32 recoilDmg = max(1, AI_DATA->simulatedDmg[battlerAtk][battlerDef][AI_THINKING_STRUCT->movesetIndex] / 4);
                 if (!ShouldUseRecoilMove(battlerAtk, battlerDef, recoilDmg, AI_THINKING_STRUCT->movesetIndex))
@@ -1870,7 +1871,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
             break;
         case EFFECT_RECOIL_33:
         case EFFECT_RECOIL_33_STATUS:
-            if (AI_DATA->abilities[battlerAtk] != ABILITY_MAGIC_GUARD && AI_DATA->abilities[battlerAtk] != ABILITY_ROCK_HEAD)
+            if (AI_DATA->abilities[battlerAtk] != ABILITY_MAGIC_GUARD && AI_DATA->abilities[battlerAtk] != ABILITY_CRYSTAL_GUARD && AI_DATA->abilities[battlerAtk] != ABILITY_ROCK_HEAD)
             {
                 u32 recoilDmg = max(1, AI_DATA->simulatedDmg[battlerAtk][battlerDef][AI_THINKING_STRUCT->movesetIndex] / 3);
                 if (!ShouldUseRecoilMove(battlerAtk, battlerDef, recoilDmg, AI_THINKING_STRUCT->movesetIndex))
@@ -1879,7 +1880,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
             }
             break;
         case EFFECT_RECOIL_50:
-            if (AI_DATA->abilities[battlerAtk] != ABILITY_MAGIC_GUARD && AI_DATA->abilities[battlerAtk] != ABILITY_ROCK_HEAD)
+            if (AI_DATA->abilities[battlerAtk] != ABILITY_MAGIC_GUARD && AI_DATA->abilities[battlerAtk] != ABILITY_CRYSTAL_GUARD && AI_DATA->abilities[battlerAtk] != ABILITY_ROCK_HEAD)
             {
                 u32 recoilDmg = max(1, AI_DATA->simulatedDmg[battlerAtk][battlerDef][AI_THINKING_STRUCT->movesetIndex] / 2);
                 if (!ShouldUseRecoilMove(battlerAtk, battlerDef, recoilDmg, AI_THINKING_STRUCT->movesetIndex))
@@ -3497,6 +3498,7 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
     case EFFECT_TRIPLE_KICK:
         if (AI_MoveMakesContact(AI_DATA->abilities[battlerAtk], AI_DATA->holdEffects[battlerAtk], move)
           && AI_DATA->abilities[battlerAtk] != ABILITY_MAGIC_GUARD
+		  && AI_DATA->abilities[battlerAtk] != ABILITY_CRYSTAL_GUARD
           && AI_DATA->holdEffects[battlerDef] == HOLD_EFFECT_ROCKY_HELMET)
             score -= 2;
         break;
@@ -3675,7 +3677,8 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
           || gStatuses3[battlerDef] & STATUS3_LEECHSEED
           || HasMoveEffect(battlerDef, EFFECT_RAPID_SPIN)
           || AI_DATA->abilities[battlerDef] == ABILITY_LIQUID_OOZE
-          || AI_DATA->abilities[battlerDef] == ABILITY_MAGIC_GUARD)
+          || AI_DATA->abilities[battlerDef] == ABILITY_MAGIC_GUARD
+		  || AI_DATA->abilities[battlerDef] != ABILITY_CRYSTAL_GUARD)
             break;
         score += 3;
         if (!HasDamagingMove(battlerDef) || IsBattlerTrapped(battlerDef, FALSE))
@@ -3849,6 +3852,7 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
         break;
     case EFFECT_NIGHTMARE:
         if (AI_DATA->abilities[battlerDef] != ABILITY_MAGIC_GUARD
+		  && AI_DATA->abilities[battlerDef] != ABILITY_CRYSTAL_GUARD
           && !(gBattleMons[battlerDef].status2 & STATUS2_NIGHTMARE)
           && AI_IsBattlerAsleepOrComatose(battlerDef))
         {
@@ -3868,7 +3872,7 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
         }
         else
         {
-            if (AI_DATA->abilities[battlerAtk] == ABILITY_CONTRARY || AI_DATA->abilities[battlerDef] == ABILITY_MAGIC_GUARD)
+            if (AI_DATA->abilities[battlerAtk] == ABILITY_CONTRARY || AI_DATA->abilities[battlerDef] == ABILITY_CRYSTAL_GUARD || AI_DATA->abilities[battlerDef] == ABILITY_MAGIC_GUARD)
                 break;
             else if (gBattleMons[battlerAtk].statStages[STAT_ATK] < 8)
                 score += (8 - gBattleMons[battlerAtk].statStages[STAT_ATK]);
@@ -4284,7 +4288,7 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                 score += 2;
             break;
         case HOLD_EFFECT_BLACK_SLUDGE:
-            if (!IS_BATTLER_OF_TYPE(battlerDef, TYPE_POISON) && AI_DATA->abilities[battlerDef] != ABILITY_MAGIC_GUARD)
+            if (!IS_BATTLER_OF_TYPE(battlerDef, TYPE_POISON) && AI_DATA->abilities[battlerDef] != ABILITY_MAGIC_GUARD && AI_DATA->abilities[battlerDef] != ABILITY_CRYSTAL_GUARD)
                 score += 3;
             break;
         case HOLD_EFFECT_IRON_BALL:
@@ -4334,7 +4338,7 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                         score += 2;
                     break;
                 case HOLD_EFFECT_BLACK_SLUDGE:
-                    if (IS_BATTLER_OF_TYPE(battlerAtk, TYPE_POISON) || AI_DATA->abilities[battlerAtk] == ABILITY_MAGIC_GUARD)
+                    if (IS_BATTLER_OF_TYPE(battlerAtk, TYPE_POISON) || AI_DATA->abilities[battlerAtk] == ABILITY_MAGIC_GUARD || AI_DATA->abilities[battlerAtk] == ABILITY_CRYSTAL_GUARD)
                         score += 3;
                     break;
                 case HOLD_EFFECT_IRON_BALL:
@@ -4794,6 +4798,7 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
             if (IsBattlerAlive(BATTLE_PARTNER(battlerDef))
               && AI_DATA->hpPercents[BATTLE_PARTNER(battlerDef)] < 12
               && AI_DATA->abilities[BATTLE_PARTNER(battlerDef)] != ABILITY_MAGIC_GUARD
+			  && AI_DATA->abilities[BATTLE_PARTNER(battlerDef)] != ABILITY_CRYSTAL_GUARD
               && !IS_BATTLER_OF_TYPE(BATTLE_PARTNER(battlerDef), TYPE_FIRE))
                 score++;
         }
