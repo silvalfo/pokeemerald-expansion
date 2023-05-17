@@ -1138,6 +1138,10 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
             }
             break;
         case EFFECT_GROWTH:
+			if ((AI_WeatherHasEffect() && gBattleWeather & B_WEATHER_SUN && AI_DATA->holdEffects[battlerAtk] != HOLD_EFFECT_UTILITY_UMBRELLA)
+				|| AI_DATA->abilities[battlerAtk] == ABILITY_SUNBRINGER)
+				score++;
+			// fallthrough
         case EFFECT_ATTACK_SPATK_UP:    // work up
             if ((!BattlerStatCanRise(battlerAtk, AI_DATA->abilities[battlerAtk], STAT_ATK) && !BattlerStatCanRise(battlerAtk, AI_DATA->abilities[battlerAtk], STAT_SPATK))
              || (!HasDamagingMove(battlerAtk)))
@@ -3217,6 +3221,7 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
     case ABILITY_GRIM_NEIGH:
     case ABILITY_AS_ONE_ICE_RIDER:
     case ABILITY_AS_ONE_SHADOW_RIDER:
+	case ABILITY_HUBRIS:
         if (AI_WhoStrikesFirst(battlerAtk, battlerDef, move) == AI_IS_FASTER) // Attacker should go first
         {
             if (CanIndexMoveFaintTarget(battlerAtk, battlerDef, AI_THINKING_STRUCT->movesetIndex, 0))

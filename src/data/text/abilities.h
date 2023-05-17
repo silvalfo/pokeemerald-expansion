@@ -292,6 +292,9 @@ static const u8 sMyceliumMightDescription[] = _("Status moves never fail.");
 static const u8 sHerbivoreDescription[] = _("Changes Grass into HP.");
 static const u8 sOverkillDescription[] = _("Boosts stronger moves.");
 static const u8 sHeavyDutyDescription[] = _("Heightens physical prowess.");
+static const u8 sReforestationDescription[] = _("Restores health by attacking.");
+static const u8 sHydrodynamicDescription[] = _("Piercing moves go first.");
+static const u8 sSunbringerDescription[] = _("Always attacks under Sun.");
 
 #if B_EXPANDED_ABILITY_NAMES == TRUE
 const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
@@ -598,6 +601,10 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
 	[ABILITY_HERBIVORE] = _("Herbivore"),
 	[ABILITY_OVERKILL] = _("Overkill"),
 	[ABILITY_HEAVY_DUTY] = _("Heavy Duty"),
+	[ABILITY_HUBRIS] = _("Hubris"),
+	[ABILITY_REFORESTATION] = _("Reforestation"),
+	[ABILITY_HYDRODYNAMIC] = _("Hydrodynamic"),
+	[ABILITY_SUNBRINGER] = _("Sunbringer"),
 };
 #else   // 12 characters
 const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
@@ -904,6 +911,10 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
 	[ABILITY_HERBIVORE] = _("Herbivore"),
 	[ABILITY_OVERKILL] = _("Overkill"),
 	[ABILITY_HEAVY_DUTY] = _("Heavy Duty"),
+	[ABILITY_HUBRIS] = _("Hubris"),
+	[ABILITY_REFORESTATION] = _("Reforestatin"),
+	[ABILITY_HYDRODYNAMIC] = _("Hydrodynamic"),
+	[ABILITY_SUNBRINGER] = _("Sunbringer"),
 };
 #endif
 
@@ -1211,4 +1222,8 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
 	[ABILITY_HERBIVORE] = sHerbivoreDescription,
 	[ABILITY_OVERKILL] = sOverkillDescription,
 	[ABILITY_HEAVY_DUTY] = sHeavyDutyDescription,
+	[ABILITY_HUBRIS] = sGrimNeighDescription,
+	[ABILITY_REFORESTATION] = sReforestationDescription,
+	[ABILITY_HYDRODYNAMIC] = sHydrodynamicDescription,
+	[ABILITY_SUNBRINGER] = sSunbringerDescription,
 };

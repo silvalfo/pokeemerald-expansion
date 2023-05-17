@@ -9513,7 +9513,8 @@ static void Cmd_various(void)
         u16 battlerAbility = GetBattlerAbility(gActiveBattler);
 
         if ((battlerAbility == ABILITY_GRIM_NEIGH
-         || battlerAbility == ABILITY_AS_ONE_SHADOW_RIDER)
+         || battlerAbility == ABILITY_AS_ONE_SHADOW_RIDER
+	 	 || battlerAbility == ABILITY_HUBRIS)
           && HasAttackerFaintedTarget()
           && !NoAliveMonsForEitherParty()
           && CompareStat(gBattlerAttacker, STAT_SPATK, MAX_STAT_STAGE, CMP_LESS_THAN))
@@ -13341,7 +13342,7 @@ static u8 AttacksThisTurn(u8 battlerId, u16 move) // Note: returns 1 if it's a c
 {
     // first argument is unused
     if (gBattleMoves[move].effect == EFFECT_SOLAR_BEAM
-        && IsBattlerWeatherAffected(battlerId, B_WEATHER_SUN))
+        && (IsBattlerWeatherAffected(battlerId, B_WEATHER_SUN) || GetBattlerAbility(gBattlerAttacker) == ABILITY_SUNBRINGER))
         return 2;
 
     if (gBattleMoves[move].effect == EFFECT_SKULL_BASH
@@ -14061,9 +14062,10 @@ static void Cmd_recoverbasedonsunlight(void)
         }
         else
         {
-            if (!(gBattleWeather & B_WEATHER_ANY) || !WEATHER_HAS_EFFECT || GetBattlerHoldEffect(gBattlerAttacker, TRUE) == HOLD_EFFECT_UTILITY_UMBRELLA)
+            if ((!(gBattleWeather & B_WEATHER_ANY) || !WEATHER_HAS_EFFECT || GetBattlerHoldEffect(gBattlerAttacker, TRUE) == HOLD_EFFECT_UTILITY_UMBRELLA)
+				&& GetBattlerAbility(gBattlerAttacker) != ABILITY_SUNBRINGER)
                 gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 2;
-            else if (gBattleWeather & B_WEATHER_SUN)
+            else if (gBattleWeather & B_WEATHER_SUN || GetBattlerAbility(gBattlerAttacker) == ABILITY_SUNBRINGER)
                 gBattleMoveDamage = 20 * gBattleMons[gBattlerAttacker].maxHP / 30;
             else // not sunny weather
                 gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 4;

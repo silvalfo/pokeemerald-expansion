@@ -2375,6 +2375,7 @@ BattleScript_GrowthDoMoveAnim::
 	setbyte sSTAT_ANIM_PLAYED, FALSE
 	playstatchangeanimation BS_ATTACKER, BIT_ATK | BIT_SPATK, 0
 	jumpifweatheraffected BS_ATTACKER, B_WEATHER_SUN, BattleScript_GrowthAtk2
+	jumpifability BS_ATTACKER, ABILITY_SUNBRINGER, BattleScript_GrowthAtk2
 	setstatchanger STAT_ATK, 1, FALSE
 	goto BattleScript_GrowthAtk
 BattleScript_GrowthAtk2:
@@ -2386,6 +2387,7 @@ BattleScript_GrowthAtk:
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_GrowthTrySpAtk::
 	jumpifweatheraffected BS_ATTACKER, B_WEATHER_SUN, BattleScript_GrowthSpAtk2
+	jumpifability BS_ATTACKER, ABILITY_SUNBRINGER, BattleScript_GrowthSpAtk2
 	setstatchanger STAT_SPATK, 1, FALSE
 	goto BattleScript_GrowthSpAtk
 BattleScript_GrowthSpAtk2:
@@ -5375,6 +5377,7 @@ BattleScript_EffectGust::
 	goto BattleScript_EffectHit
 
 BattleScript_EffectSolarBeam::
+	jumpifability BS_ATTACKER, ABILITY_SUNBRINGER, BattleScript_SolarBeamOnFirstTurn
 	jumpifweatheraffected BS_ATTACKER, B_WEATHER_SUN, BattleScript_SolarBeamOnFirstTurn
 BattleScript_SolarBeamDecideTurn::
 	jumpifstatus2 BS_ATTACKER, STATUS2_MULTIPLETURNS, BattleScript_TwoTurnMovesSecondTurn
@@ -5828,8 +5831,14 @@ BattleScript_MementoTargetProtectEnd:
 	tryfaintmon BS_ATTACKER
 	goto BattleScript_MoveEnd
 
+BattleScript_InnerFocusKeptFocus::
+	showabilitypopup BS_ATTACKER
+	pause 60
+	goto BattleScript_HitFromAccCheck
+
 BattleScript_EffectFocusPunch::
 	attackcanceler
+	jumpifability BS_ATTACKER, ABILITY_INNER_FOCUS, BattleScript_InnerFocusKeptFocus
 	jumpifnodamage BattleScript_HitFromAccCheck
 	ppreduce
 	printstring STRINGID_PKMNLOSTFOCUS
@@ -9393,6 +9402,20 @@ BattleScript_HurtAttacker:
 BattleScript_RoughSkinActivates::
 	call BattleScript_AbilityPopUp
 	call BattleScript_HurtAttacker
+	return
+
+BattleScript_HealAttacker::
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE
+	healthbarupdate BS_ATTACKER
+	datahpupdate BS_ATTACKER
+	printstring STRINGID_PKMNHEALEDWITH
+	waitmessage B_WAIT_TIME_LONG
+	return
+
+
+BattleScript_ReforestationActivates::
+	call BattleScript_AbilityPopUp
+	call BattleScript_HealAttacker
 	return
 
 BattleScript_RockyHelmetActivates::

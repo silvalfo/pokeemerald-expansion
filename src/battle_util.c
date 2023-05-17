@@ -3475,7 +3475,19 @@ u8 AtkCanceller_UnableToUseMove(void)
             gBattleStruct->atkCancellerTracker++;
             break;
         case CANCELLER_TRUANT: // truant
-            if (GetBattlerAbility(gBattlerAttacker) == ABILITY_TRUANT && gDisableStructs[gBattlerAttacker].truantCounter)
+            if (GetBattlerAbility(gBattlerAttacker) == ABILITY_TRUANT && gDisableStructs[gBattlerAttacker].truantCounter
+				&& !(gBattleMoves[gCurrentMove].effect == EFFECT_RESTORE_HP
+				|| gBattleMoves[gCurrentMove].effect == EFFECT_REST
+				|| gBattleMoves[gCurrentMove].effect == EFFECT_MORNING_SUN
+				|| gBattleMoves[gCurrentMove].effect == EFFECT_MOONLIGHT
+				|| gBattleMoves[gCurrentMove].effect == EFFECT_SYNTHESIS
+				|| gBattleMoves[gCurrentMove].effect == EFFECT_HEAL_PULSE
+				|| gBattleMoves[gCurrentMove].effect == EFFECT_HEALING_WISH
+				|| gBattleMoves[gCurrentMove].effect == EFFECT_SWALLOW
+				|| gBattleMoves[gCurrentMove].effect == EFFECT_WISH
+				|| gBattleMoves[gCurrentMove].effect == EFFECT_SOFTBOILED
+				|| gBattleMoves[gCurrentMove].effect == EFFECT_ABSORB
+				|| gBattleMoves[gCurrentMove].effect == EFFECT_ROOST))
             {
                 CancelMultiTurnMoves(gBattlerAttacker);
                 gHitMarker |= HITMARKER_UNABLE_TO_USE_MOVE;
@@ -5865,6 +5877,24 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 effect++;
             }
             break;
+		case ABILITY_REFORESTATION:
+
+#if B_HEAL_BLOCKING >= GEN_5
+			if (gBattleMons[gBattlerAttacker].hp < gBattleMons[gBattlerAttacker].maxHP && !(gStatuses3[gBattlerAttacker] & STATUS3_HEAL_BLOCK) && TARGET_TURN_DAMAGED && !gProtectStructs[gBattlerAttacker].confusionSelfDmg && (gMultiHitCounter == 0 || gMultiHitCounter == 1))
+#else
+			if (gBattleMons[battlerId].hp < gBattleMons[gBattlerAttacker].maxHP && TARGET_TURN_DAMAGED && !gProtectStructs[gBattlerAttacker].confusionSelfDmg && (gMultiHitCounter == 0 || gMultiHitCounter == 1))
+#endif
+			{
+				gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 16;
+				if (gBattleMoveDamage == 0)
+					gBattleMoveDamage = 1;
+				gBattleMoveDamage *= -1;
+				PREPARE_ABILITY_BUFFER(gBattleTextBuff1, gLastUsedAbility);
+				BattleScriptPushCursor();
+				gBattlescriptCurrInstr = BattleScript_ReforestationActivates;
+				effect++;
+			}
+			break;
         }
         break;
     case ABILITYEFFECT_MOVE_END_OTHER: // Abilities that activate on *another* battler's moveend: Dancer, Soul-Heart, Receiver, Symbiosis
@@ -9160,7 +9190,8 @@ static u32 CalcMoveBasePowerAfterModifiers(u16 move, u8 battlerAtk, u8 battlerDe
             MulModifier(&modifier, UQ_4_12(2.0));
         break;
     case EFFECT_SOLAR_BEAM:
-        if (IsBattlerWeatherAffected(battlerAtk, (B_WEATHER_HAIL | B_WEATHER_SANDSTORM | B_WEATHER_RAIN | B_WEATHER_SNOW)))
+        if ((IsBattlerWeatherAffected(battlerAtk, (B_WEATHER_HAIL | B_WEATHER_SANDSTORM | B_WEATHER_RAIN | B_WEATHER_SNOW)))
+			&& GetBattlerAbility(gBattlerAttacker) != ABILITY_SUNBRINGER)
             MulModifier(&modifier, UQ_4_12(0.5));
         break;
     case EFFECT_STOMPING_TANTRUM:
@@ -9645,8 +9676,15 @@ static u32 CalcFinalDmg(u32 dmg, u16 move, u8 battlerAtk, u8 battlerDef, u8 move
         && abilityAtk != ABILITY_GUTS)
         dmg = ApplyModifier(UQ_4_12(0.5), dmg);
 
-    // check sunny/rain weather
-    if (IsBattlerWeatherAffected(battlerAtk, B_WEATHER_RAIN))
+    // check sunny/rain weather, skipped by Sunbringer
+	if (abilityAtk == ABILITY_SUNBRINGER)
+	{
+		if (moveType == TYPE_FIRE || gBattleMoves[move].effect == EFFECT_HYDRO_STEAM)
+			dmg = ApplyModifier(UQ_4_12(1.5), dmg);
+		else if (moveType == TYPE_WATER)
+			dmg = ApplyModifier(UQ_4_12(0.5), dmg);
+	}
+    else if (IsBattlerWeatherAffected(battlerAtk, B_WEATHER_RAIN))
     {
         if (moveType == TYPE_FIRE)
             dmg = ApplyModifier(UQ_4_12(0.5), dmg);
@@ -9864,6 +9902,12 @@ static void MulByTypeEffectiveness(u16 *modifier, u16 move, u8 moveType, u8 batt
         if (recordAbilities)
             RecordAbilityBattle(battlerAtk, ABILITY_SCRAPPY);
     }
+	else if ((moveType == TYPE_POISON ) && defType == TYPE_STEEL && GetBattlerAbility(battlerAtk) == ABILITY_CORROSION && mod == UQ_4_12(0.0))
+	{
+		mod = UQ_4_12(1.0);
+		if (recordAbilities)
+			RecordAbilityBattle(battlerAtk, ABILITY_CORROSION);
+	}
 
     if (moveType == TYPE_PSYCHIC && defType == TYPE_DARK && gStatuses3[battlerDef] & STATUS3_MIRACLE_EYED && mod == UQ_4_12(0.0))
         mod = UQ_4_12(1.0);

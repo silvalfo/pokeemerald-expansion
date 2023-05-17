@@ -4756,8 +4756,15 @@ s8 GetMovePriority(u32 battlerId, u16 move)
         }
     }
 
+	else if (ability == ABILITY_HYDRODYNAMIC && gBattleMoves[move].flags & FLAG_PIERCING_MOVE)
+	{
+		priority++;
+	}
+
     if (gProtectStructs[battlerId].quash)
         priority = -8;
+
+
 
     return priority;
 }
@@ -5606,7 +5613,9 @@ void SetTypeBeforeUsingMove(u16 move, u8 battlerAtk)
 
     if (gBattleMoves[move].effect == EFFECT_WEATHER_BALL)
     {
-        if (WEATHER_HAS_EFFECT)
+		if (GetBattlerAbility(battlerAtk) == ABILITY_SUNBRINGER && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA)
+			gBattleStruct->dynamicMoveType = TYPE_FIRE | F_DYNAMIC_TYPE_2;
+        else if (WEATHER_HAS_EFFECT)
         {
             if (gBattleWeather & B_WEATHER_RAIN && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA)
                 gBattleStruct->dynamicMoveType = TYPE_WATER | F_DYNAMIC_TYPE_2;
