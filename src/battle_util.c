@@ -1002,6 +1002,7 @@ static const u8 sAbilitiesAffectedByMoldBreaker[] =
     [ABILITY_PURIFYING_SALT] = 1,
     [ABILITY_WELL_BAKED_BODY] = 1,
 	[ABILITY_HEAVY_DUTY] = 1,
+	[ABILITY_UNWAVERING] = 1,
 };
 
 static const u8 sAbilitiesNotTraced[ABILITIES_COUNT] =
@@ -9008,6 +9009,20 @@ static u32 CalcMoveBasePowerAfterModifiers(u16 move, u8 battlerAtk, u8 battlerDe
 		if (basePower >= 100)
 			MulModifier(&modifier, UQ_4_12(1.2));
 		break;
+	case ABILITY_DETONATE:
+		if (moveType == TYPE_FIRE && gBattleStruct->ateBoost[battlerAtk])
+			MulModifier(&modifier, UQ_4_12(1.2));
+		break;
+	case ABILITY_LONG_BODY:
+		if (move == MOVE_SLAM
+			|| move == MOVE_AQUA_TAIL
+			|| move == MOVE_IRON_TAIL
+			|| move == MOVE_POISON_TAIL
+			|| move == MOVE_TAIL_SLAP
+			|| move == MOVE_DRAGON_TAIL	
+			|| move == MOVE_POWER_WHIP)
+			MulModifier(&modifier, UQ_4_12(1.5));
+		break;
     }
 
     // field abilities
@@ -9397,6 +9412,10 @@ static u32 CalcAttackStat(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, b
 		if (IS_MOVE_PHYSICAL(move))
 			MulModifier(&modifier, UQ_4_12(1.1));
 		break;
+	case ABILITY_WISE_POWER:
+		if (!IS_MOVE_PHYSICAL(move))
+			MulModifier(&modifier, UQ_4_12(2.0));
+		break;
     }
 
     // target's abilities
@@ -9772,6 +9791,9 @@ static u32 CalcFinalDmg(u32 dmg, u16 move, u8 battlerAtk, u8 battlerDef, u8 move
         if (typeEffectivenessModifier >= UQ_4_12(2.0))
             MulModifier(&finalModifier, UQ_4_12(0.75));
         break;
+	case ABILITY_UNWAVERING:
+			MulModifier(&finalModifier, UQ_4_12(0.75));
+		break;
     }
 
     // target's ally's abilities

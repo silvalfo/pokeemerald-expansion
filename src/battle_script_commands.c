@@ -1786,6 +1786,13 @@ static bool32 AccuracyCalcHelper(u16 move)
             RecordAbilityBattle(gBattlerTarget, ABILITY_NO_GUARD);
         return TRUE;
     }
+	// If the target has the ability Unwavering and they aren't involved in a Sky Drop or the current move isn't Sky Drop, move hits.
+	else if (GetBattlerAbility(gBattlerTarget) == ABILITY_UNWAVERING && (move != MOVE_SKY_DROP || gBattleStruct->skyDropTargets[gBattlerTarget] == 0xFF))
+	{
+		if (!JumpIfMoveFailed(7, move))
+			RecordAbilityBattle(gBattlerTarget, ABILITY_UNWAVERING);
+		return TRUE;
+	}
 
     if (gBattleStruct->zmove.active && !(gStatuses3[gBattlerTarget] & STATUS3_SEMI_INVULNERABLE))
     {
@@ -12608,7 +12615,8 @@ static void Cmd_tryKO(void)
         if ((((gStatuses3[gBattlerTarget] & STATUS3_ALWAYS_HITS)
                 && gDisableStructs[gBattlerTarget].battlerWithSureHit == gBattlerAttacker)
             || GetBattlerAbility(gBattlerAttacker) == ABILITY_NO_GUARD
-            || targetAbility == ABILITY_NO_GUARD)
+            || targetAbility == ABILITY_NO_GUARD
+			|| targetAbility == ABILITY_UNWAVERING)
             && gBattleMons[gBattlerAttacker].level >= gBattleMons[gBattlerTarget].level)
         {
             lands = TRUE;

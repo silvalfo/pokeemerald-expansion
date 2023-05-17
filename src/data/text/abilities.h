@@ -295,6 +295,10 @@ static const u8 sHeavyDutyDescription[] = _("Heightens physical prowess.");
 static const u8 sReforestationDescription[] = _("Restores health by attacking.");
 static const u8 sHydrodynamicDescription[] = _("Piercing moves go first.");
 static const u8 sSunbringerDescription[] = _("Always attacks under Sun.");
+static const u8 sDetonateDescription[] = _("Normal moves become Fire.");
+static const u8 sUnwaveringDescription[] = _("Lessens damage but cannot dodge.");
+static const u8 sWisePowerDescription[] = _("Raises Special Attack.");
+static const u8 sLongBodyDescription[] = _("Boosts tail and whip moves.");
 
 #if B_EXPANDED_ABILITY_NAMES == TRUE
 const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
@@ -606,6 +610,10 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
 	[ABILITY_HYDRODYNAMIC] = _("Hydrodynamic"),
 	[ABILITY_SUNBRINGER] = _("Sunbringer"),
 	[ABILITY_CRYSTAL_GUARD] = _("Crystal Guard"),
+	[ABILITY_DETONATE] = _("Detonate"),
+	[ABILITY_UNWAVERING] = _("Unwavering"),
+	[ABILITY_WISE_POWER] = _("Wise Power"),
+	[ABILITY_LONG_BODY] = _("Long Body"),
 };
 #else   // 12 characters
 const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
@@ -917,6 +925,10 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
 	[ABILITY_HYDRODYNAMIC] = _("Hydrodynamic"),
 	[ABILITY_SUNBRINGER] = _("Sunbringer"),
 	[ABILITY_CRYSTAL_GUARD] = _("CrystalGuard"),
+	[ABILITY_DETONATE] = _("Detonate"),
+	[ABILITY_UNWAVERING] = _("Unwavering"),
+	[ABILITY_WISE_POWER] = _("Wise Power"),
+	[ABILITY_LONG_BODY] = _("Long Body"),
 };
 #endif
 
@@ -1229,4 +1241,8 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
 	[ABILITY_HYDRODYNAMIC] = sHydrodynamicDescription,
 	[ABILITY_SUNBRINGER] = sSunbringerDescription,
 	[ABILITY_CRYSTAL_GUARD] = sMagicGuardDescription,
+	[ABILITY_DETONATE] = sDetonateDescription,
+	[ABILITY_UNWAVERING] = sUnwaveringDescription,
+	[ABILITY_WISE_POWER] = sWisePowerDescription,
+	[ABILITY_LONG_BODY] = sLongBodyDescription,
 };
