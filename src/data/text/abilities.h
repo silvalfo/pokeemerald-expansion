@@ -291,14 +291,20 @@ static const u8 sEarthEaterDescription[] = _("Eats ground to heal HP.");
 static const u8 sMyceliumMightDescription[] = _("Status moves never fail.");
 static const u8 sHerbivoreDescription[] = _("Changes Grass into HP.");
 static const u8 sOverkillDescription[] = _("Boosts stronger moves.");
-static const u8 sHeavyDutyDescription[] = _("Heightens physical prowess.");
-static const u8 sReforestationDescription[] = _("Restores health by attacking.");
+static const u8 sHeavyDutyDescription[] = _("Great physical prowess.");
+static const u8 sReforestationDescription[] = _("Attacking restores health.");
 static const u8 sHydrodynamicDescription[] = _("Piercing moves go first.");
-static const u8 sSunbringerDescription[] = _("Always attacks under Sun.");
+static const u8 sSunbringerDescription[] = _("Attacker has Sun.");
 static const u8 sDetonateDescription[] = _("Normal moves become Fire.");
-static const u8 sUnwaveringDescription[] = _("Lessens damage but cannot dodge.");
+static const u8 sUnwaveringDescription[] = _("Tough but never dodges.");
 static const u8 sWisePowerDescription[] = _("Raises Special Attack.");
-static const u8 sLongBodyDescription[] = _("Boosts tail and whip moves.");
+static const u8 sLongBodyDescription[] = _("Boosts tail moves.");
+static const u8 sSolidSteelDescription[] = _("Weakens “supereffective”.");
+static const u8 sSharpThornsDescription[] = _("Contact deals extra dmg.");
+static const u8 sBeastOfLegendDescription[] = _("Boosts complimentary dmg.");
+static const u8 sHeavyHitterDescription[] = _("Full power weight moves.");
+static const u8 sUnrelentingDescription[] = _("No need to recharge.");
+static const u8 sDistressDescription[] = _("Lowers the foe's Sp.Atk.");
 
 #if B_EXPANDED_ABILITY_NAMES == TRUE
 const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
@@ -614,6 +620,12 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
 	[ABILITY_UNWAVERING] = _("Unwavering"),
 	[ABILITY_WISE_POWER] = _("Wise Power"),
 	[ABILITY_LONG_BODY] = _("Long Body"),
+	[ABILITY_SOLID_STEEL] = _("Solid Steel"),
+	[ABILITY_SHARP_THORNS] = _("Sharp Thorns"),
+	[ABILITY_BEAST_OF_LEGEND] = _("Beast of Legend"),
+	[ABILITY_HEAVY_HITTER] = _("Heavy Hitter"),
+	[ABILITY_UNRELENTING] = _("Unrelenting"),
+	[ABILITY_DISTRESS] = _("Distress"),
 };
 #else   // 12 characters
 const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
@@ -929,6 +941,12 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
 	[ABILITY_UNWAVERING] = _("Unwavering"),
 	[ABILITY_WISE_POWER] = _("Wise Power"),
 	[ABILITY_LONG_BODY] = _("Long Body"),
+	[ABILITY_SOLID_STEEL] = _("Solid Steel"),
+	[ABILITY_SHARP_THORNS] = _("Sharp Thorns"),
+	[ABILITY_BEAST_OF_LEGEND] = _("LegendBeast"),
+	[ABILITY_HEAVY_HITTER] = _("Heavy Hitter"),
+	[ABILITY_UNRELENTING] =_("Unrelenting"),
+	[ABILITY_DISTRESS] = _("Distress"),
 };
 #endif
 
@@ -1245,4 +1263,10 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
 	[ABILITY_UNWAVERING] = sUnwaveringDescription,
 	[ABILITY_WISE_POWER] = sWisePowerDescription,
 	[ABILITY_LONG_BODY] = sLongBodyDescription,
+	[ABILITY_SOLID_STEEL] = sSolidSteelDescription,
+	[ABILITY_SHARP_THORNS] = sSharpThornsDescription,
+	[ABILITY_BEAST_OF_LEGEND] = sBeastOfLegendDescription,
+	[ABILITY_HEAVY_HITTER] = sHeavyHitterDescription,
+	[ABILITY_UNRELENTING] = sUnrelentingDescription,
+	[ABILITY_DISTRESS] = sDistressDescription,
 };

@@ -956,6 +956,7 @@ static const u8 sAbilitiesAffectedByMoldBreaker[] =
     [ABILITY_SIMPLE] = 1,
     [ABILITY_SNOW_CLOAK] = 1,
     [ABILITY_SOLID_ROCK] = 1,
+	[ABILITY_SOLID_STEEL] = 1,
     [ABILITY_SOUNDPROOF] = 1,
     [ABILITY_STICKY_HOLD] = 1,
     [ABILITY_STORM_DRAIN] = 1,
@@ -1519,7 +1520,7 @@ void PrepareStringBattle(u16 stringId, u8 battler)
             SET_STATCHANGER(STAT_SPATK, 2, FALSE);
     }
 #if  B_UPDATED_INTIMIDATE >= GEN_8
-    else if (stringId == STRINGID_PKMNCUTSATTACKWITH && targetAbility == ABILITY_RATTLED
+    else if ((stringId == STRINGID_PKMNCUTSATTACKWITH || stringId == STRINGID_PKMNCUTSSPATKWITH) && targetAbility == ABILITY_RATTLED
             && CompareStat(gBattlerTarget, STAT_SPEED, MAX_STAT_STAGE, CMP_LESS_THAN))
     {
         gBattlerAbility = gBattlerTarget;
@@ -4728,6 +4729,16 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 effect++;
             }
             break;
+		case ABILITY_DISTRESS:
+			if (!gSpecialStatuses[battler].switchInAbilityDone)
+			{
+				gBattlerAttacker = battler;
+				gSpecialStatuses[battler].switchInAbilityDone = TRUE;
+				SET_STATCHANGER(STAT_SPATK, 1, TRUE);
+				BattleScriptPushCursorAndCallback(BattleScript_DistressActivates);
+				effect++;
+			}
+			break;
         case ABILITY_TRACE:
             if (!(gSpecialStatuses[battler].traced))
             {
@@ -5879,9 +5890,12 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
             }
             break;
 		case ABILITY_REFORESTATION:
-
 #if B_HEAL_BLOCKING >= GEN_5
-			if (gBattleMons[gBattlerAttacker].hp < gBattleMons[gBattlerAttacker].maxHP && !(gStatuses3[gBattlerAttacker] & STATUS3_HEAL_BLOCK) && TARGET_TURN_DAMAGED && !gProtectStructs[gBattlerAttacker].confusionSelfDmg && (gMultiHitCounter == 0 || gMultiHitCounter == 1))
+			if (gBattleMons[gBattlerAttacker].hp < gBattleMons[gBattlerAttacker].maxHP
+				&& !(gStatuses3[gBattlerAttacker] & STATUS3_HEAL_BLOCK)
+				&& TARGET_TURN_DAMAGED
+				&& !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+				&& (gMultiHitCounter == 0 || gMultiHitCounter == 1))
 #else
 			if (gBattleMons[battlerId].hp < gBattleMons[gBattlerAttacker].maxHP && TARGET_TURN_DAMAGED && !gProtectStructs[gBattlerAttacker].confusionSelfDmg && (gMultiHitCounter == 0 || gMultiHitCounter == 1))
 #endif
@@ -5896,6 +5910,50 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
 				effect++;
 			}
 			break;
+		case ABILITY_SHARP_THORNS:
+			if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+				&& gBattleMons[gBattlerTarget].hp != 0
+				&& !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+				&& IsMoveMakingContact(move, gBattlerAttacker)
+				&& TARGET_TURN_DAMAGED) // Need to actually hit the target
+			{
+                    gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 8;
+                if (gBattleMoveDamage == 0)
+                    gBattleMoveDamage = 1;
+                PREPARE_ABILITY_BUFFER(gBattleTextBuff1, gLastUsedAbility);
+                BattleScriptPushCursor();
+                gBattlescriptCurrInstr = BattleScript_SharpThornsActivates;
+                effect++;
+            }
+			break;
+		case ABILITY_BEAST_OF_LEGEND:
+			if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+				&& !(IS_MOVE_PHYSICAL(move))
+				&& TARGET_TURN_DAMAGED
+				&& !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+				&& (gMultiHitCounter == 0 || gMultiHitCounter == 1)
+				&& CompareStat(gBattlerAttacker, STAT_ATK, MAX_STAT_STAGE, CMP_LESS_THAN))
+			{
+                gEffectBattler = battler;
+                SET_STATCHANGER(STAT_ATK, 1, FALSE);
+                BattleScriptPushCursor();
+                gBattlescriptCurrInstr = BattleScript_AttackerAbilityStatRaiseRet;
+                effect++;
+			}
+			else if (!(gMoveResultFlags & MOVE_RESULT_NO_EFFECT)
+				&& (IS_MOVE_PHYSICAL(move))
+				&& TARGET_TURN_DAMAGED
+				&& !gProtectStructs[gBattlerAttacker].confusionSelfDmg
+				&& (gMultiHitCounter == 0 || gMultiHitCounter == 1)
+				&& CompareStat(gBattlerAttacker, STAT_SPATK, MAX_STAT_STAGE, CMP_LESS_THAN))
+			{
+				gEffectBattler = battler;
+				SET_STATCHANGER(STAT_SPATK, 1, FALSE);
+				BattleScriptPushCursor();
+				gBattlescriptCurrInstr = BattleScript_AttackerAbilityStatRaiseRet;
+				effect++;
+			}
+
         }
         break;
     case ABILITYEFFECT_MOVE_END_OTHER: // Abilities that activate on *another* battler's moveend: Dancer, Soul-Heart, Receiver, Symbiosis
@@ -8721,11 +8779,14 @@ static u16 CalcMoveBasePower(u16 move, u8 battlerAtk, u8 battlerDef)
             basePower = 120;
         break;
     case EFFECT_HEAT_CRASH:
-        weight = GetBattlerWeight(battlerAtk) / GetBattlerWeight(battlerDef);
-        if (weight >= ARRAY_COUNT(sHeatCrashPowerTable))
-            basePower = sHeatCrashPowerTable[ARRAY_COUNT(sHeatCrashPowerTable) - 1];
-        else
-            basePower = sHeatCrashPowerTable[weight];
+		if (GetBattlerAbility(battlerAtk) == ABILITY_HEAVY_HITTER)
+			basePower = 120;
+		break;
+			weight = GetBattlerWeight(battlerAtk) / GetBattlerWeight(battlerDef);
+			if (weight >= ARRAY_COUNT(sHeatCrashPowerTable))
+				basePower = sHeatCrashPowerTable[ARRAY_COUNT(sHeatCrashPowerTable) - 1];
+			else
+				basePower = sHeatCrashPowerTable[weight];
         break;
     case EFFECT_PUNISHMENT:
         basePower = 60 + (CountBattlerStatIncreases(battlerDef, FALSE) * 20);
@@ -9023,6 +9084,9 @@ static u32 CalcMoveBasePowerAfterModifiers(u16 move, u8 battlerAtk, u8 battlerDe
 			|| move == MOVE_POWER_WHIP)
 			MulModifier(&modifier, UQ_4_12(1.5));
 		break;
+	case ABILITY_ILLUSION:
+		if (gBattleStruct->illusion[battlerAtk].on)
+			MulModifier(&modifier, UQ_4_12(1.2));
     }
 
     // field abilities
@@ -9793,6 +9857,10 @@ static u32 CalcFinalDmg(u32 dmg, u16 move, u8 battlerAtk, u8 battlerDef, u8 move
         break;
 	case ABILITY_UNWAVERING:
 			MulModifier(&finalModifier, UQ_4_12(0.75));
+		break;
+	case ABILITY_SOLID_STEEL:
+		if (typeEffectivenessModifier >= UQ_4_12(2.0))
+			MulModifier(&finalModifier, UQ_4_12(0.67));
 		break;
     }
 

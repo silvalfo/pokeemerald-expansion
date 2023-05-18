@@ -470,6 +470,9 @@ extern const u8 BattleScript_StealthRockActivates[];
 extern const u8 BattleScript_SpikesActivates[];
 extern const u8 BattleScript_BerserkGeneRet[];
 extern const u8 BattleScript_ReforestationActivates[];
+extern const u8 BattleScript_SharpThornsActivates[];
+extern const u8 BattleScript_AttackerAbilityStatRaiseRet[];
+extern const u8 BattleScript_DistressActivates[];
 
 // zmoves
 extern const u8 BattleScript_ZMoveActivateDamaging[];

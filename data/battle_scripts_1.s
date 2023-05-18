@@ -4478,6 +4478,7 @@ BattleScript_AlreadyHasSubstitute::
 	goto BattleScript_MoveEnd
 
 BattleScript_EffectRecharge::
+	jumpifability BS_ATTACKER, ABILITY_UNRELENTING, BattleScript_EffectHit
 	attackcanceler
 	accuracycheck BattleScript_PrintMoveMissed, ACC_CURR_MOVE
 	setmoveeffect MOVE_EFFECT_RECHARGE | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
@@ -8775,6 +8776,68 @@ BattleScript_IntimidateInReverse:
 	call BattleScript_TryAdrenalineOrb
 	goto BattleScript_IntimidateLoopIncrement
 
+BattleScript_DistressActivates::
+	showabilitypopup BS_ATTACKER
+	pause B_WAIT_TIME_LONG
+	destroyabilitypopup
+	setbyte gBattlerTarget, 0
+BattleScript_DistressLoop:
+	jumpifbyteequal gBattlerTarget, gBattlerAttacker, BattleScript_DistressLoopIncrement
+	jumpiftargetally BattleScript_DistressLoopIncrement
+	jumpifabsent BS_TARGET, BattleScript_DistressLoopIncrement
+	jumpifstatus2 BS_TARGET, STATUS2_SUBSTITUTE, BattleScript_DistressLoopIncrement
+	jumpifholdeffect BS_TARGET, HOLD_EFFECT_CLEAR_AMULET, BattleScript_DistressPrevented_Item
+	jumpifability BS_TARGET, ABILITY_CLEAR_BODY, BattleScript_DistressPrevented
+	jumpifability BS_TARGET, ABILITY_WHITE_SMOKE, BattleScript_DistressPrevented
+.if B_UPDATED_INTIMIDATE >= GEN_8
+	jumpifability BS_TARGET, ABILITY_INNER_FOCUS, BattleScript_DistressPrevented
+	jumpifability BS_TARGET, ABILITY_SCRAPPY, BattleScript_DistressPrevented
+	jumpifability BS_TARGET, ABILITY_OWN_TEMPO, BattleScript_DistressPrevented
+	jumpifability BS_TARGET, ABILITY_OBLIVIOUS, BattleScript_DistressPrevented
+.endif
+	jumpifability BS_TARGET, ABILITY_GUARD_DOG, BattleScript_IntimidateInReverse
+BattleScript_DistressEffect:
+	copybyte sBATTLER, gBattlerAttacker
+	statbuffchange STAT_CHANGE_NOT_PROTECT_AFFECTED | STAT_CHANGE_ALLOW_PTR, BattleScript_DistressLoopIncrement
+	setgraphicalstatchangevalues
+	jumpifability BS_TARGET, ABILITY_CONTRARY, BattleScript_DistressContrary
+	playanimation BS_TARGET, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
+	printstring STRINGID_PKMNCUTSSPATKWITH
+BattleScript_DistressEffect_WaitString:
+	waitmessage B_WAIT_TIME_LONG
+	copybyte sBATTLER, gBattlerTarget
+	call BattleScript_TryAdrenalineOrb
+BattleScript_DistressLoopIncrement:
+	addbyte gBattlerTarget, 1
+	jumpifbytenotequal gBattlerTarget, gBattlersCount, BattleScript_DistressLoop
+BattleScript_DistressEnd:
+	copybyte sBATTLER, gBattlerAttacker
+	destroyabilitypopup
+	pause B_WAIT_TIME_MED
+	end3
+
+BattleScript_DistressContrary:
+	call BattleScript_AbilityPopUpTarget
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_DistressContrary_WontIncrease
+	playanimation BS_TARGET, B_ANIM_STATS_CHANGE, sB_ANIM_ARG1
+	printfromtable gStatUpStringIds
+	goto BattleScript_DistressEffect_WaitString
+BattleScript_DistressContrary_WontIncrease:
+	printstring STRINGID_TARGETSTATWONTGOHIGHER
+	goto BattleScript_DistressEffect_WaitString
+
+BattleScript_DistressPrevented:
+	call BattleScript_AbilityPopUp
+	pause B_WAIT_TIME_LONG
+BattleScript_DistressPrevented_Item:
+	setbyte gBattleCommunication STAT_SPATK
+	stattextbuffer BS_TARGET
+	printstring STRINGID_STATWASNOTLOWERED
+	waitmessage B_WAIT_TIME_LONG
+	call BattleScript_TryAdrenalineOrb
+	goto BattleScript_DistressLoopIncrement
+
+
 BattleScript_DroughtActivates::
 	pause B_WAIT_TIME_SHORT
 	call BattleScript_AbilityPopUp
@@ -9409,6 +9472,20 @@ BattleScript_HurtAttacker:
 BattleScript_RoughSkinActivates::
 	call BattleScript_AbilityPopUp
 	call BattleScript_HurtAttacker
+	return
+
+BattleScript_HurtTarget:
+	orword gHitMarker, HITMARKER_IGNORE_SUBSTITUTE | HITMARKER_PASSIVE_DAMAGE
+	healthbarupdate BS_TARGET
+	datahpupdate BS_TARGET
+	printstring STRINGID_PKMNHURTSTARGET
+	waitmessage B_WAIT_TIME_LONG
+	tryfaintmon BS_TARGET
+	return
+
+BattleScript_SharpThornsActivates::
+	call BattleScript_AbilityPopUp
+	call BattleScript_HurtTarget
 	return
 
 BattleScript_HealAttacker::
@@ -10477,6 +10554,16 @@ BattleScript_TargetAbilityStatRaiseRet::
 	setgraphicalstatchangevalues
 	call BattleScript_StatUp
 BattleScript_TargetAbilityStatRaiseRet_End:
+	return
+
+BattleScript_AttackerAbilityStatRaiseRet::
+	copybyte gBattlerAbility, gEffectBattler
+	copybyte gBattlerTarget, gBattlerAttacker
+	call BattleScript_AbilityPopUp
+	statbuffchange MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN, BattleScript_AttackerAbilityStatRaiseRet_End
+	setgraphicalstatchangevalues
+	call BattleScript_StatUp
+BattleScript_AttackerAbilityStatRaiseRet_End:
 	return
 
 BattleScript_PokemonCantUseTheMove::
