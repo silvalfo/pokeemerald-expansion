@@ -832,6 +832,7 @@ const u8 gMoveNames[MOVES_COUNT][MOVE_NAME_LENGTH + 1] =
     [MOVE_PSYBLADE] = _("Psyblade"),
     [MOVE_HYDRO_STEAM] = _("Hydro Steam"),
 	[MOVE_THUNDER_DROP] = _("Thunder Drop"),
+	[MOVE_ARMOR_PRESS] = _("Armor Press"),
 };
 #else
 // 12 letters
@@ -1667,6 +1668,7 @@ const u8 gMoveNames[MOVES_COUNT][MOVE_NAME_LENGTH + 1] =
     [MOVE_PSYBLADE] = _("Psyblade"),
     [MOVE_HYDRO_STEAM] = _("Hydro Steam"),
 	[MOVE_THUNDER_DROP] = _("Thunder Drop"),
+	[MOVE_ARMOR_PRESS] = _("Armor Press"),
 };
 #endif
 

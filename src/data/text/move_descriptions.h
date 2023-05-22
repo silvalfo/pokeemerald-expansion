@@ -4104,4 +4104,5 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT - 1] =
     [MOVE_PSYBLADE - 1] = sPsybladeDescription,
     [MOVE_HYDRO_STEAM - 1] = sHydroSteamDescription,
 	[MOVE_THUNDER_DROP - 1] = sThunderDropDescription,
+	[MOVE_ARMOR_PRESS - 1] = sBodyPressDescription,
 };

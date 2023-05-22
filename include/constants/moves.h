@@ -865,8 +865,9 @@
 
 // Silva Originals
 #define MOVE_THUNDER_DROP 829
+#define MOVE_ARMOR_PRESS 830
 
-#define MOVES_COUNT_NEW 830
+#define MOVES_COUNT_NEW 831
 
 #define MOVES_COUNT         MOVES_COUNT_NEW
 

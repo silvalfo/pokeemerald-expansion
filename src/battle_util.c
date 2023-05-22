@@ -1004,6 +1004,7 @@ static const u8 sAbilitiesAffectedByMoldBreaker[] =
     [ABILITY_WELL_BAKED_BODY] = 1,
 	[ABILITY_HEAVY_DUTY] = 1,
 	[ABILITY_UNWAVERING] = 1,
+	[ABILITY_LAVA_BUBBLE] = 1,
 };
 
 static const u8 sAbilitiesNotTraced[ABILITIES_COUNT] =
@@ -6030,6 +6031,7 @@ u8 AbilityBattleEffects(u8 caseID, u8 battler, u16 ability, u8 special, u16 move
                 }
                 break;
             case ABILITY_MAGMA_ARMOR:
+			case ABILITY_LAVA_BUBBLE:
                 if (gBattleMons[battler].status1 & (STATUS1_FREEZE | STATUS1_FROSTBITE))
                 {
                     StringCopy(gBattleTextBuff1, gStatusConditionString_IceJpn);
@@ -6413,6 +6415,9 @@ u32 IsAbilityPreventingEscape(u32 battlerId)
     if (IS_BATTLER_OF_TYPE(battlerId, TYPE_GHOST))
         return 0;
 #endif
+	// Run Away now prevents trapping
+	if (GetBattlerAbility(battlerId) == ABILITY_RUN_AWAY)
+		return 0;
 #if B_SHADOW_TAG_ESCAPE >= GEN_4
     if ((id = IsAbilityOnOpposingSide(battlerId, ABILITY_SHADOW_TAG)) && GetBattlerAbility(battlerId) != ABILITY_SHADOW_TAG)
 #else
@@ -6429,11 +6434,13 @@ u32 IsAbilityPreventingEscape(u32 battlerId)
 
 bool32 CanBattlerEscape(u32 battlerId) // no ability check
 {
-    if (GetBattlerHoldEffect(battlerId, TRUE) == HOLD_EFFECT_SHED_SHELL)
-        return TRUE;
+	if (GetBattlerHoldEffect(battlerId, TRUE) == HOLD_EFFECT_SHED_SHELL)
+		return TRUE;
+	else if (GetBattlerAbility(battlerId) == ABILITY_RUN_AWAY)
+		return TRUE;
 #if B_GHOSTS_ESCAPE >= GEN_6
-    else if (IS_BATTLER_OF_TYPE(battlerId, TYPE_GHOST))
-        return TRUE;
+	else if (IS_BATTLER_OF_TYPE(battlerId, TYPE_GHOST))
+		return TRUE;
 #endif
     else if (gBattleMons[battlerId].status2 & (STATUS2_ESCAPE_PREVENTION | STATUS2_WRAPPED))
         return FALSE;
@@ -6554,6 +6561,7 @@ bool32 CanBeFrozen(u8 battlerId)
       || IsBattlerWeatherAffected(battlerId, B_WEATHER_SUN)
       || gSideStatuses[GetBattlerSide(battlerId)] & SIDE_STATUS_SAFEGUARD
       || ability == ABILITY_MAGMA_ARMOR
+	  || ability == ABILITY_LAVA_BUBBLE
       || ability == ABILITY_COMATOSE
       || gBattleMons[battlerId].status1 & STATUS1_ANY
       || IsAbilityStatusProtected(battlerId)
@@ -6568,6 +6576,7 @@ bool32 CanGetFrostbite(u8 battlerId)
     if (IS_BATTLER_OF_TYPE(battlerId, TYPE_ICE)
       || gSideStatuses[GetBattlerSide(battlerId)] & SIDE_STATUS_SAFEGUARD
       || ability == ABILITY_MAGMA_ARMOR
+	  || ability == ABILITY_LAVA_BUBBLE
       || ability == ABILITY_COMATOSE
       || gBattleMons[battlerId].status1 & STATUS1_ANY
       || IsAbilityStatusProtected(battlerId)
@@ -9087,6 +9096,15 @@ static u32 CalcMoveBasePowerAfterModifiers(u16 move, u8 battlerAtk, u8 battlerDe
 	case ABILITY_ILLUSION:
 		if (gBattleStruct->illusion[battlerAtk].on)
 			MulModifier(&modifier, UQ_4_12(1.2));
+		break;
+	case ABILITY_ONE_TRICK_PONY:
+		if (!IS_MOVE_PHYSICAL(move))
+			MulModifier(&modifier, UQ_4_12(1.33));
+		break;
+	case ABILITY_LAVA_BUBBLE:
+		if (moveType == TYPE_FIRE)
+			MulModifier(&modifier, UQ_4_12(2.0));
+		break;
     }
 
     // field abilities
@@ -9171,6 +9189,14 @@ static u32 CalcMoveBasePowerAfterModifiers(u16 move, u8 battlerAtk, u8 battlerDe
         }
         break;
     }
+	case ABILITY_LAVA_BUBBLE:
+        if (moveType == TYPE_WATER || moveType == TYPE_ICE)
+        {
+            MulModifier(&modifier, UQ_4_12(0.5));
+            if (updateFlags)
+                RecordAbilityBattle(battlerDef, defAbility);
+        }
+        break;
 
     holdEffectAtk = GetBattlerHoldEffect(battlerAtk, TRUE);
     holdEffectParamAtk = GetBattlerHoldEffectParam(battlerAtk);

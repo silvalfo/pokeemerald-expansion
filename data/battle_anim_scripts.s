@@ -856,7 +856,9 @@ gBattleAnims_Moves::
 	.4byte Move_MAGICAL_TORQUE
 	.4byte Move_PSYBLADE
 	.4byte Move_HYDRO_STEAM
+@@@@ NEW MOVES
 	.4byte Move_THUNDER_DROP
+	.4byte Move_ARMOR_PRESS
 @@@@ Z MOVES
 	.4byte Move_BREAKNECK_BLITZ
 	.4byte Move_ALL_OUT_PUMMELING
@@ -14517,6 +14519,28 @@ Move_THUNDER_DROP::
 	delay 2
 	restorebg
 	waitbgfadein
+	end
+
+Move_ARMOR_PRESS::
+	loadspritegfx ANIM_TAG_IMPACT
+	loadspritegfx ANIM_TAG_ROUND_SHADOW @fly and bounce animation
+	loadspritegfx ANIM_TAG_GRAY_SMOKE @smoke
+	loopsewithpan SE_M_HARDEN, SOUND_PAN_ATTACKER, 28, 2
+	createvisualtask AnimTask_MetallicShine, 5, 1, 0, RGB_BLACK
+	waitforvisualfinish
+	createvisualtask AnimTask_SetGrayscaleOrOriginalPal, 5, ANIM_ATTACKER, TRUE
+	createvisualtask AnimTask_BlendParticle, 5, ANIM_TAG_ROUND_SHADOW, 0, 0xD, 0xD, 0x1E5D  @Orange
+	playsewithpan SE_M_TAKE_DOWN, SOUND_PAN_ATTACKER
+	launchtemplate gVerticalDipSpriteTemplate 0x2 0x3 0x6 0x1 0x0
+	delay 0x7
+	launchtemplate gFlyBallUpSpriteTemplate 0x2 0x4 0x0 0x0 0xd 0x150   @Fly up
+	waitforvisualfinish
+	delay 0x2F
+	launchtemplate gBounceBallLandSpriteTemplate 0x83 0x0   @Bounce down
+	delay 0x2
+	playsewithpan SE_M_MINIMIZE, SOUND_PAN_ATTACKER
+	launchtask AnimTask_SquishTarget 0x2 0x0
+	waitforvisualfinish
 	end
 
 @@@@@@@@@@@@@@@@@@@@@@@ GEN 1-3 @@@@@@@@@@@@@@@@@@@@@@@
