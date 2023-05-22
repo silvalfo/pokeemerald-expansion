@@ -9188,15 +9188,15 @@ static u32 CalcMoveBasePowerAfterModifiers(u16 move, u8 battlerAtk, u8 battlerDe
                 MulModifier(&modifier, UQ_4_12(0.7));
         }
         break;
-    }
 	case ABILITY_LAVA_BUBBLE:
-        if (moveType == TYPE_WATER || moveType == TYPE_ICE)
-        {
-            MulModifier(&modifier, UQ_4_12(0.5));
-            if (updateFlags)
-                RecordAbilityBattle(battlerDef, defAbility);
-        }
-        break;
+		if (moveType == TYPE_WATER || moveType == TYPE_ICE)
+		{
+			MulModifier(&modifier, UQ_4_12(0.5));
+			if (updateFlags)
+				RecordAbilityBattle(battlerDef, defAbility);
+		}
+		break;
+    }
 
     holdEffectAtk = GetBattlerHoldEffect(battlerAtk, TRUE);
     holdEffectParamAtk = GetBattlerHoldEffectParam(battlerAtk);
