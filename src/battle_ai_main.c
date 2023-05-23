@@ -4854,10 +4854,12 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
     case EFFECT_FOCUS_PUNCH:
         if (!isDoubleBattle && effectiveness > AI_EFFECTIVENESS_x0_5)
         {
-            if (IsBattlerIncapacitated(battlerDef, AI_DATA->abilities[battlerDef]))
-                score += 2;
-            else if (gBattleMons[battlerDef].status2 & (STATUS2_INFATUATION | STATUS2_CONFUSION))
-                score++;
+			if (IsBattlerIncapacitated(battlerDef, AI_DATA->abilities[battlerDef]))
+				score += 2;
+			else if (gBattleMons[battlerDef].status2 & (STATUS2_INFATUATION | STATUS2_CONFUSION))
+				score++;
+			else if (AI_DATA->abilities[battlerAtk] == ABILITY_INNER_FOCUS)
+				score += 2;
         }
         break;
     case EFFECT_SMELLINGSALT:

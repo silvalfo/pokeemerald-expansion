@@ -8669,7 +8669,7 @@ static u16 CalcMoveBasePower(u16 move, u8 battlerAtk, u8 battlerDef)
 {
     u32 i;
     u16 basePower = gBattleMoves[move].power;
-    u32 weight, hpFraction, speed;
+    u32 weight, hpFraction, speed, attack;
 
     if (gBattleStruct->zmove.active)
         return GetZMovePower(gBattleStruct->zmove.baseMoves[battlerAtk]);
@@ -8811,6 +8811,11 @@ static u16 CalcMoveBasePower(u16 move, u8 battlerAtk, u8 battlerDef)
             speed = ARRAY_COUNT(sSpeedDiffPowerTable) - 1;
         basePower = sSpeedDiffPowerTable[speed];
         break;
+	case EFFECT_BRUTEFORCE:
+		attack = GetBattlerTotalAttackStat(battlerAtk) / GetBattlerTotalAttackStat(battlerDef);
+		if (attack > 1)
+			basePower *= 2;
+		break;
     case EFFECT_GYRO_BALL:
         basePower = ((25 * GetBattlerTotalSpeedStat(battlerDef)) / GetBattlerTotalSpeedStat(battlerAtk)) + 1;
         if (basePower > 150)
@@ -8908,6 +8913,7 @@ static u16 CalcMoveBasePower(u16 move, u8 battlerAtk, u8 battlerDef)
         if (IsBattlerTerrainAffected(battlerAtk, STATUS_FIELD_ELECTRIC_TERRAIN))
             MulModifier(&basePower, UQ_4_12(1.5));
         break;
+
     }
 
     // Move-specific base power changes

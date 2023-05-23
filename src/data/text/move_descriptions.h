@@ -3272,6 +3272,14 @@ static const u8 sArtilleryDescription[] = _(
 	"Hits three times and\n"
 	"may inflict a burn.");
 
+static const u8 sAlterCurrentDescription[] = _(
+	"User shocks the target with\n"
+	"a current twice in a row.");
+
+static const u8 sBruteforceDescription[] = _(
+	"Hits harder if the user has\n"
+	"more ATTACK than the target.");
+
 const u8 gNotDoneYetDescription[] = _(
     "This move can't be used. Its\n"
     "effect is in development.");
@@ -4116,4 +4124,11 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT - 1] =
 	[MOVE_VAPORIZE - 1] = sVaporizeDescription,
 	[MOVE_HORN_TOSS - 1] = sCircleThrowDescription,
 	[MOVE_ARTILLERY - 1] = sArtilleryDescription,
+	[MOVE_CHI_CANNON -1] = sOverheatDescription,
+	[MOVE_PROTON_CANNON - 1] = sOverheatDescription,
+	[MOVE_FALCON_PUNCH - 1] = sFocusPunchDescription,
+	[MOVE_WARLOCK_PUNCH - 1] = sFocusPunchDescription,
+	[MOVE_EROSION_FLOW - 1] = sStormThrowDescription,
+	[MOVE_ALTER_CURRENT - 1] = sAlterCurrentDescription,
+	[MOVE_BRUTEFORCE - 1] = sBruteforceDescription,
 };

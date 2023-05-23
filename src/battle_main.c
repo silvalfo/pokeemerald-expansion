@@ -4699,6 +4699,63 @@ u32 GetBattlerTotalSpeedStat(u8 battlerId)
     return speed;
 }
 
+u32 GetBattlerTotalAttackStat(u8 battlerId)
+{
+	u32 attack = gBattleMons[battlerId].attack;
+	u32 ability = GetBattlerAbility(battlerId);
+	u32 holdEffect = GetBattlerHoldEffect(battlerId, TRUE);
+	u32 highestStat = GetHighestStatId(battlerId);
+
+	// weather abilities
+	if (WEATHER_HAS_EFFECT)
+	{
+		if (ability == ABILITY_HEAVY_DUTY)
+			attack *= 110 / 100;
+		else if (ability == ABILITY_FLOWER_GIFT && holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA && gBattleWeather & B_WEATHER_SUN)
+			attack *= 2;
+		else if (ability == ABILITY_HUGE_POWER || ability == ABILITY_PURE_POWER)
+			attack *= 2;
+		else if (ability == ABILITY_SLUSH_RUSH && (gBattleWeather & (B_WEATHER_HAIL | B_WEATHER_SNOW)))
+			attack *= 2;
+	}
+
+	// other abilities
+	if (ability == ABILITY_GUTS && gBattleMons[battlerId].status1 & STATUS1_ANY)
+		attack = (attack * 150) / 100;
+	else if (ability == ABILITY_DEFEATIST && gBattleMons[battlerId].hp <= (gBattleMons[battlerId].maxHP / 2))
+		attack *= 67 / 100;
+	else if (ability == ABILITY_HUSTLE)
+		attack *= 2;
+	else if (ability == ABILITY_SLOW_START && gDisableStructs[battlerId].slowStartTimer != 0)
+		attack /= 2;
+	else if (ability == ABILITY_PROTOSYNTHESIS && gBattleWeather & B_WEATHER_SUN && highestStat == STAT_ATK)
+		attack = (attack * 130) / 100;
+	else if (ability == ABILITY_QUARK_DRIVE && gFieldStatuses & STATUS_FIELD_ELECTRIC_TERRAIN && highestStat == STAT_ATK)
+		attack = (attack * 130) / 100;
+	else if (ability == ABILITY_HEAVY_DUTY)
+		attack = (attack * 110) / 100;
+
+	// stat stages
+	attack *= gStatStageRatios[gBattleMons[battlerId].statStages[STAT_ATK]][0];
+	attack /= gStatStageRatios[gBattleMons[battlerId].statStages[STAT_ATK]][1];
+
+	// item effects
+	if (holdEffect == HOLD_EFFECT_CHOICE_BAND)
+		attack = (attack * 150) / 100;
+	else if (holdEffect == HOLD_EFFECT_LIGHT_BALL && gBattleMons[battlerId].species == SPECIES_PIKACHU)
+		attack *= 2;
+	else if (holdEffect == HOLD_EFFECT_THICK_CLUB && (gBattleMons[battlerId].species == SPECIES_CUBONE || gBattleMons[battlerId].species == SPECIES_MAROWAK))
+		attack *= 2;
+
+	// various effects
+
+	// burn drop
+	if (gBattleMons[battlerId].status1 & STATUS1_BURN && ability != ABILITY_GUTS)
+		attack /= 2;
+
+	return attack;
+}
+
 s8 GetChosenMovePriority(u32 battlerId)
 {
     u16 move;
@@ -5086,6 +5143,8 @@ static bool32 TryDoMoveEffectsBeforeMoves(void)
                 switch (gChosenMoveByBattler[gActiveBattler])
                 {
                 case MOVE_FOCUS_PUNCH:
+				case MOVE_FALCON_PUNCH:
+				case MOVE_WARLOCK_PUNCH:
                     BattleScriptExecute(BattleScript_FocusPunchSetUp);
                     return TRUE;
                 case MOVE_BEAK_BLAST:
@@ -5135,6 +5194,8 @@ static void CheckQuickClaw_CustapBerryActivation(void)
             gBattleStruct->quickClawBattlerId++;
             if (gChosenActionByBattler[gActiveBattler] == B_ACTION_USE_MOVE
              && gChosenMoveByBattler[gActiveBattler] != MOVE_FOCUS_PUNCH   // quick claw message doesn't need to activate here
+			 && gChosenMoveByBattler[gActiveBattler] != MOVE_FALCON_PUNCH   // quick claw message doesn't need to activate here
+			 && gChosenMoveByBattler[gActiveBattler] != MOVE_WARLOCK_PUNCH   // quick claw message doesn't need to activate here
              && (gProtectStructs[gActiveBattler].usedCustapBerry || gProtectStructs[gActiveBattler].quickDraw)
              && !(gBattleMons[gActiveBattler].status1 & STATUS1_SLEEP)
              && !(gDisableStructs[gBattlerAttacker].truantCounter)

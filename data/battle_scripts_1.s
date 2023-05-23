@@ -431,6 +431,7 @@ gBattleScriptsForMoveEffects::
 	.4byte BattleScript_EffectFrostbiteHit            @ EFFECT_FROSTBITE_HIT
 	.4byte BattleScript_EffectSnow                    @ EFFECT_SNOWSCAPE
 	.4byte BattleScript_EffectBurnHit				  @ EFFECT_VAPORIZE
+	.4byte BattleScript_EffectHit					  @ EFFECT_BRUTEFORCE
 
 BattleScript_EffectRevivalBlessing::
 	attackcanceler

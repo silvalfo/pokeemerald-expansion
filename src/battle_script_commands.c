@@ -1196,6 +1196,8 @@ static const u8 sForbiddenMoves[MOVES_COUNT] =
     [MOVE_WICKED_TORQUE] = FORBIDDEN_MIMIC | FORBIDDEN_METRONOME | FORBIDDEN_ASSIST | FORBIDDEN_COPYCAT | FORBIDDEN_SLEEP_TALK | FORBIDDEN_INSTRUCT,
     [MOVE_WIDE_GUARD] = FORBIDDEN_METRONOME,
     [MOVE_ZIPPY_ZAP] = FORBIDDEN_METRONOME,
+	[MOVE_FALCON_PUNCH] = FORBIDDEN_METRONOME | FORBIDDEN_ASSIST | FORBIDDEN_COPYCAT | FORBIDDEN_SLEEP_TALK | FORBIDDEN_INSTRUCT,
+	[MOVE_WARLOCK_PUNCH] = FORBIDDEN_METRONOME | FORBIDDEN_ASSIST | FORBIDDEN_COPYCAT | FORBIDDEN_SLEEP_TALK | FORBIDDEN_INSTRUCT,
 };
 
 static const u16 sFinalStrikeOnlyEffects[] =
@@ -2113,7 +2115,7 @@ s32 CalcCritChanceStage(u8 battlerAtk, u8 battlerDef, u32 move, bool32 recordAbi
         critChance = -1;
     }
     else if (gStatuses3[battlerAtk] & STATUS3_LASER_FOCUS
-             || gBattleMoves[move].effect == EFFECT_ALWAYS_CRIT
+             || (gBattleMoves[move].effect == EFFECT_ALWAYS_CRIT || gBattleMoves[move].effect == EFFECT_SNIPE_SHOT)
              || (abilityAtk == ABILITY_MERCILESS && gBattleMons[battlerDef].status1 & STATUS1_PSN_ANY)
              || move == MOVE_SURGING_STRIKES
 			 || ((abilityAtk == ABILITY_RUTHLESS) && ((gBattleMoves[gCurrentMove].flags & FLAG_HIGH_CRIT) != 0)))
@@ -9795,6 +9797,8 @@ static void Cmd_various(void)
             case MOVE_STRUGGLE:
             case MOVE_CHATTER:
             case MOVE_FOCUS_PUNCH:
+			case MOVE_FALCON_PUNCH:
+			case MOVE_WARLOCK_PUNCH:
             case MOVE_THIEF:
             case MOVE_COVET:
             case MOVE_COUNTER:

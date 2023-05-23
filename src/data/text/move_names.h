@@ -836,6 +836,13 @@ const u8 gMoveNames[MOVES_COUNT][MOVE_NAME_LENGTH + 1] =
 	[MOVE_VAPORIZE] = _("Vaporize"),
 	[MOVE_HORN_TOSS] = _("Horn Toss"),
 	[MOVE_ARTILLERY] = _("Artillery"),
+	[MOVE_CHI_CANNON] = _("Chi Cannon"),
+	[MOVE_PROTON_CANNON] = _("Proton Cannon"),
+	[MOVE_FALCON_PUNCH] = _("Falcon Punch"),
+	[MOVE_WARLOCK_PUNCH] = _("Warlock Punch"),
+	[MOVE_EROSION_FLOW] = _("Erosion Flow"),
+	[MOVE_ALTER_CURRENT] _("Alter Current"),
+	[MOVE_BRUTEFORCE] = _("Bruteforce"),
 };
 #else
 // 12 letters
@@ -1675,6 +1682,13 @@ const u8 gMoveNames[MOVES_COUNT][MOVE_NAME_LENGTH + 1] =
 	[MOVE_VAPORIZE] = _("Vaporize"),
 	[MOVE_HORN_TOSS] = _("Horn Toss"),
 	[MOVE_ARTILLERY] = _("Artillery"),
+	[MOVE_CHI_CANNON] = _("Chi Cannon"),
+	[MOVE_PROTON_CANNON] = _("ProtonCannon"),
+	[MOVE_FALCON_PUNCH] = _("Falcon Punch"),
+	[MOVE_WARLOCK_PUNCH] = _("WarlockPunch"),
+	[MOVE_EROSION_FLOW] = _("Erosion Flow"),
+	[MOVE_ALTER_CURRENT] = _("AlterCurrent"),
+	[MOVE_BRUTEFORCE] = _("Bruteforce"),
 };
 #endif
 
