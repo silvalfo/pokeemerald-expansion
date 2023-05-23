@@ -3264,6 +3264,14 @@ static const u8 sThunderDropDescription[] = _(
 	"A fierce dropkick that may\n"
 	"cause flinching.");
 
+static const u8 sVaporizeDescription[] = _(
+	"Super effective on Water-\n"
+	"types. May cause burn.");
+
+static const u8 sArtilleryDescription[] = _(
+	"Hits three times and\n"
+	"may inflict a burn.");
+
 const u8 gNotDoneYetDescription[] = _(
     "This move can't be used. Its\n"
     "effect is in development.");
@@ -4105,4 +4113,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT - 1] =
     [MOVE_HYDRO_STEAM - 1] = sHydroSteamDescription,
 	[MOVE_THUNDER_DROP - 1] = sThunderDropDescription,
 	[MOVE_ARMOR_PRESS - 1] = sBodyPressDescription,
+	[MOVE_VAPORIZE - 1] = sVaporizeDescription,
+	[MOVE_HORN_TOSS - 1] = sCircleThrowDescription,
+	[MOVE_ARTILLERY - 1] = sArtilleryDescription,
 };

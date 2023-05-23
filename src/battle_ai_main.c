@@ -4722,7 +4722,7 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
             score += 2;
         break;
     case EFFECT_SOAK:
-        if (HasMoveWithType(battlerAtk, TYPE_ELECTRIC) || HasMoveWithType(battlerAtk, TYPE_GRASS) || HasMoveEffect(battlerAtk, EFFECT_FREEZE_DRY))
+        if (HasMoveWithType(battlerAtk, TYPE_ELECTRIC) || HasMoveWithType(battlerAtk, TYPE_GRASS) || HasMoveEffect(battlerAtk, EFFECT_FREEZE_DRY) || HasMoveEffect(battlerAtk, EFFECT_VAPORIZE))
             score += 2; // Get some super effective moves
         break;
     case EFFECT_THIRD_TYPE:

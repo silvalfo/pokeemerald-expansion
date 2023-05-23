@@ -10037,6 +10037,8 @@ static void MulByTypeEffectiveness(u16 *modifier, u16 move, u8 moveType, u8 batt
         mod = UQ_4_12(1.0);
     if (moveType == TYPE_FIRE && gDisableStructs[battlerDef].tarShot)
         mod = UQ_4_12(2.0);
+	if (gBattleMoves[move].effect == EFFECT_VAPORIZE && defType == TYPE_WATER)
+		mod = UQ_4_12(2.0);
 
     // B_WEATHER_STRONG_WINDS weakens Super Effective moves against Flying-type Pokémon
     if (gBattleWeather & B_WEATHER_STRONG_WINDS && WEATHER_HAS_EFFECT)

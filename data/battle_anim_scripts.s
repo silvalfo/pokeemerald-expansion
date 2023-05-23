@@ -859,6 +859,9 @@ gBattleAnims_Moves::
 @@@@ NEW MOVES
 	.4byte Move_THUNDER_DROP
 	.4byte Move_ARMOR_PRESS
+	.4byte Move_VAPORIZE
+	.4byte Move_HORN_TOSS
+	.4byte Move_ARTILLERY
 @@@@ Z MOVES
 	.4byte Move_BREAKNECK_BLITZ
 	.4byte Move_ALL_OUT_PUMMELING
@@ -14418,6 +14421,38 @@ Move_STONE_AXE::
 Move_SPRINGTIDE_STORM::
 Move_MYSTICAL_POWER::
 Move_RAGING_FURY::
+	loadspritegfx ANIM_TAG_SMALL_EMBER
+	loopsewithpan SE_M_DRAGON_RAGE, SOUND_PAN_ATTACKER, 8, 3
+	fadetobg BG_FIRE
+	waitbgfadein
+	createvisualtask AnimTask_BlendColorCycle, 2, 7, 2, 5, 3, 8, RGB(14, 13, 0)
+	createvisualtask AnimTask_TranslateMonEllipticalRespectSide, 2, ANIM_ATTACKER, 12, 6, 5, 4
+	delay 0
+	createsprite gOutrageFlameSpriteTemplate, ANIM_TARGET, 2, 0, 0, 30, 1280, 0, 3
+	delay 0
+	createsprite gOutrageFlameSpriteTemplate, ANIM_TARGET, 2, 0, 0, 30, -1280, 0, 3
+	delay 0
+	createsprite gOutrageFlameSpriteTemplate, ANIM_TARGET, 2, 0, 0, 30, 0, 1280, 3
+	delay 0
+	createsprite gOutrageFlameSpriteTemplate, ANIM_TARGET, 2, 0, 0, 30, 0, -1280, 3
+	delay 0
+	createvisualtask AnimTask_ShakeMon2, 2, ANIM_TARGET, 2, 0, 40, 1
+	createsprite gOutrageFlameSpriteTemplate, ANIM_TARGET, 2, 0, 0, 30, 1280, 768, 3
+	delay 0
+	createsprite gOutrageFlameSpriteTemplate, ANIM_TARGET, 2, 0, 0, 30, -1280, 768, 3
+	delay 0
+	createsprite gOutrageFlameSpriteTemplate, ANIM_TARGET, 2, 0, 0, 30, 1280, -768, 3
+	delay 0
+	createsprite gOutrageFlameSpriteTemplate, ANIM_TARGET, 2, 0, 0, 30, -1280, -768, 3
+	delay 0
+	createsprite gOutrageFlameSpriteTemplate, ANIM_TARGET, 2, 0, 0, 30, 1280, 0, 3
+	call OutrageFlames
+	call OutrageFlames
+	waitforvisualfinish
+	call UnsetPsychicBg
+	waitforvisualfinish
+	blendoff
+	end
 Move_WAVE_CRASH::
 Move_CHLOROBLAST::
 Move_MOUNTAIN_GALE::
@@ -14540,6 +14575,68 @@ Move_ARMOR_PRESS::
 	delay 0x2
 	playsewithpan SE_M_MINIMIZE, SOUND_PAN_ATTACKER
 	launchtask AnimTask_SquishTarget 0x2 0x0
+	waitforvisualfinish
+	end
+
+Move_HORN_TOSS::
+	loadspritegfx ANIM_TAG_IMPACT
+	loadspritegfx ANIM_TAG_HORN_HIT
+	loadspritegfx ANIM_TAG_THIN_RING
+	loadspritegfx ANIM_TAG_ICE_CHUNK
+	createsprite gBowMonSpriteTemplate, ANIM_ATTACKER, 2, 0
+	playsewithpan SE_M_HEADBUTT, SOUND_PAN_ATTACKER
+	waitforvisualfinish
+	delay 2
+	createsprite gBowMonSpriteTemplate, ANIM_ATTACKER, 2, 1
+	createsprite gHornHitSpriteTemplate, ANIM_TARGET, 4, 0, 0, 10
+	waitforvisualfinish
+	createvisualtask AnimTask_ShakeMonInPlace, 2, ANIM_ATTACKER, 2, 0, 4, 1
+	createvisualtask AnimTask_ShakeMon, 2, ANIM_TARGET, 5, 0, 6, 1
+	createsprite gFlashingHitSplatSpriteTemplate, ANIM_TARGET, 3, 0, 0, ANIM_TARGET, 1
+	playsewithpan SE_M_HORN_ATTACK, SOUND_PAN_TARGET
+	waitforvisualfinish
+	createsprite gBowMonSpriteTemplate, ANIM_ATTACKER, 2, 2
+	launchtask AnimTask_TranslateMonEllipticalRespectSide 0x2 0x5 0x0 0xc 0x4 0x1 0x2
+	waitforvisualfinish
+	launchtemplate gSlideMonToOffsetSpriteTemplate 0x2 0x5 ANIM_ATTACKER 0x14 0x0 0x0 0x4
+	delay 0x2
+	launchtemplate gBasicHitSplatSpriteTemplate 0x3 0x4 0x0 0x0 0x1 0x1
+	playsewithpan SE_M_VITAL_THROW2, SOUND_PAN_TARGET
+	delay 0x1
+	launchtemplate gSlideMonToOffsetSpriteTemplate 0x2 0x5 ANIM_TARGET 0xffe8 0x0 0x0 0x4
+	waitforvisualfinish
+	delay 0x3
+	launchtemplate gSlideMonToOriginalPosSpriteTemplate 0x2 0x3 ANIM_ATTACKER 0x0 0x7
+	delay 0xb
+	launchtemplate gSlideMonToOriginalPosSpriteTemplate 0x2 0x3 ANIM_TARGET 0x0 0xa
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	blendoff
+	end
+
+Move_ARTILLERY:
+	loadspritegfx ANIM_TAG_EXPLOSION
+	loadspritegfx ANIM_TAG_RED_BALL
+	playsewithpan SE_M_CHARGE, SOUND_PAN_ATTACKER
+			playsewithpan SE_M_MEGA_KICK2, SOUND_PAN_TARGET
+	createvisualtask AnimTask_BarrageBall, 3
+	delay 20
+	createvisualtask AnimTask_ShakeMon2, 2, ANIM_TARGET, 4, 0, 16, 1
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 4, 6, 5, 1, 0
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	delay 3
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 4, -16, -15, 1, 0
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	delay 3
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 4, 16, -5, 1, 0
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	delay 3
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 4, -12, 18, 1, 0
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	delay 3
+	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 4, 0, 5, 1, 0
+	playsewithpan SE_M_SELF_DESTRUCT, SOUND_PAN_TARGET
+	delay 3
 	waitforvisualfinish
 	end
 
@@ -17576,6 +17673,7 @@ Move_UPROAR:
 	clearmonbg ANIM_DEF_PARTNER
 	end
 
+Move_VAPORIZE:
 Move_HEAT_WAVE:
 	loadspritegfx ANIM_TAG_FLYING_DIRT
 	createvisualtask AnimTask_BlendParticle, 5, ANIM_TAG_FLYING_DIRT, 0, 6, 6, RGB_RED

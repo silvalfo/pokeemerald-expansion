@@ -13688,6 +13688,51 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
         .zMoveEffect = Z_EFFECT_NONE,
     },
 
+	[MOVE_VAPORIZE] =
+    {
+        .effect = EFFECT_VAPORIZE,
+        .power = 65,
+        .type = TYPE_FIRE,
+        .accuracy = 100,
+        .pp = 20,
+        .secondaryEffectChance = 10,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_KINGS_ROCK_AFFECTED | FLAG_SHEER_FORCE_BOOST,
+        .split = SPLIT_SPECIAL,
+        .zMoveEffect = Z_EFFECT_NONE,
+    },
+
+	[MOVE_HORN_TOSS] =
+	{
+		.effect = EFFECT_HIT_SWITCH_TARGET,
+		.power = 60,
+		.type = TYPE_BUG,
+		.accuracy = 90,
+		.pp = 10,
+		.secondaryEffectChance = 0,
+		.target = MOVE_TARGET_SELECTED,
+		.priority = -6,
+		.flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+		.split = SPLIT_PHYSICAL,
+		.zMoveEffect = Z_EFFECT_NONE,
+	},
+
+	[MOVE_ARTILLERY] =
+	{
+		.effect = EFFECT_BURN_HIT,
+		.power = 25,
+		.type = TYPE_FIRE,
+		.accuracy = 100,
+		.pp = 10,
+		.secondaryEffectChance = 10,
+		.target = MOVE_TARGET_SELECTED,
+		.priority = 0,
+		.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_SHEER_FORCE_BOOST | FLAG_MEGA_LAUNCHER_BOOST | FLAG_THREE_STRIKES,
+		.split = SPLIT_PHYSICAL,
+		.zMoveEffect = Z_EFFECT_NONE,
+	},
+
     // Z-Moves
     [MOVE_BREAKNECK_BLITZ] =
     {
