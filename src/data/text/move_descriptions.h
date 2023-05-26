@@ -3280,6 +3280,10 @@ static const u8 sBruteforceDescription[] = _(
 	"Hits harder if the user has\n"
 	"more ATTACK than the target.");
 
+static const u8 sTollingBellDescription[] = _(
+	"An ominous alarm that\n"
+	"lowers the foe's Sp.Def.");
+
 const u8 gNotDoneYetDescription[] = _(
     "This move can't be used. Its\n"
     "effect is in development.");
@@ -4131,4 +4135,7 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT - 1] =
 	[MOVE_EROSION_FLOW - 1] = sStormThrowDescription,
 	[MOVE_ALTER_CURRENT - 1] = sAlterCurrentDescription,
 	[MOVE_BRUTEFORCE - 1] = sBruteforceDescription,
+	[MOVE_METEOR_HAMMER - 1] = sIceHammerDescription,
+	[MOVE_FROZEN_BASH - 1] = sTakeDownDescription,
+	[MOVE_TOLLING_BELL - 1] = sTollingBellDescription,
 };

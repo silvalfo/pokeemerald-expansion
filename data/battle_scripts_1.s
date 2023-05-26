@@ -432,6 +432,7 @@ gBattleScriptsForMoveEffects::
 	.4byte BattleScript_EffectSnow                    @ EFFECT_SNOWSCAPE
 	.4byte BattleScript_EffectBurnHit				  @ EFFECT_VAPORIZE
 	.4byte BattleScript_EffectHit					  @ EFFECT_BRUTEFORCE
+	.4byte BattleScript_EffectStrength				  @ EFFECT_STRENGTH
 
 BattleScript_EffectRevivalBlessing::
 	attackcanceler
@@ -5999,7 +6000,11 @@ BattleScript_EffectSuperpower:
 	goto BattleScript_EffectHit
 
 BattleScript_EffectCloseCombat:
-	setmoveeffect MOVE_EFFECT_DEF_SPDEF_DOWN | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
+	setmoveeffect MOVE_EFFECT_DEFENSE_DOWN | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
+	goto BattleScript_EffectHit
+
+BattleScript_EffectStrength:
+	setmoveeffect MOVE_EFFECT_DEFENSE_DOWN | MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN
 	goto BattleScript_EffectHit
 
 BattleScript_EffectMagicCoat:
@@ -7789,6 +7794,17 @@ BattleScript_DefSpDefDownTrySpDef::
 	printfromtable gStatDownStringIds
 	waitmessage B_WAIT_TIME_LONG
 BattleScript_DefSpDefDownRet::
+	return
+
+BattleScript_DefenseDown::
+	setbyte sSTAT_ANIM_PLAYED, FALSE
+	playstatchangeanimation BS_ATTACKER, BIT_DEF, STAT_CHANGE_CANT_PREVENT | STAT_CHANGE_NEGATIVE
+	setstatchanger STAT_DEF, 1, TRUE
+	statbuffchange MOVE_EFFECT_AFFECTS_USER | MOVE_EFFECT_CERTAIN | STAT_CHANGE_ALLOW_PTR, BattleScript_DefenseDownRet
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_DECREASE, BattleScript_DefSpDefDownRet
+	printfromtable gStatDownStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_DefenseDownRet::
 	return
 
 BattleScript_DefDownSpeedUp::

@@ -3625,6 +3625,13 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     gBattlescriptCurrInstr = BattleScript_DefSpDefDown;
                 }
                 break;
+			case MOVE_EFFECT_DEFENSE_DOWN: // Strength
+				if (!NoAliveMonsForEitherParty())
+				{
+					BattleScriptPush(gBattlescriptCurrInstr + 1);
+					gBattlescriptCurrInstr = BattleScript_DefenseDown;
+				}
+				break;
             case MOVE_EFFECT_RECOIL_HP_25: // Struggle
                 gBattleMoveDamage = (gBattleMons[gEffectBattler].maxHP) / 4;
                 if (gBattleMoveDamage == 0)

@@ -409,7 +409,8 @@
 #define EFFECT_SNOWSCAPE                    403
 #define EFFECT_VAPORIZE						404
 #define EFFECT_BRUTEFORCE					405
+#define EFFECT_STRENGTH						406
 
-#define NUM_BATTLE_MOVE_EFFECTS             406
+#define NUM_BATTLE_MOVE_EFFECTS             407
 
 #endif  // GUARD_CONSTANTS_BATTLE_MOVE_EFFECTS_H

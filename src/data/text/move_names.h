@@ -843,6 +843,9 @@ const u8 gMoveNames[MOVES_COUNT][MOVE_NAME_LENGTH + 1] =
 	[MOVE_EROSION_FLOW] = _("Erosion Flow"),
 	[MOVE_ALTER_CURRENT] _("Alter Current"),
 	[MOVE_BRUTEFORCE] = _("Bruteforce"),
+	[MOVE_METEOR_HAMMER] = _("Meteor Hammer"),
+	[MOVE_FROZEN_BASH] = _("Frozen Bash"),
+	[MOVE_TOLLING_BELL] = _("Tolling Bell"),
 };
 #else
 // 12 letters
@@ -1689,6 +1692,9 @@ const u8 gMoveNames[MOVES_COUNT][MOVE_NAME_LENGTH + 1] =
 	[MOVE_EROSION_FLOW] = _("Erosion Flow"),
 	[MOVE_ALTER_CURRENT] = _("AlterCurrent"),
 	[MOVE_BRUTEFORCE] = _("Bruteforce"),
+	[MOVE_METEOR_HAMMER] = _("MeteorHammer"),
+	[MOVE_FROZEN_BASH] = _("Frozen Bash"),
+	[MOVE_TOLLING_BELL] = _("Tolling Bell"),
 };
 #endif
 
