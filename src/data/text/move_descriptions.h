@@ -4186,4 +4186,5 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT - 1] =
 	[MOVE_GLACIER_PRESS - 1] = sBodyPressDescription,
 	[MOVE_ROLLING_THUNDER - 1] = sRollingThunderDescription,
 	[MOVE_AERIAL_RAVE - 1] = sAerialRaveDescription,
+	[MOVE_CONSUME - 1] = sLeechLifeDescription,
 };

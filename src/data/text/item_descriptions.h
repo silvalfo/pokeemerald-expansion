@@ -3917,3 +3917,8 @@ static const u8 sBerserkGene[] = _(
     "Sharply boosts\n"
     "Attack, but causes\n"
     "lasting confusion.");
+
+static const u8 sIcyArmorDesc[] = _(
+	"Ice-types become\n"
+	"bruisers. Damages\n"
+	"other types.");

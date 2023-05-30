@@ -6673,6 +6673,20 @@ const struct Item gItems[] =
         .flingPower = 80,
     },
 
+	[ITEM_ICY_ARMOR] =
+    {
+        .name = _("Icy Armor"),
+        .itemId = ITEM_ICY_ARMOR,
+        .price = 1000,
+        .holdEffect = HOLD_EFFECT_ICY_ARMOR,
+        .holdEffectParam = 50,
+        .description = sIcyArmorDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .flingPower = 80,
+    },
+
     [ITEM_SAFETY_GOGGLES] =
     {
         .name = _("SafetyGoggles"),

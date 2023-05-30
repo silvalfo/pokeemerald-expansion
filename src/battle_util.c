@@ -1826,7 +1826,7 @@ u8 TrySetCantSelectMoveBattleScript(void)
             limitations++;
         }
     }
-    else if (holdEffect == HOLD_EFFECT_ASSAULT_VEST && IS_MOVE_STATUS(move) && move != MOVE_ME_FIRST)
+    else if ((holdEffect == HOLD_EFFECT_ASSAULT_VEST || holdEffect == HOLD_EFFECT_ICY_ARMOR) && IS_MOVE_STATUS(move) && move != MOVE_ME_FIRST)
     {
         gCurrentMove = move;
         gLastUsedItem = gBattleMons[gActiveBattler].item;
@@ -1925,8 +1925,8 @@ u8 CheckMoveLimitations(u8 battlerId, u8 unusableMoves, u16 check)
         // Choice Items
         else if (check & MOVE_LIMITATION_CHOICE_ITEM && HOLD_EFFECT_CHOICE(holdEffect) && *choicedMove != MOVE_NONE && *choicedMove != MOVE_UNAVAILABLE && *choicedMove != gBattleMons[battlerId].moves[i])
             unusableMoves |= gBitTable[i];
-        // Assault Vest
-        else if (check & MOVE_LIMITATION_ASSAULT_VEST && holdEffect == HOLD_EFFECT_ASSAULT_VEST && IS_MOVE_STATUS(gBattleMons[battlerId].moves[i]) && gBattleMons[battlerId].moves[i] != MOVE_ME_FIRST)
+        // Assault Vest and Icy Armor
+        else if (check & MOVE_LIMITATION_ASSAULT_VEST && ((holdEffect == HOLD_EFFECT_ASSAULT_VEST || holdEffect == HOLD_EFFECT_ICY_ARMOR) && IS_MOVE_STATUS(gBattleMons[battlerId].moves[i]) && gBattleMons[battlerId].moves[i] != MOVE_ME_FIRST))
             unusableMoves |= gBitTable[i];
         // Gravity
         else if (check & MOVE_LIMITATION_GRAVITY && IsGravityPreventingMove(gBattleMons[battlerId].moves[i]))
@@ -7503,6 +7503,19 @@ u8 ItemBattleEffects(u8 caseID, u8 battlerId, bool8 moveTurn)
                     PREPARE_ITEM_BUFFER(gBattleTextBuff1, gLastUsedItem);
                 }
                 break;
+			case HOLD_EFFECT_ICY_ARMOR:
+				if (!IS_BATTLER_OF_TYPE(battlerId, TYPE_ICE) &&
+					(GetBattlerAbility(battlerId) != ABILITY_MAGIC_GUARD && GetBattlerAbility(battlerId) != ABILITY_CRYSTAL_GUARD && !moveTurn))
+				{
+					gBattleMoveDamage = gBattleMons[battlerId].maxHP / 8;
+					if (gBattleMoveDamage == 0)
+						gBattleMoveDamage = 1;
+					BattleScriptExecute(BattleScript_ItemHurtEnd2);
+					effect = ITEM_HP_CHANGE;
+					RecordItemEffectBattle(battlerId, battlerHoldEffect);
+					PREPARE_ITEM_BUFFER(gBattleTextBuff1, gLastUsedItem);
+				}
+				break;
             case HOLD_EFFECT_LEFTOVERS:
             LEFTOVERS:
 #if B_HEAL_BLOCKING >= GEN_5
@@ -9750,6 +9763,10 @@ static u32 CalcDefenseStat(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, 
         if (!usesDefStat)
             MulModifier(&modifier, UQ_4_12(1.5));
         break;
+	case HOLD_EFFECT_ICY_ARMOR:
+		if ((usesDefStat) && (IS_BATTLER_OF_TYPE(battlerDef, TYPE_ICE)))
+			MulModifier(&modifier, UQ_4_12(1.5));
+		break;
 #if B_SOUL_DEW_BOOST <= GEN_6
     case HOLD_EFFECT_SOUL_DEW:
         if ((gBattleMons[battlerDef].species == SPECIES_LATIAS || gBattleMons[battlerDef].species == SPECIES_LATIOS)
@@ -9769,10 +9786,10 @@ static u32 CalcDefenseStat(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, 
 
     // The defensive stats of a Player's Pokémon are boosted by x1.1 (+10%) if they have the 5th badge and 7th badges.
     // Having the 5th badge boosts physical defense while having the 7th badge boosts special defense.
-    if (ShouldGetStatBadgeBoost(FLAG_BADGE05_GET, battlerDef) && IS_MOVE_PHYSICAL(move))
-        MulModifier(&modifier, UQ_4_12(1.1));
-    if (ShouldGetStatBadgeBoost(FLAG_BADGE07_GET, battlerDef) && IS_MOVE_SPECIAL(move))
-        MulModifier(&modifier, UQ_4_12(1.1));
+   // if (ShouldGetStatBadgeBoost(FLAG_BADGE05_GET, battlerDef) && IS_MOVE_PHYSICAL(move))
+   //     MulModifier(&modifier, UQ_4_12(1.1));
+   // if (ShouldGetStatBadgeBoost(FLAG_BADGE07_GET, battlerDef) && IS_MOVE_SPECIAL(move))
+   //     MulModifier(&modifier, UQ_4_12(1.1));
 
     return ApplyModifier(modifier, defStat);
 }

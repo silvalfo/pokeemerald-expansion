@@ -889,6 +889,7 @@ gBattleAnims_Moves::
 	.4byte Move_GLACIER_PRESS
 	.4byte Move_ROLLING_THUNDER
 	.4byte Move_AERIAL_RAVE
+	.4byte Move_CONSUME
 @@@@ Z MOVES
 	.4byte Move_BREAKNECK_BLITZ
 	.4byte Move_ALL_OUT_PUMMELING
@@ -15654,6 +15655,11 @@ Move_ROLLING_THUNDER::
 	createvisualtask AnimTask_BlendBattleAnimPal, 10, 1, 0, 6, 0, RGB_BLACK
 	waitforvisualfinish
 	end
+
+Move_CONSUME:
+	loadspritegfx ANIM_TAG_POISON_BUBBLE
+	call PoisonBubblesEffect
+	goto Move_LEECH_LIFE
 
 @@@@@@@@@@@@@@@@@@@@@@@ GEN 1-3 @@@@@@@@@@@@@@@@@@@@@@@
 Move_NONE:

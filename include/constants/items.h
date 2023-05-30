@@ -975,8 +975,9 @@
 #define ITEM_BERSERK_GENE 798
 
 #define ITEM_AGGRONIUM_Z 799
+#define ITEM_ICY_ARMOR 800
 
-#define ITEMS_COUNT 800
+#define ITEMS_COUNT 801
 #define ITEM_FIELD_ARROW ITEMS_COUNT
 
 // A special item id associated with "Cancel"/"Exit" etc. in a list of items or decorations

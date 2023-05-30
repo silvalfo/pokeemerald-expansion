@@ -543,6 +543,7 @@ const u32 *const gItemIconTable[ITEMS_COUNT + 1][2] =
     [ITEM_EJECT_BUTTON] = {gItemIcon_EjectButton, gItemIconPalette_EjectButton},
     [ITEM_WEAKNESS_POLICY] = {gItemIcon_WeaknessPolicy, gItemIconPalette_WeaknessPolicy},
     [ITEM_ASSAULT_VEST] = {gItemIcon_AssaultVest, gItemIconPalette_AssaultVest},
+	[ITEM_ICY_ARMOR] = { gItemIcon_AssaultVest, gItemIconPalette_IceStone },
     [ITEM_SAFETY_GOGGLES] = {gItemIcon_SafetyGoggles, gItemIconPalette_SafetyGoggles},
     [ITEM_ADRENALINE_ORB] = {gItemIcon_AdrenalineOrb, gItemIconPalette_AdrenalineOrb},
     [ITEM_TERRAIN_EXTENDER] = {gItemIcon_TerrainExtender, gItemIconPalette_TerrainExtender},

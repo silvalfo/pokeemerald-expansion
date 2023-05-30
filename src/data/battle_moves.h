@@ -1229,7 +1229,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
             .pp = 10,
         #endif
         .effect = EFFECT_ABSORB,
-        .power = 40,
+        .power = 55,
         .type = TYPE_GRASS,
         .accuracy = 100,
         .secondaryEffectChance = 0,
@@ -14165,6 +14165,25 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
         .priority = 0,
         .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_KINGS_ROCK_AFFECTED,
         .split = SPLIT_PHYSICAL,
+        .zMoveEffect = Z_EFFECT_NONE,
+    },
+
+	[MOVE_CONSUME] =
+    {
+        #if B_UPDATED_MOVE_DATA >= GEN_4
+            .pp = 10,
+        #else
+            .pp = 10,
+        #endif
+        .effect = EFFECT_ABSORB,
+        .power = 75,
+        .type = TYPE_POISON,
+        .accuracy = 100,
+        .secondaryEffectChance = 0,
+        .target = MOVE_TARGET_SELECTED,
+        .priority = 0,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
+        .split = SPLIT_SPECIAL,
         .zMoveEffect = Z_EFFECT_NONE,
     },
 
