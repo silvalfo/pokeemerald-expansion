@@ -225,7 +225,13 @@ static const struct MenuAction sItemStorage_MenuActions[] =
 static const struct ItemSlot sNewGamePCItems[] =
 {
     { ITEM_POTION, 1 },
-    { ITEM_NONE, 0 }
+    { ITEM_HP_UP, 1 },
+	{ ITEM_PROTEIN, 1 },
+	{ ITEM_IRON, 1 },
+	{ ITEM_CARBOS, 1 },
+	{ ITEM_CALCIUM, 1 },
+	{ ITEM_ZINC, 1 },
+	{ ITEM_NONE ,0}
 };
 
 const struct MenuAction gMailboxMailOptions[] =

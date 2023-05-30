@@ -977,7 +977,14 @@
 #define ITEM_AGGRONIUM_Z 799
 #define ITEM_ICY_ARMOR 800
 
-#define ITEMS_COUNT 801
+#define ITEM_HP_DOWN 801
+#define ITEM_PROTEIN_MINUS 802
+#define ITEM_IRON_MINUS 803
+#define ITEM_CARBOS_MINUS 804
+#define ITEM_CALCIUM_MINUS 805
+#define ITEM_ZINC_MINUS 806
+
+#define ITEMS_COUNT 807
 #define ITEM_FIELD_ARROW ITEMS_COUNT
 
 // A special item id associated with "Cancel"/"Exit" etc. in a list of items or decorations

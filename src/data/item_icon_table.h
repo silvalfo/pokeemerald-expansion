@@ -846,6 +846,14 @@ const u32 *const gItemIconTable[ITEMS_COUNT + 1][2] =
     [ITEM_LINKING_CORD] = {gItemIcon_LinkingCord, gItemIconPalette_LinkingCord},
     [ITEM_PEAT_BLOCK] = {gItemIcon_PeatBlock, gItemIconPalette_PeatBlock},
     [ITEM_BERSERK_GENE] = {gItemIcon_BerserkGene, gItemIconPalette_BerserkGene},
+
+		// Custom
+		[ITEM_HP_DOWN] = { gItemIcon_HPUp, gItemIconPalette_Glalitite },
+		[ITEM_PROTEIN_MINUS] = { gItemIcon_Vitamin, gItemIconPalette_Glalitite },
+		[ITEM_IRON_MINUS] = { gItemIcon_Vitamin, gItemIconPalette_Glalitite },
+		[ITEM_CARBOS_MINUS] = { gItemIcon_Vitamin, gItemIconPalette_Glalitite },
+		[ITEM_CALCIUM_MINUS] = { gItemIcon_Vitamin, gItemIconPalette_Glalitite },
+		[ITEM_ZINC_MINUS] = { gItemIcon_Vitamin, gItemIconPalette_Glalitite },
     // Return to field arrow
     [ITEMS_COUNT] = {gItemIcon_ReturnToFieldArrow, gItemIconPalette_ReturnToFieldArrow},
 };
