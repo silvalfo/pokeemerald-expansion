@@ -611,6 +611,7 @@ static void Cmd_jumpifoppositegenders(void);
 static void Cmd_unused(void);
 static void Cmd_tryworryseed(void);
 static void Cmd_callnative(void);
+static void Cmd_maxspecialattackhalvehp(void);
 
 void (* const gBattleScriptingCommandsTable[])(void) =
 {
@@ -1892,7 +1893,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
     calc = gAccuracyStageRatios[buff].dividend * moveAcc;
     calc /= gAccuracyStageRatios[buff].divisor;
 
-    if (atkAbility == ABILITY_COMPOUND_EYES)
+    if ((atkAbility == ABILITY_COMPOUND_EYES || atkAbility == ABILITY_ILLUMINATE))
         calc = (calc * 130) / 100; // 1.3 compound eyes boost
     else if (atkAbility == ABILITY_VICTORY_STAR)
         calc = (calc * 110) / 100; // 1.1 victory star boost
@@ -3618,6 +3619,13 @@ void SetMoveEffect(bool32 primary, u32 certain)
                     gBattlescriptCurrInstr = BattleScript_AtkDefDown;
                 }
                 break;
+			case MOVE_EFFECT_SPATK_SPDEF_DOWN: //Vile Tempest
+				if (!NoAliveMonsForEitherParty())
+				{
+					BattleScriptPush(gBattlescriptCurrInstr + 1);
+					gBattlescriptCurrInstr = BattleScript_SpAtkSpDefDown;
+				}
+				break;
             case MOVE_EFFECT_DEF_SPDEF_DOWN: // Close Combat
                 if (!NoAliveMonsForEitherParty())
                 {
@@ -13973,17 +13981,39 @@ static void Cmd_maxattackhalvehp(void)
     if (!(gBattleMons[gBattlerAttacker].maxHP / 2))
         halfHp = 1;
 
-    // Belly Drum fails if the user's current HP is less than half its maximum, or if the user's Attack is already at +6 (even if the user has Contrary).
-    if (gBattleMons[gBattlerAttacker].statStages[STAT_ATK] < MAX_STAT_STAGE
-        && gBattleMons[gBattlerAttacker].hp > halfHp)
-    {
-        gBattleMons[gBattlerAttacker].statStages[STAT_ATK] = MAX_STAT_STAGE;
-        gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 2;
-        if (gBattleMoveDamage == 0)
-            gBattleMoveDamage = 1;
+	if (gCurrentMove == MOVE_BELLY_DRUM) {
+		// Belly Drum fails if the user's current HP is less than half its maximum, or if the user's Attack is already at +6 (even if the user has Contrary).
+		if (gBattleMons[gBattlerAttacker].statStages[STAT_ATK] < MAX_STAT_STAGE
+			&& gBattleMons[gBattlerAttacker].hp > halfHp)
+		{
+			gBattleMons[gBattlerAttacker].statStages[STAT_ATK] = MAX_STAT_STAGE;
+			gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 2;
+			if (gBattleMoveDamage == 0)
+				gBattleMoveDamage = 1;
 
-        gBattlescriptCurrInstr = cmd->nextInstr;
-    }
+
+
+			gBattlescriptCurrInstr = cmd->nextInstr;
+		}
+
+	}
+
+	else if (gCurrentMove == MOVE_EPIPHANY) {
+		// Belly Drum fails if the user's current HP is less than half its maximum, or if the user's Attack is already at +6 (even if the user has Contrary).
+		if (gBattleMons[gBattlerAttacker].statStages[STAT_SPATK] < MAX_STAT_STAGE
+			&& gBattleMons[gBattlerAttacker].hp > halfHp)
+		{
+			gBattleMons[gBattlerAttacker].statStages[STAT_SPATK] = MAX_STAT_STAGE;
+			gBattleMoveDamage = gBattleMons[gBattlerAttacker].maxHP / 2;
+			if (gBattleMoveDamage == 0)
+				gBattleMoveDamage = 1;
+
+
+
+			gBattlescriptCurrInstr = cmd->nextInstr;
+		}
+
+	}
     else
     {
         gBattlescriptCurrInstr = cmd->failInstr;

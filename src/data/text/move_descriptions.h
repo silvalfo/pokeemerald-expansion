@@ -3284,6 +3284,38 @@ static const u8 sTollingBellDescription[] = _(
 	"An ominous alarm that\n"
 	"lowers the foe's Sp.Def.");
 
+static const u8 sSoulCrusherDescription[] = _(
+	"Smashes the foe's spirit.\n"
+	"Inaccurate, lowers DEFENSE.");
+
+static const u8 sVileTempestDescription[] = _(
+	"Fires off horrible venom,\n"
+	"but lowers abilities.");
+
+static const u8 sEpiphanyDescription[] = _(
+	"Maximizes Sp.Atk while\n"
+	"sacrificing HP.");
+
+static const u8 sSuddenGaleDescription[] = _(
+	"Whips up a quick cutting wind.\n"
+	"Usually strikes first.");
+
+static const u8 sSplendidTackleDescription[] = _(
+	"Adds Attack and Special Attack\n"
+	"together to deal damage.");
+
+static const u8 sGrotesqueImpalementDescription[] = _(
+	"Stabs brutally. Can't\n"
+	"be used twice in a row.");
+
+static const u8 sRollingThunderDescription[] = _(
+	"Shoots a slamming thunder\n"
+	"that does physical damage.");
+
+static const u8 sAerialRaveDescription[] = _(
+	"Comboes the foe with rising\n"
+	"intensity for each hit.");
+
 const u8 gNotDoneYetDescription[] = _(
     "This move can't be used. Its\n"
     "effect is in development.");
@@ -4138,4 +4170,20 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT - 1] =
 	[MOVE_METEOR_HAMMER - 1] = sIceHammerDescription,
 	[MOVE_FROZEN_BASH - 1] = sTakeDownDescription,
 	[MOVE_TOLLING_BELL - 1] = sTollingBellDescription,
+	[MOVE_AMBUSH_PIT - 1] = sSuckerPunchDescription,
+	[MOVE_DINO_CHARGE - 1] = sTakeDownDescription,
+	[MOVE_SOUL_CRUSHER - 1] = sSoulCrusherDescription,
+	[MOVE_ELEGANT_KICK - 1] = sJumpKickDescription,
+	[MOVE_VILE_TEMPEST - 1] = sVileTempestDescription,
+	[MOVE_EPIPHANY - 1] = sEpiphanyDescription,
+	[MOVE_WOODEN_PRESS - 1] = sBodyPressDescription,
+	[MOVE_SUDDEN_GALE - 1] = sSuddenGaleDescription,
+	[MOVE_GO_HARD - 1] = sHyperBeamDescription,
+	[MOVE_POWER_GRIP - 1] = sWringOutDescription,
+	[MOVE_SPLENDID_TACKLE - 1] = sSplendidTackleDescription,
+	[MOVE_GROTESQUE_IMPALEMENT - 1] = sGrotesqueImpalementDescription,
+	[MOVE_PILEDRIVER - 1] = sHeavySlamDescription,
+	[MOVE_GLACIER_PRESS - 1] = sBodyPressDescription,
+	[MOVE_ROLLING_THUNDER - 1] = sRollingThunderDescription,
+	[MOVE_AERIAL_RAVE - 1] = sAerialRaveDescription,
 };

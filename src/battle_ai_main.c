@@ -1343,6 +1343,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
         case EFFECT_SKULL_BASH:
         case EFFECT_FOCUS_PUNCH:
         case EFFECT_SUPERPOWER:
+		case EFFECT_VILE_TEMPEST:
         //case EFFECT_ENDEAVOR:
         case EFFECT_LOW_KICK:
             // AI_CBM_HighRiskForDamage
@@ -1644,6 +1645,7 @@ static s16 AI_CheckBadMove(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                 score -= 6;
             break;
         case EFFECT_BELLY_DRUM:
+		case EFFECT_EPIPHANY:
             if (AI_DATA->abilities[battlerAtk] == ABILITY_CONTRARY)
                 score -= 10;
             else if (AI_DATA->hpPercents[battlerAtk] <= 60)
@@ -2996,7 +2998,7 @@ static s16 AI_DoubleBattle(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
                     {
                         RETURN_SCORE_PLUS(10);
                     }
-                    else if (AI_DATA->abilities[battlerAtk] == ABILITY_COMPOUND_EYES
+                    else if ((AI_DATA->abilities[battlerAtk] == ABILITY_COMPOUND_EYES || AI_DATA->abilities[battlerAtk] == ABILITY_ILLUMINATE)
                      && HasMoveWithLowAccuracy(battlerAtkPartner, FOE(battlerAtkPartner), 90, TRUE, atkPartnerAbility, AI_DATA->abilities[FOE(battlerAtkPartner)], atkPartnerHoldEffect, AI_DATA->holdEffects[FOE(battlerAtkPartner)]))
                     {
                         RETURN_SCORE_PLUS(3);
@@ -3774,7 +3776,7 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
     case EFFECT_LOCK_ON:
         if (HasMoveEffect(battlerAtk, EFFECT_OHKO))
             score += 3;
-        else if (AI_DATA->abilities[battlerAtk] == ABILITY_COMPOUND_EYES && HasMoveWithLowAccuracy(battlerAtk, battlerDef, 80, TRUE, AI_DATA->abilities[battlerAtk], AI_DATA->abilities[battlerDef], AI_DATA->holdEffects[battlerAtk], AI_DATA->holdEffects[battlerDef]))
+        else if ((AI_DATA->abilities[battlerAtk] == ABILITY_COMPOUND_EYES || AI_DATA->abilities[battlerAtk] == ABILITY_ILLUMINATE) && HasMoveWithLowAccuracy(battlerAtk, battlerDef, 80, TRUE, AI_DATA->abilities[battlerAtk], AI_DATA->abilities[battlerDef], AI_DATA->holdEffects[battlerAtk], AI_DATA->holdEffects[battlerDef]))
             score += 3;
         else if (HasMoveWithLowAccuracy(battlerAtk, battlerDef, 85, TRUE, AI_DATA->abilities[battlerAtk], AI_DATA->abilities[battlerDef], AI_DATA->holdEffects[battlerAtk], AI_DATA->holdEffects[battlerDef]))
             score += 3;
@@ -4370,9 +4372,14 @@ static s16 AI_CheckViability(u8 battlerAtk, u8 battlerDef, u16 move, s16 score)
         break;
     case EFFECT_SUPERPOWER:
     case EFFECT_OVERHEAT:
+	case EFFECT_VILE_TEMPEST:
         if (AI_DATA->abilities[battlerAtk] == ABILITY_CONTRARY)
             score += 10;
         break;
+	case EFFECT_STRENGTH:
+		if (AI_DATA->abilities[battlerAtk] == ABILITY_CONTRARY)
+			score += 5;
+		break;
     case EFFECT_MAGIC_COAT:
         if (IS_MOVE_STATUS(predictedMove) && AI_GetBattlerMoveTargetType(battlerDef, predictedMove) & (MOVE_TARGET_SELECTED | MOVE_TARGET_OPPONENTS_FIELD | MOVE_TARGET_BOTH))
             score += 3;

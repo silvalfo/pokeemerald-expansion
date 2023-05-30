@@ -419,6 +419,7 @@ const u32 *const gItemIconTable[ITEMS_COUNT + 1][2] =
     [ITEM_ALORAICHIUM_Z] = {gItemIcon_AloraichiumZ, gItemIconPalette_AloraichiumZ},
     [ITEM_PIKASHUNIUM_Z] = {gItemIcon_PikashuniumZ, gItemIconPalette_PikashuniumZ},
     [ITEM_ULTRANECROZIUM_Z] = {gItemIcon_UltranecroziumZ, gItemIconPalette_UltranecroziumZ},
+	[ITEM_AGGRONIUM_Z] = {gItemIcon_SteeliumZ, gItemIconPalette_SteeliumZ},
     // Species-specific Held Items
     [ITEM_LIGHT_BALL] = {gItemIcon_LightBall, gItemIconPalette_LightBall},
     [ITEM_LEEK] = {gItemIcon_Leek, gItemIconPalette_Leek},

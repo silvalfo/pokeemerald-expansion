@@ -846,6 +846,23 @@ const u8 gMoveNames[MOVES_COUNT][MOVE_NAME_LENGTH + 1] =
 	[MOVE_METEOR_HAMMER] = _("Meteor Hammer"),
 	[MOVE_FROZEN_BASH] = _("Frozen Bash"),
 	[MOVE_TOLLING_BELL] = _("Tolling Bell"),
+	[MOVE_AMBUSH_PIT] = _("Ambush Pit"),
+	[MOVE_DINO_CHARGE] = _("Dino Charge"),
+	[MOVE_SOUL_CRUSHER] = _("Soul Crusher"),
+	[MOVE_ELEGANT_KICK] = _("Elegant Kick"),
+	[MOVE_VILE_TEMPEST] = _("Vile Tempest"),
+	[MOVE_EMIT_FORCE] = _("Emit Force"),
+	[MOVE_EPIPHANY] = _("Epiphany"),
+	[MOVE_WOODEN_PRESS] = _("Wooden Press"),
+	[MOVE_SUDDEN_GALE] = _("Sudden Gale"),
+	[MOVE_GO_HARD] = _("Go Hard"),
+	[MOVE_POWER_GRIP] = _("Power Grip"),
+	[MOVE_SPLENDID_TACKLE] = _("Splendid Tackle"),
+	[MOVE_GROTESQUE_IMPALEMENT] = _("Grotesque Impalement"),
+	[MOVE_PILEDRIVER] = _("Piledriver"),
+	[MOVE_GLACIER_PRESS] = _("Glacier Press"),
+	[MOVE_ROLLING_THUNDER] = _("Rolling Thunder"),
+	[MOVE_AERIAL_RAVE] = _("Aerial Rave"),
 };
 #else
 // 12 letters
@@ -1695,6 +1712,23 @@ const u8 gMoveNames[MOVES_COUNT][MOVE_NAME_LENGTH + 1] =
 	[MOVE_METEOR_HAMMER] = _("MeteorHammer"),
 	[MOVE_FROZEN_BASH] = _("Frozen Bash"),
 	[MOVE_TOLLING_BELL] = _("Tolling Bell"),
+	[MOVE_AMBUSH_PIT] = _("Ambush Pit"),
+	[MOVE_DINO_CHARGE] = _("Dino Charge"),
+	[MOVE_SOUL_CRUSHER] = _("Soul Crusher"),
+	[MOVE_ELEGANT_KICK] = _("Elegant Kick"),
+	[MOVE_VILE_TEMPEST] = _("Vile Tempest"),
+	[MOVE_EMIT_FORCE] = _("Emit Force"),
+	[MOVE_EPIPHANY] = _("Epiphany"),
+	[MOVE_WOODEN_PRESS] = _("Wooden Press"),
+	[MOVE_SUDDEN_GALE] = _("Sudden Gale"),
+	[MOVE_GO_HARD] = _("Go Hard"),
+	[MOVE_POWER_GRIP] = _("Power Grip"),
+	[MOVE_SPLENDID_TACKLE] = _("SplndidTckle"),
+	[MOVE_GROTESQUE_IMPALEMENT] = _("GrtsqImplmnt"),
+	[MOVE_PILEDRIVER] = _("Piledriver"),
+	[MOVE_GLACIER_PRESS] = _("GlacierPress"),
+	[MOVE_ROLLING_THUNDER] = _("RollingThndr"),
+	[MOVE_AERIAL_RAVE] = _("Aerial Rave"),
 };
 #endif
 
@@ -1733,6 +1767,7 @@ static const u8 sText_Searing_Sunraze_Smash[] = _("Searing Sunraze Smash");
 static const u8 sText_Menacing_Moonraze_Maelstrom[] = _("Menacing Moonraze Maelstrom");
 static const u8 sText_Light_That_Burns_The_Sky[] = _("Light That Burns The Sky");
 static const u8 sText_Soul_Stealing_7_Star_Strike[] = _("Soul Stealing 7 Star Strike");
+static const u8 sText_Metal_Slamdown[] = _("HEAVY METAL SLAMDOWN");
 
 const u8 *const gZMoveNames[] =
 {
@@ -1771,4 +1806,5 @@ const u8 *const gZMoveNames[] =
     [MOVE_MENACING_MOONRAZE_MAELSTROM - FIRST_Z_MOVE] = sText_Menacing_Moonraze_Maelstrom,
     [MOVE_LIGHT_THAT_BURNS_THE_SKY - FIRST_Z_MOVE] = sText_Light_That_Burns_The_Sky,
     [MOVE_SOUL_STEALING_7_STAR_STRIKE - FIRST_Z_MOVE] = sText_Soul_Stealing_7_Star_Strike,
+	[MOVE_METAL_SLAMDOWN - FIRST_Z_MOVE] = sText_Metal_Slamdown,
 };

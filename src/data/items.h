@@ -5111,6 +5111,19 @@ const struct Item gItems[] =
         .secondaryId = 255  //signature z move
     },
 
+	[ITEM_AGGRONIUM_Z] =
+    {
+        .name = _("Aggronium Z"),
+        .itemId = ITEM_AGGRONIUM_Z,
+        .price = 0,
+        .holdEffect = HOLD_EFFECT_Z_CRYSTAL,
+        .description = sAggroniumZDesc,
+        .pocket = POCKET_ITEMS,
+        .type = ITEM_USE_BAG_MENU,
+        .fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+        .secondaryId = 255  // signature z move
+    },
+
 // Species-specific Held Items
 
     [ITEM_LIGHT_BALL] =

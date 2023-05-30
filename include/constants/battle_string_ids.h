@@ -667,8 +667,9 @@
 #define STRINGID_PKMNHEALEDWITH						  665
 #define STRINGID_PKMNHURTSTARGET					  666
 #define STRINGID_PKMNCUTSSPATKWITH					  667
+#define STRINGID_PKMNCUTHPMAXEDSPATTACK				  668
 
-#define BATTLESTRINGS_COUNT                           668
+#define BATTLESTRINGS_COUNT                           669
 
 // This is the string id that gBattleStringsTable starts with.
 // String ids before this (e.g. STRINGID_INTROMSG) are not in the table,

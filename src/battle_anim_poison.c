@@ -209,6 +209,17 @@ const struct SpriteTemplate gGreenPoisonBubble =
 	.callback = AnimAcidPoisonBubble,
 };
 
+const struct SpriteTemplate gVileTempestSpriteTemplate =
+{
+	.tileTag = ANIM_TAG_SMALL_EMBER,
+	.paletteTag = ANIM_TAG_POISON_BUBBLE,
+	.oam = &gOamData_AffineOff_ObjNormal_32x32,
+	.anims = gAnims_BasicFire,
+	.images = NULL,
+	.affineAnims = gDummySpriteAffineAnimTable,
+	.callback = AnimParticleInVortex,
+};
+
 const union AnimCmd gSuckerPunchAnimCmd[] =
 {
     ANIMCMD_FRAME(0, 3),

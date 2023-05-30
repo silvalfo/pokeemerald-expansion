@@ -2043,6 +2043,11 @@ static const u8 sUltranecroziumZDesc[] = _(
     "fused Necrozma\n"
     "into a new form.");
 
+static const u8 sAggroniumZDesc[] = _(
+	"Upgrade Aggron's\n"
+	"Heavy Slam\n"
+	"into a Z-Move.");
+
 // Species-specific Held Items
 static const u8 sLightBallDesc[] = _(
     "A hold item that\n"

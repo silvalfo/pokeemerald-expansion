@@ -5217,8 +5217,6 @@ static const struct LevelUpMove sSceptileLevelUpLearnset[] = {
 static const struct LevelUpMove sTorchicLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_SCRATCH),
     LEVEL_UP_MOVE( 1, MOVE_GROWL),
-	LEVEL_UP_MOVE( 1, MOVE_TOLLING_BELL),
-	LEVEL_UP_MOVE( 1, MOVE_FROZEN_BASH),
     LEVEL_UP_MOVE( 6, MOVE_EMBER),
     LEVEL_UP_MOVE(10, MOVE_SAND_ATTACK),
     LEVEL_UP_MOVE(14, MOVE_PECK),
@@ -7356,7 +7354,10 @@ static const struct LevelUpMove sAggronLevelUpLearnset[] = {
 };
 
 static const struct LevelUpMove sCastformLevelUpLearnset[] = {
-    LEVEL_UP_MOVE( 1, MOVE_TACKLE),
+    LEVEL_UP_MOVE( 1, MOVE_RAIN_DANCE),
+	LEVEL_UP_MOVE(1, MOVE_SUNNY_DAY),
+	LEVEL_UP_MOVE(1, MOVE_HAIL),
+	LEVEL_UP_MOVE( 1, MOVE_TACKLE),
     LEVEL_UP_MOVE(10, MOVE_WATER_GUN),
     LEVEL_UP_MOVE(10, MOVE_EMBER),
     LEVEL_UP_MOVE(10, MOVE_POWDER_SNOW),
@@ -7369,6 +7370,7 @@ static const struct LevelUpMove sCastformLevelUpLearnset[] = {
     LEVEL_UP_MOVE(35, MOVE_FIRE_BLAST),
     LEVEL_UP_MOVE(35, MOVE_BLIZZARD),
     LEVEL_UP_MOVE(45, MOVE_HURRICANE),
+	LEVEL_UP_MOVE(45, MOVE_SOLAR_BEAM),
     LEVEL_UP_END
 };
 
@@ -8518,7 +8520,8 @@ static const struct LevelUpMove sCherrimLevelUpLearnset[] = {
     LEVEL_UP_MOVE( 1, MOVE_TACKLE),
     LEVEL_UP_MOVE( 1, MOVE_GROWTH),
     LEVEL_UP_MOVE( 1, MOVE_LEECH_SEED),
-    LEVEL_UP_MOVE( 7, MOVE_GROWTH),
+	LEVEL_UP_MOVE( 5, MOVE_SUNNY_DAY),
+	LEVEL_UP_MOVE( 7, MOVE_GROWTH),
     LEVEL_UP_MOVE(10, MOVE_LEECH_SEED),
     LEVEL_UP_MOVE(13, MOVE_HELPING_HAND),
     LEVEL_UP_MOVE(19, MOVE_MAGICAL_LEAF),

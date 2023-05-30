@@ -6430,7 +6430,7 @@ const struct Trainer gTrainers[] = {
         .items = {},
         .doubleBattle = FALSE,
         .aiFlags = AI_FLAG_CHECK_BAD_MOVE | AI_FLAG_TRY_TO_FAINT | AI_FLAG_CHECK_VIABILITY,
-        .party = NO_ITEM_DEFAULT_MOVES(sParty_MayRoute103Torchic),
+        .party = ITEM_CUSTOM_MOVES(sParty_MayRoute103Torchic),
     },
 
     [TRAINER_MAY_ROUTE_110_TORCHIC] =

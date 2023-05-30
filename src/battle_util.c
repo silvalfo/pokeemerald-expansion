@@ -1005,6 +1005,7 @@ static const u8 sAbilitiesAffectedByMoldBreaker[] =
 	[ABILITY_HEAVY_DUTY] = 1,
 	[ABILITY_UNWAVERING] = 1,
 	[ABILITY_LAVA_BUBBLE] = 1,
+	[ABILITY_NATURE_ONENESS] = 1,
 };
 
 static const u8 sAbilitiesNotTraced[ABILITIES_COUNT] =
@@ -9111,6 +9112,10 @@ static u32 CalcMoveBasePowerAfterModifiers(u16 move, u8 battlerAtk, u8 battlerDe
 		if (moveType == TYPE_FIRE)
 			MulModifier(&modifier, UQ_4_12(2.0));
 		break;
+	case ABILITY_NATURE_ONENESS:
+		if (moveType == TYPE_GRASS || moveType == TYPE_GROUND || moveType == TYPE_FAIRY)
+			MulModifier(&modifier, UQ_4_12(1.2));
+		break;
     }
 
     // field abilities
@@ -9166,6 +9171,14 @@ static u32 CalcMoveBasePowerAfterModifiers(u16 move, u8 battlerAtk, u8 battlerDe
                 RecordAbilityBattle(battlerDef, defAbility);
         }
         break;
+	case ABILITY_NATURE_ONENESS:
+		if (moveType == TYPE_GRASS || moveType == TYPE_GROUND || moveType == TYPE_FAIRY)
+		{
+			MulModifier(&modifier, UQ_4_12(0.8));
+			if (updateFlags)
+				RecordAbilityBattle(battlerDef, defAbility);
+		}
+		break;
     case ABILITY_DRY_SKIN:
         if (moveType == TYPE_FIRE)
             MulModifier(&modifier, UQ_4_12(1.25));
@@ -9326,6 +9339,10 @@ static u32 CalcMoveBasePowerAfterModifiers(u16 move, u8 battlerAtk, u8 battlerDe
             MulModifier(&modifier, UQ_4_12(1.5));
         #endif
         break;
+	case EFFECT_FIRST_IMPRESSION:
+		if (gDisableStructs[battlerAtk].isFirstTurn != 0)
+			MulModifier(&modifier, UQ_4_12(3.0));
+		break;
     }
 
 #if B_TERRAIN_TYPE_BOOST >= GEN_8
@@ -9392,6 +9409,15 @@ static u32 CalcAttackStat(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, b
         atkStat = gBattleMons[battlerAtk].defense;
         atkStage = gBattleMons[battlerAtk].statStages[STAT_DEF];
     }
+	else if (gBattleMoves[move].effect == EFFECT_SPLENDID_TACKLE)
+	{
+		atkStat = gBattleMons[battlerAtk].attack + gBattleMons[battlerAtk].spAttack;
+		if (gBattleMons[battlerAtk].statStages[STAT_ATK] > gBattleMons[battlerAtk].statStages[STAT_SPATK])
+		{
+			atkStage = gBattleMons[battlerAtk].statStages[STAT_ATK];
+		}
+		else atkStage = gBattleMons[battlerAtk].statStages[STAT_SPATK];
+	}
     else
     {
         if (IS_MOVE_PHYSICAL(move))

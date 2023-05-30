@@ -309,6 +309,7 @@ static const u8 sPrimitiveDescription[] = _("No added effect.");
 static const u8 sOneTrickPonyDescription[] = _("Ups Sp.Atk. and locks move.");
 static const u8 sLavaBubbleDescription[] = _("Guards from water and freezes.");
 static const u8 sRuthlessDescription[] = _("High crit always crits.");
+static const u8 sNatureOnenessDescription[] = _("Nature types matery.");
 
 #if B_EXPANDED_ABILITY_NAMES == TRUE
 const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
@@ -634,6 +635,7 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
 	[ABILITY_ONE_TRICK_PONY] = _("One Trick Pony"),
 	[ABILITY_LAVA_BUBBLE] = _("Lava Bubbble"),
 	[ABILITY_RUTHLESS] = _("Ruthless"),
+	[ABILITY_NATURE_ONENESS] = _("Nature Oneness"),
 };
 #else   // 12 characters
 const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
@@ -959,6 +961,7 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
 	[ABILITY_ONE_TRICK_PONY] = _("OneTrickPony"),
 	[ABILITY_LAVA_BUBBLE] = _("Lava Bubbble"),
 	[ABILITY_RUTHLESS] = _("Ruthless"),
+	[ABILITY_NATURE_ONENESS] = _("NaturOneness"),
 };
 #endif
 
@@ -1285,4 +1288,5 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
 	[ABILITY_ONE_TRICK_PONY] = sOneTrickPonyDescription,
 	[ABILITY_LAVA_BUBBLE] = sLavaBubbleDescription,
 	[ABILITY_RUTHLESS] = sRuthlessDescription,
+	[ABILITY_NATURE_ONENESS] = sNatureOnenessDescription,
 };

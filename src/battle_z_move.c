@@ -98,6 +98,7 @@ static const struct SignatureZMove sSignatureZMoves[] =
     {SPECIES_PIKACHU,               ITEM_PIKANIUM_Z,           MOVE_VOLT_TACKLE,         MOVE_CATASTROPIKA},
     {SPECIES_EEVEE,                 ITEM_EEVIUM_Z,             MOVE_LAST_RESORT,         MOVE_EXTREME_EVOBOOST},
     {SPECIES_SNORLAX,               ITEM_SNORLIUM_Z,           MOVE_GIGA_IMPACT,         MOVE_PULVERIZING_PANCAKE},
+    {SPECIES_AGGRON,                ITEM_AGGRONIUM_Z,          MOVE_HEAVY_SLAM,          MOVE_METAL_SLAMDOWN},
 };
 
 static const u8 sText_ResetStats[] = _("Reset Lowered Stats");

@@ -7768,10 +7768,12 @@ void SetWildMonHeldItem(void)
 
         if (!GetMonData(&gPlayerParty[0], MON_DATA_SANITY_IS_EGG, 0)
             && (GetMonAbility(&gPlayerParty[0]) == ABILITY_COMPOUND_EYES
+				|| GetMonAbility(&gPlayerParty[0]) == ABILITY_ILLUMINATE
+				|| GetMonAbility(&gPlayerParty[0]) == ABILITY_FRISK
                 || GetMonAbility(&gPlayerParty[0]) == ABILITY_SUPER_LUCK))
         {
-            chanceNoItem = 20;
-            chanceNotRare = 80;
+            chanceNoItem = 0;
+            chanceNotRare = 75;
         }
 
         for (i = 0; i < count; i++)

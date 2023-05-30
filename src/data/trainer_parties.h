@@ -7001,17 +7001,14 @@ static const struct TrainerMonNoItemDefaultMoves sParty_MayRoute119Treecko[] = {
     }
 };
 
-static const struct TrainerMonNoItemDefaultMoves sParty_MayRoute103Torchic[] = {
-    {
-    .iv = 0,
-    .lvl = 4,
-    .species = SPECIES_MUDKIP,
-    },
+static const struct TrainerMonItemCustomMoves sParty_MayRoute103Torchic[] = {
 	{
-    .iv = 0,
-    .lvl = 4,
-    .species = SPECIES_SHROOMISH,
-    }
+		.iv = 0,
+		.lvl = 5,
+		.species = SPECIES_MUDKIP,
+		.heldItem = ITEM_NONE,
+		.moves = { MOVE_TACKLE, MOVE_GROWL, MOVE_NONE, MOVE_NONE }
+	}
 };
 
 static const struct TrainerMonNoItemDefaultMoves sParty_MayRoute110Torchic[] = {
