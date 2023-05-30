@@ -382,4 +382,11 @@
 #define TRAINER_MON_MALE    1
 #define TRAINER_MON_FEMALE  2
 
+// Trainer level defines
+#define LVL_MINOR 255
+#define LVL_MAJOR 254
+#define LVL_BOSS 253
+#define LVL_SUPERBOSS 252
+#define LVL_HYPERBOSS 251
+
 #endif  // GUARD_TRAINERS_H

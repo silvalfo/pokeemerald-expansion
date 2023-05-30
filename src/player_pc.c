@@ -231,6 +231,8 @@ static const struct ItemSlot sNewGamePCItems[] =
 	{ ITEM_CARBOS, 1 },
 	{ ITEM_CALCIUM, 1 },
 	{ ITEM_ZINC, 1 },
+	{ ITEM_ABILITY_CAPSULE, 1},
+	{ ITEM_ABILITY_PATCH, 1},
 	{ ITEM_NONE ,0}
 };
 
