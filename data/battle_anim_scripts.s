@@ -14598,8 +14598,8 @@ Move_GIGATON_HAMMER::
 	createsprite gShakeMonOrTerrainSpriteTemplate, ANIM_ATTACKER, 2, 4, 1, 30, 1
 	playsewithpan SE_M_EARTHQUAKE, SOUND_PAN_ATTACKER
 	delay 1
-	launchtask AnimTask_HorizontalShake 0x5 0x3 0x5 0xe 0x5
-	launchtask AnimTask_HorizontalShake 0x5 0x3 0x4 0xe 0x5
+	createvisualtask AnimTask_HorizontalShake, 5, (MAX_BATTLERS_COUNT + 1), 10, 50
+	createvisualtask AnimTask_HorizontalShake, 5, MAX_BATTLERS_COUNT, 10, 50
 	setarg 7, 0
 	createsprite gBasicHitSplatSpriteTemplate, ANIM_TARGET, 3, 10, -8, 1, 1
 	createsprite gExplosionSpriteTemplate, ANIM_TARGET, 3, 0, -4, 1, 1
@@ -14685,15 +14685,15 @@ Move_ARMOR_PRESS::
 	createvisualtask AnimTask_SetGrayscaleOrOriginalPal, 5, ANIM_ATTACKER, TRUE
 	createvisualtask AnimTask_BlendParticle, 5, ANIM_TAG_ROUND_SHADOW, 0, 0xD, 0xD, 0x1E5D  @Orange
 	playsewithpan SE_M_TAKE_DOWN, SOUND_PAN_ATTACKER
-	launchtemplate gVerticalDipSpriteTemplate 0x2 0x3 0x6 0x1 0x0
+	createsprite gVerticalDipSpriteTemplate, ANIM_ATTACKER, 2, 0x6, 0x1, 0x0
 	delay 0x7
-	launchtemplate gFlyBallUpSpriteTemplate 0x2 0x4 0x0 0x0 0xd 0x150   @Fly up
+	createsprite gFlyBallUpSpriteTemplate, ANIM_ATTACKER, 2, 0x0, 0x0, 0xd, 0x150   @Fly up
 	waitforvisualfinish
 	delay 0x2F
-	launchtemplate gBounceBallLandSpriteTemplate 0x83 0x0   @Bounce down
+	createsprite gBounceBallLandSpriteTemplate 0x83 0x0   @Bounce down
 	delay 0x2
 	playsewithpan SE_M_MINIMIZE, SOUND_PAN_ATTACKER
-	launchtask AnimTask_SquishTarget 0x2 0x0
+	createvisualtask AnimTask_SquishTarget 0x2 0x0
 	waitforvisualfinish
 	end
 
@@ -14715,19 +14715,19 @@ Move_HORN_TOSS::
 	playsewithpan SE_M_HORN_ATTACK, SOUND_PAN_TARGET
 	waitforvisualfinish
 	createsprite gBowMonSpriteTemplate, ANIM_ATTACKER, 2, 2
-	launchtask AnimTask_TranslateMonEllipticalRespectSide 0x2 0x5 0x0 0xc 0x4 0x1 0x2
+	createvisualtask AnimTask_TranslateMonEllipticalRespectSide, 0x2, 0x0, 0xc, 0x4, 0x1, 0x2
 	waitforvisualfinish
-	launchtemplate gSlideMonToOffsetSpriteTemplate 0x2 0x5 ANIM_ATTACKER 0x14 0x0 0x0 0x4
+	createsprite gSlideMonToOffsetSpriteTemplate, ANIM_ATTACKER, 2, ANIM_ATTACKER, 0x14, 0x0, 0x0, 0x4
 	delay 0x2
-	launchtemplate gBasicHitSplatSpriteTemplate 0x3 0x4 0x0 0x0 0x1 0x1
+	createsprite gBasicHitSplatSpriteTemplate 0x3, 0x4, 0x0, 0x0, 0x1, 0x1
 	playsewithpan SE_M_VITAL_THROW2, SOUND_PAN_TARGET
 	delay 0x1
-	launchtemplate gSlideMonToOffsetSpriteTemplate 0x2 0x5 ANIM_TARGET 0xffe8 0x0 0x0 0x4
+	createsprite gSlideMonToOffsetSpriteTemplate 0x2, 0x5, ANIM_TARGET, 0xffe8, 0x0, 0x0, 0x4
 	waitforvisualfinish
 	delay 0x3
-	launchtemplate gSlideMonToOriginalPosSpriteTemplate 0x2 0x3 ANIM_ATTACKER 0x0 0x7
+	createsprite gSlideMonToOriginalPosSpriteTemplate 0x2, 0x3, ANIM_ATTACKER, 0x0, 0x7
 	delay 0xb
-	launchtemplate gSlideMonToOriginalPosSpriteTemplate 0x2 0x3 ANIM_TARGET 0x0 0xa
+	createsprite gSlideMonToOriginalPosSpriteTemplate 0x2, 0x3, ANIM_TARGET, 0x0, 0xa
 	waitforvisualfinish
 	clearmonbg ANIM_DEF_PARTNER
 	blendoff
@@ -14958,10 +14958,10 @@ Move_EROSION_FLOW::
 	createsprite gSlideMonToOffsetSpriteTemplate, ANIM_ATTACKER, 2, 0, 20, 3, 0, 4
 	delay 1
 	playsewithpan SE_M_DIVE, SOUND_PAN_ATTACKER
-	launchtemplate gBowMonSpriteTemplate 0x2 0x1 0x1
-	launchtemplate gHornHitSpriteTemplate 0x84 0x3 0x0 0x0 0xc
-	launchtask AnimTask_ShakeMonInPlace 0x2 0x5 0x0 0x2 0x0 0x28 0x1
-	launchtask AnimTask_ShakeMonInPlace 0x2 0x5 0x1 0xa 0x0 0x28 0x1
+	createsprite gBowMonSpriteTemplate 0x2, 0x1, 0x1
+	createsprite gHornHitSpriteTemplate 0x84, 0x3, 0x0, 0x0, 0xc
+	createvisualtask AnimTask_ShakeMonInPlace 0x2, 0x5, 0x0, 0x2, 0x0, 0x28, 0x1
+	createvisualtask AnimTask_ShakeMonInPlace 0x2, 0x5, 0x1, 0xa, 0x0, 0x28, 0x1
 	call DiveSetUpWaterDroplets
 	call DiveSetUpWaterDroplets
 	call DiveSetUpWaterDroplets
@@ -15249,7 +15249,7 @@ Move_ELEGANT_KICK::
 	loadspritegfx ANIM_TAG_THIN_RING @ring
 	monbg ANIM_TARGET
 	playsewithpan SE_M_PETAL_DANCE, SOUND_PAN_ATTACKER
-	launchtask AnimTask_RockMonBackAndForth 0x5 0x3 0x0 0x2 0x0
+	createvisualtask AnimTask_RockMonBackAndForth 0x5, 0x3, 0x0, 0x2, 0x0
 	delay 40
 	monbg ANIM_DEF_PARTNER
 	setalpha 12, 8
@@ -15383,9 +15383,9 @@ Move_WOODEN_PRESS::
 	loadspritegfx ANIM_TAG_GRAY_SMOKE @smoke
 	createvisualtask AnimTask_BlendParticle, 5, ANIM_TAG_ROUND_SHADOW, 0, 0xD, 0xD, 0x1E5D  @Orange
 	playsewithpan SE_M_TAKE_DOWN, SOUND_PAN_ATTACKER
-	launchtemplate gVerticalDipSpriteTemplate 0x2 0x3 0x6 0x1 0x0
+	createsprite gVerticalDipSpriteTemplate 0x2, 0x3, 0x6, 0x1, 0x0
 	delay 0x7
-	launchtemplate gFlyBallUpSpriteTemplate 0x2 0x4 0x0 0x0 0xd 0x150   @Fly up
+	createsprite gFlyBallUpSpriteTemplate 0x2, 0x4, 0x0, 0x0, 0xd, 0x150   @Fly up
 	delay 2
 	createsprite gRazorLeafParticleSpriteTemplate, ANIM_TARGET, 2, -3, -2, 10
 	delay 2
@@ -15396,10 +15396,10 @@ Move_WOODEN_PRESS::
 	createsprite gRazorLeafParticleSpriteTemplate, ANIM_TARGET, 2, 3, -3, 11
 	delay 2
 	delay 50
-	launchtemplate gBounceBallLandSpriteTemplate 0x83 0x0   @Bounce down
+	createsprite gBounceBallLandSpriteTemplate 0x83 0x0   @Bounce down
 	delay 0x2
 	playsewithpan SE_M_MINIMIZE, SOUND_PAN_ATTACKER
-	launchtask AnimTask_SquishTarget 0x2 0x0
+	createvisualtask AnimTask_SquishTarget 0x2 0x0
 	waitforvisualfinish
 	end
 
@@ -15559,24 +15559,24 @@ Move_PILEDRIVER:
 	loadspritegfx ANIM_TAG_ROUND_SHADOW @fly
 	delay 0x0
 	playsewithpan SE_M_STRING_SHOT, SOUND_PAN_ATTACKER
-	launchtemplate gSkyDropFlyBallTemplate 0x80 0x6 0x0 0x0 0x0 0x0 0x1e 0x0
+	createsprite gSkyDropFlyBallTemplate 0x80, 0x6, 0x0, 0x0, 0x0, 0x0, 0x1e, 0x0
 	waitforvisualfinish
 	invisible ANIM_TARGET
 	playsewithpan SE_M_FLY, SOUND_PAN_ATTACKER
-	launchtemplate gSkyDropTargetFlyingTemplate 0x2 0x4 0x0 0x0 0xd 0x150
+	createsprite gSkyDropTargetFlyingTemplate 0x2, 0x4, 0x0, 0x0, 0xd, 0x150
 	delay 30
 	invisible ANIM_TARGET
 	setalpha 12, 8
 	playsewithpan SE_M_SWAGGER, SOUND_PAN_TARGET
-	launchtemplate gBounceBallLandSpriteTemplate 0x83 0x0
+	createsprite gBounceBallLandSpriteTemplate 0x83 0x0
 	delay 0x7
 	playsewithpan SE_M_MEGA_KICK2, SOUND_PAN_TARGET
-	launchtemplate gBasicHitSplatSpriteTemplate 0x82, 0x4, 0x0 0x0 0x1 0x0
+	createsprite gBasicHitSplatSpriteTemplate 0x82, 0x4, 0x0, 0x0, 0x1, 0x0
 	createsprite gRockFragmentSpriteTemplate, ANIM_ATTACKER, 2, 0, 0, 20, 24, 14, 2
 	createsprite gRockFragmentSpriteTemplate, ANIM_ATTACKER, 2, 5, 0, -20, 24, 14, 1
 	createsprite gRockFragmentSpriteTemplate, ANIM_ATTACKER, 2, 0, 5, 20, -24, 14, 2
 	createsprite gRockFragmentSpriteTemplate, ANIM_ATTACKER, 2, -5, 0, -20, -24, 14, 2
-	launchtask AnimTask_ShakeMon 0x5 0x5 0x1 0x0 0x5 0xb 0x1
+	createvisualtask AnimTask_ShakeMon 0x5, 0x5, 0x1, 0x0, 0x5, 0xb, 0x1
 	visible ANIM_TARGET
 	waitforvisualfinish
 	clearmonbg ANIM_DEF_PARTNER
