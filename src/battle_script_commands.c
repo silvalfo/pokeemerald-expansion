@@ -1913,7 +1913,7 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
     calc /= gAccuracyStageRatios[buff].divisor;
 
     if ((atkAbility == ABILITY_COMPOUND_EYES || atkAbility == ABILITY_ILLUMINATE))
-        calc = (calc * 130) / 100; // 1.3 compound eyes boost
+        calc = (calc * 130) / 100; // 1.3 compound eyes boost, now illuminate too
     else if (atkAbility == ABILITY_VICTORY_STAR)
         calc = (calc * 110) / 100; // 1.1 victory star boost
     if (IsBattlerAlive(BATTLE_PARTNER(battlerAtk)) && GetBattlerAbility(BATTLE_PARTNER(battlerAtk)) == ABILITY_VICTORY_STAR)
@@ -4487,7 +4487,7 @@ static void Cmd_getexp(void)
 					if (holdEffect == HOLD_EFFECT_EXP_SHARE)
 						gBattleMoveDamage += gExpShareExp * expMultiplier;
                     if (holdEffect == HOLD_EFFECT_LUCKY_EGG)
-                        gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
+                        gBattleMoveDamage = (gBattleMoveDamage * 200) / 100;
                 #if B_TRAINER_EXP_MULTIPLIER <= GEN_7
                     if (gBattleTypeFlags & BATTLE_TYPE_TRAINER)
                         gBattleMoveDamage = (gBattleMoveDamage * 150) / 100;
@@ -4502,10 +4502,8 @@ static void Cmd_getexp(void)
                         gBattleMoveDamage = value + 1;
                     }
                 #endif
-                #if B_AFFECTION_MECHANICS == TRUE
-                    if (GetBattlerFriendshipScore(gBattleStruct->expGetterMonId) >= FRIENDSHIP_50_TO_99)
+                    if (GetBattlerFriendshipScore(gBattleStruct->expGetterMonId) >= FRIENDSHIP_200_TO_254)
                         gBattleMoveDamage = (gBattleMoveDamage * 120) / 100;
-                #endif
 
                     if (IsTradedMon(&gPlayerParty[gBattleStruct->expGetterMonId]))
                     {
