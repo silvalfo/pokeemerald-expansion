@@ -859,7 +859,7 @@ u32 FldEff_ShakingGrass(void)
         sprite->oam.priority = gFieldEffectArguments[3];
         sprite->data[0] = FLDEFF_SHAKING_GRASS;
     }
-    return 0;
+    return spriteId;
 }
 
 u32 FldEff_ShakingGrass2(void)

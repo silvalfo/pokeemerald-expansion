@@ -3930,3 +3930,8 @@ static const u8 sIronMinusDesc[] = _("-1 DEF IV");
 static const u8 sCarbosMinusDesc[] = _("-1 SPD IV");
 static const u8 sCalciumMinusDesc[] = _("-1 SPATK IV");
 static const u8 sZincMinusDesc[] = _("-1 SPDEF IV");
+
+static const u8 sPokeVialDesc[] = _(
+	"Potent medicine\n"
+	"that fully restores\n"
+	"all Pokémon.");

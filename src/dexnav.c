@@ -985,7 +985,7 @@ void EndDexNavSearch(u8 taskId)
     FlagClear(FLAG_SYS_DEXNAV_SEARCH);
     DestroyTask(taskId);
     RemoveDexNavWindowAndGfx();
-    //FieldEffectStop(&gSprites[sDexNavSearchDataPtr->fldEffSpriteId], sDexNavSearchDataPtr->fldEffId);
+    FieldEffectStop(&gSprites[sDexNavSearchDataPtr->fldEffSpriteId], sDexNavSearchDataPtr->fldEffId);
     Free(sDexNavSearchDataPtr);
 }
 

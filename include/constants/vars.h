@@ -265,8 +265,8 @@
 #define VAR_RIVAL_RAYQUAZA_CALL_STEP_COUNTER             0x40F6
 #define VAR_DEXNAV_SPECIES                   0x40F7 // Registered dexnav species
 #define VAR_DEXNAV_STEP_COUNTER              0x40F8 // steps for finding hidden pokemon
-#define VAR_UNUSED_0x40F9                                0x40F9 // Unused Var
-#define VAR_UNUSED_0x40FA                                0x40FA // Unused Var
+#define VAR_POKE_VIAL_CHARGES                0x4091 // Number of uses left in the Poke Vial before it needs to be refilled
+#define VAR_POKE_VIAL_MAX_CHARGES            0x409B // Max number of uses for the Poke Vial after each charge
 #define VAR_UNUSED_0x40FB                                0x40FB // Unused Var
 #define VAR_UNUSED_0x40FC                                0x40FC // Unused Var
 #define VAR_UNUSED_0x40FD                                0x40FD // Unused Var

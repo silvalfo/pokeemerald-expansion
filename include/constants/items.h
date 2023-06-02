@@ -984,7 +984,9 @@
 #define ITEM_CALCIUM_MINUS 805
 #define ITEM_ZINC_MINUS 806
 
-#define ITEMS_COUNT 807
+#define ITEM_POKE_VIAL 807
+
+#define ITEMS_COUNT 808
 #define ITEM_FIELD_ARROW ITEMS_COUNT
 
 // A special item id associated with "Cancel"/"Exit" etc. in a list of items or decorations

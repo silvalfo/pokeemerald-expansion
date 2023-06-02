@@ -904,6 +904,9 @@ LittlerootTown_EventScript_GiveRunningShoes::
 	waitfanfare
 	setflag FLAG_RECEIVED_RUNNING_SHOES
 	msgbox LittlerootTown_Text_ExplainRunningShoes, MSGBOX_DEFAULT
+	giveitem ITEM_POKE_VIAL, 1
+    setvar VAR_POKE_VIAL_MAX_CHARGES, 1
+    setvar VAR_POKE_VIAL_CHARGES, 1
 	msgbox LittlerootTown_Text_ComeHomeIfAnythingHappens, MSGBOX_DEFAULT
 	closemessage
 	delay 30
