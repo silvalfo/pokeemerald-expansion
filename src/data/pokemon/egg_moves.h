@@ -544,6 +544,7 @@ const u16 gEggMoves[] = {
         MOVE_SECRET_POWER,
         MOVE_SKILL_SWAP,
         MOVE_POWER_SPLIT,
+		MOVE_CROSS_CHOP, // added
         MOVE_PSYCHIC_TERRAIN),
 
     egg_moves(KRABBY,
@@ -558,6 +559,7 @@ const u16 gEggMoves[] = {
         MOVE_ENDURE,
         MOVE_CHIP_AWAY,
         MOVE_BIDE,
+		MOVE_ICE_HAMMER, // added
         MOVE_ALLY_SWITCH),
 
     egg_moves(EXEGGCUTE,
@@ -819,6 +821,7 @@ const u16 gEggMoves[] = {
         MOVE_ASSURANCE,
         MOVE_ROOST,
         MOVE_TAILWIND,
+		MOVE_DINO_CHARGE, // added
         MOVE_WIDE_GUARD),
 
     egg_moves(SNORLAX,
@@ -1215,6 +1218,7 @@ const u16 gEggMoves[] = {
         MOVE_SECRET_POWER,
         MOVE_MEAN_LOOK,
         MOVE_PSYCHIC_TERRAIN,
+		MOVE_HIGH_HORSEPOWER, // added
         MOVE_PSYCHIC_FANGS),
 
     egg_moves(PINECO,
@@ -1481,6 +1485,7 @@ const u16 gEggMoves[] = {
         MOVE_MUD_SLAP,
         MOVE_HEAVY_SLAM,
         MOVE_PLAY_ROUGH,
+		MOVE_CLOSE_COMBAT, // added
         MOVE_HIGH_HORSEPOWER),
 
     egg_moves(STANTLER,
@@ -1562,6 +1567,7 @@ const u16 gEggMoves[] = {
         MOVE_PUNISHMENT,
         MOVE_NATURAL_GIFT,
         MOVE_HEART_STAMP,
+		MOVE_HIGH_HORSEPOWER,
         MOVE_BELCH),
 
     egg_moves(LARVITAR,
@@ -1886,6 +1892,10 @@ const u16 gEggMoves[] = {
         MOVE_HEAD_SMASH,
         MOVE_SUPERPOWER,
         MOVE_STEALTH_ROCK,
+		MOVE_FROZEN_BASH, // added
+		MOVE_WILD_CHARGE, // added
+		MOVE_FLARE_BLITZ, // added
+		MOVE_CRUSH_CLAW, // added
         MOVE_REVERSAL),
 
     egg_moves(MEDITITE,

@@ -7122,6 +7122,8 @@ void MonGainEVs(struct Pokemon *mon, u16 defeatedSpecies)
         if (holdEffect == HOLD_EFFECT_MACHO_BRACE)
             evIncrease *= 8;
 
+		evIncrease *= 4;
+
         if (totalEVs + (s16)evIncrease > MAX_TOTAL_EVS)
             evIncrease = ((s16)evIncrease + MAX_TOTAL_EVS) - (totalEVs + evIncrease);
 
@@ -7131,8 +7133,6 @@ void MonGainEVs(struct Pokemon *mon, u16 defeatedSpecies)
             int val2 = evs[i] + evIncrease;
             evIncrease = val1 - val2;
         }
-
-		evIncrease *= 4;
 
         evs[i] += evIncrease;
         totalEVs += evIncrease;

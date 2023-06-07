@@ -121,8 +121,8 @@ static const u8 sRollingKickDescription[] = _(
     "a rapid spin.");
 
 static const u8 sSandAttackDescription[] = _(
-    "Reduces the foe's accuracy\n"
-    "by hurling sand in its face.");
+    "Hurls sand in the foe's face.\n"
+    "May cause it to flinch.");
 
 static const u8 sHeadbuttDescription[] = _(
     "A ramming attack that may\n"
@@ -4187,4 +4187,6 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT - 1] =
 	[MOVE_ROLLING_THUNDER - 1] = sRollingThunderDescription,
 	[MOVE_AERIAL_RAVE - 1] = sAerialRaveDescription,
 	[MOVE_CONSUME - 1] = sLeechLifeDescription,
+	[MOVE_PURE_STREAM - 1] = sJungleHealingDescription,
+	[MOVE_BOULDER_FALL - 1] = sHeavySlamDescription,
 };

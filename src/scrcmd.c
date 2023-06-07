@@ -49,6 +49,8 @@
 #include "tv.h"
 #include "window.h"
 #include "constants/event_objects.h"
+#include "constants/items.h"
+#include "constants/moves.h"
 
 typedef u16 (*SpecialFunc)(void);
 typedef void (*NativeFunc)(void);
@@ -73,6 +75,13 @@ static void CloseBrailleWindow(void);
 // This is defined in here so the optimizer can't see its value when compiling
 // script.c.
 void * const gNullScriptPtr = NULL;
+
+enum {
+	CAN_LEARN_MOVE,
+	CANNOT_LEARN_MOVE,
+	ALREADY_KNOWS_MOVE,
+	CANNOT_LEARN_MOVE_IS_EGG
+};
 
 static const u8 sScriptConditionTable[6][3] =
 {
@@ -1728,6 +1737,22 @@ bool8 ScrCmd_checkpartymove(struct ScriptContext *ctx)
             break;
         }
     }
+
+	if (gSpecialVar_Result == PARTY_SIZE && (CheckBagHasItem(MoveToHM(moveId), 1))) {
+		for (i = 0; i < PARTY_SIZE; i++)
+			{
+			u16 species = GetMonData(&gPlayerParty[i], MON_DATA_SPECIES, NULL);
+			if (!species)
+				 break;
+			if (!GetMonData(&gPlayerParty[i], MON_DATA_IS_EGG) && (CanTeachMove(&gPlayerParty[i], moveId) == CAN_LEARN_MOVE || CanTeachMove(&gPlayerParty[i], moveId) == ALREADY_KNOWS_MOVE))
+				{
+				gSpecialVar_Result = i;
+				gSpecialVar_0x8004 = species;
+				break;
+				}
+			}
+	}
+
     return FALSE;
 }
 

@@ -890,6 +890,8 @@ gBattleAnims_Moves::
 	.4byte Move_ROLLING_THUNDER
 	.4byte Move_AERIAL_RAVE
 	.4byte Move_CONSUME
+	.4byte Move_PURE_STREAM
+	.4byte Move_BOULDER_FALL
 @@@@ Z MOVES
 	.4byte Move_BREAKNECK_BLITZ
 	.4byte Move_ALL_OUT_PUMMELING
@@ -15660,6 +15662,49 @@ Move_CONSUME:
 	loadspritegfx ANIM_TAG_POISON_BUBBLE
 	call PoisonBubblesEffect
 	goto Move_LEECH_LIFE
+
+Move_PURE_STREAM::
+	loadspritegfx ANIM_TAG_WATER_ORB
+	loadspritegfx ANIM_TAG_BLUE_STAR
+	monbg ANIM_DEF_PARTNER
+	splitbgprio ANIM_ATK_PARTNER
+	setalpha 12, 8
+	delay 0
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 0, 4, 2, 0, 7, RGB(23, 0, 15)
+	playsewithpan SE_M_WHIRLPOOL, SOUND_PAN_TARGET
+	call WhirlpoolEffect
+	call WhirlpoolEffect
+	call WhirlpoolEffect
+	delay 12
+	createsprite gSimplePaletteBlendSpriteTemplate, ANIM_ATTACKER, 0, 4, 2, 7, 0, RGB(23, 0, 23)
+	waitforvisualfinish
+	clearmonbg ANIM_DEF_PARTNER
+	delay 1
+	call HealingEffect
+	waitforvisualfinish
+	end
+
+Move_BOULDER_FALL::
+	loadspritegfx ANIM_TAG_ROUND_SHADOW @fly and bounce animation
+	loadspritegfx ANIM_TAG_GRAY_SMOKE @smoke
+	loadspritegfx ANIM_TAG_ROCKS
+	createvisualtask AnimTask_BlendParticle, 5, ANIM_TAG_ROUND_SHADOW, 0, 0xD, 0xD, 0x1E5D  @Orange
+	playsewithpan SE_M_TAKE_DOWN, SOUND_PAN_ATTACKER
+	launchtemplate gVerticalDipSpriteTemplate 0x2 0x3 0x6 0x1 0x0
+	delay 0x7
+	launchtemplate gFlyBallUpSpriteTemplate 0x2 0x4 0x0 0x0 0xd 0x150   @Fly up
+	waitforvisualfinish
+	delay 0x2F
+	launchtemplate gBounceBallLandSpriteTemplate 0x83 0x0   @Bounce down
+	delay 0x2
+	playsewithpan SE_M_MEGA_KICK2, SOUND_PAN_ATTACKER
+	launchtask AnimTask_SquishTarget 0x2 0x0
+	createsprite gRockFragmentSpriteTemplate, ANIM_ATTACKER, 2, 0, -5, 30, 18, 8, 2
+	createsprite gRockFragmentSpriteTemplate, ANIM_ATTACKER, 2, 0, 0, 30, -18, 8, 2
+	createsprite gRockFragmentSpriteTemplate, ANIM_ATTACKER, 2, 0, 0, -30, 18, 8, 2
+	createsprite gRockFragmentSpriteTemplate, ANIM_ATTACKER, 2, 0, 0, -30, -18, 8, 2
+	waitforvisualfinish
+	end
 
 @@@@@@@@@@@@@@@@@@@@@@@ GEN 1-3 @@@@@@@@@@@@@@@@@@@@@@@
 Move_NONE:

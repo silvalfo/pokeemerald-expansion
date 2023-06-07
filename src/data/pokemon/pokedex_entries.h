@@ -3676,7 +3676,7 @@ const struct PokedexEntry gPokedexEntries[] =
     {
         .categoryName = _("Iron Armor"),
         .height = 21,
-        .weight = 3600,
+        .weight = 7200,
         .description = gAggronPokedexText,
         .pokemonScale = 256,
         .pokemonOffset = -1,
@@ -4673,7 +4673,7 @@ const struct PokedexEntry gPokedexEntries[] =
     {
         .categoryName = _("Continent"),
         .height = 22,
-        .weight = 3100,
+        .weight = 6200,
         .description = gTorterraPokedexText,
         .pokemonScale = 256,
         .pokemonOffset = 0,
@@ -8565,7 +8565,7 @@ const struct PokedexEntry gPokedexEntries[] =
     {
         .categoryName = _("Iceberg"),
         .height = 20,
-        .weight = 5050,
+        .weight = 10100,
         .description = gAvaluggPokedexText,
         .pokemonScale = 261,
         .pokemonOffset = 1,

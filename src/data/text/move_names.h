@@ -864,6 +864,8 @@ const u8 gMoveNames[MOVES_COUNT][MOVE_NAME_LENGTH + 1] =
 	[MOVE_ROLLING_THUNDER] = _("Rolling Thunder"),
 	[MOVE_AERIAL_RAVE] = _("Aerial Rave"),
 	[MOVE_CONSUME] = _("Consume"),
+	[MOVE_PURE_STREAM] = _("Pure Stream"),
+	[MOVE_BOULDER_FALL] = _("Boulder Fall"),
 };
 #else
 // 12 letters
@@ -1731,6 +1733,8 @@ const u8 gMoveNames[MOVES_COUNT][MOVE_NAME_LENGTH + 1] =
 	[MOVE_ROLLING_THUNDER] = _("RollingThndr"),
 	[MOVE_AERIAL_RAVE] = _("Aerial Rave"),
 	[MOVE_CONSUME] = _("Consume"),
+	[MOVE_PURE_STREAM] = _("Pure Stream"),
+	[MOVE_BOULDER_FALL] = _("Boulder Fall"),
 };
 #endif
 

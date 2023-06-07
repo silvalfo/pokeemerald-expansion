@@ -2530,10 +2530,10 @@ const struct SpeciesInfo gSpeciesInfo[] =
     [SPECIES_VICTREEBEL] =
     {
         .baseHP        = 80,
-        .baseAttack    = 105,
+        .baseAttack    = 110,
         .baseDefense   = 65,
         .baseSpeed     = 70,
-        .baseSpAttack  = 100,
+        .baseSpAttack  = 105,
         #if P_UPDATED_STATS >= GEN_6
             .baseSpDefense = 70,
         #else
@@ -2541,7 +2541,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         #endif
         .types = { TYPE_GRASS, TYPE_POISON},
         .catchRate = 45,
-        .expYield = 221,
+        .expYield = 224,
         .evYield_Attack    = 3,
         .genderRatio = PERCENT_FEMALE(50),
         .eggCycles = 20,
@@ -3177,7 +3177,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = { EGG_GROUP_WATER_3, EGG_GROUP_WATER_3},
-        .abilities = {ABILITY_HYPER_CUTTER, ABILITY_SHELL_ARMOR, ABILITY_SHEER_FORCE},
+        .abilities = {ABILITY_HYPER_CUTTER, ABILITY_TOUGH_CLAWS, ABILITY_SHEER_FORCE},
         .bodyColor = BODY_COLOR_RED,
         .noFlip = FALSE,
     },
@@ -3199,7 +3199,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = { EGG_GROUP_WATER_3, EGG_GROUP_WATER_3},
-        .abilities = {ABILITY_HYPER_CUTTER, ABILITY_SHELL_ARMOR, ABILITY_SHEER_FORCE},
+        .abilities = {ABILITY_HYPER_CUTTER, ABILITY_TOUGH_CLAWS, ABILITY_SHEER_FORCE},
         .bodyColor = BODY_COLOR_RED,
         .noFlip = TRUE,
     },
@@ -3939,6 +3939,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .abilities = {ABILITY_WATER_ABSORB, ABILITY_SHELL_ARMOR, ABILITY_HYDRATION},
         .bodyColor = BODY_COLOR_BLUE,
         .noFlip = FALSE,
+		.flags = SPECIES_FLAG_LEGENDARY,
     },
 
     [SPECIES_DITTO] =
@@ -9023,9 +9024,9 @@ const struct SpeciesInfo gSpeciesInfo[] =
     {
         .baseHP        = 95,
         .baseAttack    = 60,
-        .baseDefense   = 89,
+        .baseDefense   = 79,
         .baseSpeed     = 81,
-        .baseSpAttack  = 100,
+        .baseSpAttack  = 110,
         .baseSpDefense = 125,
         .types = { TYPE_WATER, TYPE_WATER},
         .catchRate = 60,
@@ -9178,6 +9179,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .abilities = {ABILITY_HERBIVORE, ABILITY_REFORESTATION, ABILITY_HARVEST},
         .bodyColor = BODY_COLOR_GREEN,
         .noFlip = FALSE,
+		.flags = SPECIES_FLAG_LEGENDARY,
     },
 
     [SPECIES_CHIMECHO] =
