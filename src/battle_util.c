@@ -1006,6 +1006,7 @@ static const u8 sAbilitiesAffectedByMoldBreaker[] =
 	[ABILITY_UNWAVERING] = 1,
 	[ABILITY_LAVA_BUBBLE] = 1,
 	[ABILITY_NATURE_ONENESS] = 1,
+	[ABILITY_HEAVY_ARMOR] = 1,
 };
 
 static const u8 sAbilitiesNotTraced[ABILITIES_COUNT] =
@@ -9814,6 +9815,21 @@ static u32 CalcFinalDmg(u32 dmg, u16 move, u8 battlerAtk, u8 battlerDef, u8 move
 	case ABILITY_SOLID_STEEL:
 		if (typeEffectivenessModifier >= UQ_4_12(2.0))
 			MulModifier(&finalModifier, UQ_4_12(0.67));
+		break;
+	case ABILITY_HEAVY_ARMOR:
+		if (IS_MOVE_PHYSICAL(move))
+		{
+			if (typeEffectivenessModifier == UQ_4_12(4.0)) {
+				MulModifier(&finalModifier, UQ_4_12(0.25));
+				if (updateFlags)
+					RecordAbilityBattle(battlerDef, ABILITY_HEAVY_ARMOR);
+			}
+			else if (typeEffectivenessModifier == UQ_4_12(2.0)) {
+				MulModifier(&finalModifier, UQ_4_12(0.5));
+				if (updateFlags)
+					RecordAbilityBattle(battlerDef, ABILITY_HEAVY_ARMOR);
+			}
+		}
 		break;
     }
 

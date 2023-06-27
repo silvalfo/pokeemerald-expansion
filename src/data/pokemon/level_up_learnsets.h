@@ -9753,6 +9753,7 @@ static const struct LevelUpMove sYanmegaLevelUpLearnset[] = {
     LEVEL_UP_MOVE(49, MOVE_U_TURN),
     LEVEL_UP_MOVE(54, MOVE_AIR_SLASH),
     LEVEL_UP_MOVE(57, MOVE_BUG_BUZZ),
+	LEVEL_UP_MOVE(69, MOVE_AEROBLAST), // added
     LEVEL_UP_END
 };
 
