@@ -10460,4 +10460,16 @@ const struct Item gItems[] =
 			.type = ITEM_USE_FIELD,
 			.fieldUseFunc = ItemUseOutOfBattle_PokeVial,
 		},
+
+		[ITEM_BLANK_STONE] =
+	    {
+		    .name = _("Blank Stone"),
+		    .itemId = ITEM_BLANK_STONE,
+            .price = 3000,
+            .description = sBlankStoneDesc,
+            .pocket = POCKET_ITEMS,
+            .type = ITEM_USE_PARTY_MENU,
+            .fieldUseFunc = ItemUseOutOfBattle_EvolutionStone,
+            .flingPower = 30,
+        },
 };

@@ -3935,3 +3935,8 @@ static const u8 sPokeVialDesc[] = _(
 	"Potent medicine\n"
 	"that fully restores\n"
 	"all Pokémon.");
+
+static const u8 sBlankStoneDesc[] = _(
+	"An odd stone which\n"
+	"reverts evolution\n"
+	"of certain species.");

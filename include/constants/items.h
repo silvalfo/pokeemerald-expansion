@@ -986,7 +986,9 @@
 
 #define ITEM_POKE_VIAL 807
 
-#define ITEMS_COUNT 808
+#define ITEM_BLANK_STONE 808
+
+#define ITEMS_COUNT 809
 #define ITEM_FIELD_ARROW ITEMS_COUNT
 
 // A special item id associated with "Cancel"/"Exit" etc. in a list of items or decorations

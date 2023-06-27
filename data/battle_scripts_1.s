@@ -4862,12 +4862,33 @@ BattleScript_NightmareWorked::
 BattleScript_EffectMinimize::
 	attackcanceler
 	setminimize
-.if B_MINIMIZE_EVASION >= GEN_5
-	setstatchanger STAT_EVASION, 2, FALSE
-.else
-	setstatchanger STAT_EVASION, 1, FALSE
-.endif
-	goto BattleScript_EffectStatUpAfterAtkCanceler
+	jumpifstat BS_ATTACKER, CMP_LESS_THAN, STAT_SPEED, MAX_STAT_STAGE, BattleScript_MinimizeTryDef
+	jumpifstat BS_ATTACKER, CMP_GREATER_THAN, STAT_DEF, MIN_STAT_STAGE, BattleScript_MinimizeTryDef
+	jumpifstat BS_ATTACKER, CMP_EQUAL, STAT_SPDEF, MIN_STAT_STAGE, BattleScript_ButItFailed
+BattleScript_MinimizeTryDef::
+	attackanimation
+	waitanimation
+	setbyte sSTAT_ANIM_PLAYED, FALSE
+	playstatchangeanimation BS_ATTACKER, BIT_DEF | BIT_SPDEF, STAT_CHANGE_NEGATIVE | STAT_CHANGE_CANT_PREVENT
+	setstatchanger STAT_DEF, 1, TRUE
+	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_CERTAIN, BattleScript_MinimizeTrySpDef
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_MinimizeTrySpDef
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_MinimizeTrySpDef:
+	setstatchanger STAT_SPDEF, 1, TRUE
+	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR | MOVE_EFFECT_CERTAIN, BattleScript_MinimizeTrySpeed
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_MinimizeTrySpeed
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_MinimizeTrySpeed:
+	setstatchanger STAT_SPEED, 3, FALSE
+	statbuffchange MOVE_EFFECT_AFFECTS_USER | STAT_CHANGE_ALLOW_PTR, BattleScript_MinimizeEnd
+	jumpifbyte CMP_EQUAL, cMULTISTRING_CHOOSER, B_MSG_STAT_WONT_INCREASE, BattleScript_MinimizeEnd
+	printfromtable gStatUpStringIds
+	waitmessage B_WAIT_TIME_LONG
+BattleScript_MinimizeEnd:
+	goto BattleScript_MoveEnd
 
 BattleScript_EffectCurse::
 	jumpiftype BS_ATTACKER, TYPE_GHOST, BattleScript_GhostCurse

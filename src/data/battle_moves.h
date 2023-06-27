@@ -1753,7 +1753,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
 
     [MOVE_DOUBLE_TEAM] =
     {
-        .effect = EFFECT_EVASION_UP,
+        .effect = EFFECT_SPEED_UP,
         .power = 0,
         .type = TYPE_NORMAL,
         .accuracy = 0,
@@ -1823,17 +1823,17 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
 
     [MOVE_SMOKESCREEN] =
     {
-        .effect = EFFECT_ACCURACY_DOWN,
-        .power = 0,
-        .type = TYPE_NORMAL,
+        .effect = EFFECT_FLINCH_HIT,
+        .power = 40,
+        .type = TYPE_POISON,
         .accuracy = 100,
-        .pp = 20,
-        .secondaryEffectChance = 0,
+        .pp = 15,
+        .secondaryEffectChance = 20,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
         .flags = FLAG_PROTECT_AFFECTED | FLAG_MAGIC_COAT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
-        .split = SPLIT_STATUS,
-        .zMoveEffect = Z_EFFECT_EVSN_UP_1,
+        .split = SPLIT_SPECIAL,
+        .zMoveEffect = Z_EFFECT_NONE,
     },
 
     [MOVE_CONFUSE_RAY] =
@@ -2250,24 +2250,20 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
         .zMoveEffect = Z_EFFECT_RESET_STATS,
     },
 
-    [MOVE_KINESIS] =
-    {
-        #if B_UPDATED_MOVE_DATA >= GEN_4
-            .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_MAGIC_COAT_AFFECTED,
-        #else
-            .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED,
-        #endif
-        .effect = EFFECT_ACCURACY_DOWN,
-        .power = 0,
-        .type = TYPE_PSYCHIC,
-        .accuracy = 80,
-        .pp = 15,
-        .secondaryEffectChance = 0,
-        .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
-        .split = SPLIT_STATUS,
-        .zMoveEffect = Z_EFFECT_EVSN_UP_1,
-    },
+	[MOVE_KINESIS] =
+	{
+		.effect = EFFECT_SMACK_DOWN,
+		.power = 90,
+		.type = TYPE_PSYCHIC,
+		.accuracy = 100,
+		.pp = 10,
+		.secondaryEffectChance = 100,
+		.target = MOVE_TARGET_SELECTED,
+		.priority = 0,
+		.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_KINGS_ROCK_AFFECTED | FLAG_DMG_IN_AIR,
+		.split = SPLIT_SPECIAL,
+		.zMoveEffect = Z_EFFECT_NONE,
+	},
 
     [MOVE_SOFT_BOILED] =
     {
@@ -3212,7 +3208,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
 
     [MOVE_MUD_SLAP] =
     {
-        .effect = EFFECT_ACCURACY_DOWN_HIT,
+        .effect = EFFECT_ATTACK_DOWN_HIT,
         .power = 20,
         .type = TYPE_GROUND,
         .accuracy = 100,
@@ -3227,15 +3223,15 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
 
     [MOVE_OCTAZOOKA] =
     {
-        .effect = EFFECT_ACCURACY_DOWN_HIT,
+        .effect = EFFECT_SPEED_DOWN_HIT,
         .power = 65,
         .type = TYPE_WATER,
-        .accuracy = 85,
+        .accuracy = 100,
         .pp = 10,
         .secondaryEffectChance = 50,
         .target = MOVE_TARGET_SELECTED,
         .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC | FLAG_SHEER_FORCE_BOOST,
+        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_BALLISTIC | FLAG_SHEER_FORCE_BOOST | FLAG_MEGA_LAUNCHER_BOOST,
         .split = SPLIT_SPECIAL,
         .zMoveEffect = Z_EFFECT_NONE,
     },
@@ -5622,7 +5618,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
         #else
             .power = 95,
         #endif
-        .effect = EFFECT_ACCURACY_DOWN_HIT,
+        .effect = EFFECT_SPEED_DOWN_HIT,
         .type = TYPE_WATER,
         .accuracy = 85,
         .pp = 10,
@@ -7253,7 +7249,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
 
     [MOVE_MUD_BOMB] =
     {
-        .effect = EFFECT_ACCURACY_DOWN_HIT,
+        .effect = EFFECT_SPEED_DOWN_HIT,
         .power = 65,
         .type = TYPE_GROUND,
         .accuracy = 85,
@@ -7298,7 +7294,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
 
     [MOVE_MIRROR_SHOT] =
     {
-        .effect = EFFECT_ACCURACY_DOWN_HIT,
+        .effect = EFFECT_SPECIAL_ATTACK_DOWN_HIT,
         .power = 65,
         .type = TYPE_STEEL,
         .accuracy = 85,
@@ -9034,7 +9030,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
 
     [MOVE_LEAF_TORNADO] =
     {
-        .effect = EFFECT_ACCURACY_DOWN_HIT,
+        .effect = EFFECT_ATTACK_DOWN_HIT,
         .power = 65,
         .type = TYPE_GRASS,
         .accuracy = 90,
@@ -9077,20 +9073,20 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
         .zMoveEffect = Z_EFFECT_RESET_STATS,
     },
 
-    [MOVE_NIGHT_DAZE] =
-    {
-        .effect = EFFECT_ACCURACY_DOWN_HIT,
-        .power = 85,
-        .type = TYPE_DARK,
-        .accuracy = 95,
-        .pp = 10,
-        .secondaryEffectChance = 40,
-        .target = MOVE_TARGET_SELECTED,
-        .priority = 0,
-        .flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_KINGS_ROCK_AFFECTED | FLAG_SHEER_FORCE_BOOST,
-        .split = SPLIT_SPECIAL,
-        .zMoveEffect = Z_EFFECT_NONE,
-    },
+	[MOVE_NIGHT_DAZE] =
+	{
+		.effect = EFFECT_SPECIAL_ATTACK_DOWN_HIT,
+		.power = 95,
+		.type = TYPE_DARK,
+		.accuracy = 100,
+		.pp = 15,
+		.secondaryEffectChance = 30,
+		.target = MOVE_TARGET_SELECTED,
+		.priority = 0,
+		.flags = FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_KINGS_ROCK_AFFECTED | FLAG_SHEER_FORCE_BOOST,
+		.split = SPLIT_SPECIAL,
+		.zMoveEffect = Z_EFFECT_NONE,
+	},
 
     [MOVE_PSYSTRIKE] =
     {
@@ -11199,7 +11195,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
     {
         #if B_UPDATED_MOVE_DATA >= GEN_8
             .power = 80,
-            .effect = EFFECT_EVASION_UP_HIT,
+            .effect = EFFECT_SPEED_UP_HIT,
             .pp = 10,
             .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_KINGS_ROCK_AFFECTED | FLAG_SHEER_FORCE_BOOST,
         #else
@@ -12993,7 +12989,7 @@ const struct BattleMove gBattleMoves[MOVES_COUNT_Z] =
         .secondaryEffectChance = 0,
         .target = MOVE_TARGET_SELECTED,
         .priority = 1,
-        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_KINGS_ROCK_AFFECTED | FLAG_IRON_FIST_BOOST | FLAG_SHEER_FORCE_BOOST,
+        .flags = FLAG_MAKES_CONTACT | FLAG_PROTECT_AFFECTED | FLAG_MIRROR_MOVE_AFFECTED | FLAG_KINGS_ROCK_AFFECTED | FLAG_IRON_FIST_BOOST, // | FLAG_SHEER_FORCE_BOOST,
         .split = SPLIT_PHYSICAL,
         .zMoveEffect = Z_EFFECT_NONE,
         // The datamine master sheet mentions uncopiable by Metronome but that sounds odd? not yet implemented

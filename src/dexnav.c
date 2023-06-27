@@ -58,6 +58,7 @@
 #include "constants/rgb.h"
 #include "constants/region_map_sections.h"
 #include "gba/m4a_internal.h"
+#include "constants/flags.h"
 
 // Defines
 enum WindowIds
@@ -1256,13 +1257,13 @@ static void CreateDexNavWildMon(u16 species, u8 potential, u8 level, u8 abilityN
 static u8 DexNavTryGenerateMonLevel(u16 species, u8 environment)
 {
     u8 levelBase = GetEncounterLevelFromMapData(species, environment);
-    u8 levelBonus = gSaveBlock1Ptr->dexNavChain / 5;
+    u8 levelBonus = gSaveBlock1Ptr->dexNavChain / 50;
 
     if (levelBase == MON_LEVEL_NONEXISTENT)
         return MON_LEVEL_NONEXISTENT;   //species not found in the area
     
     if (Random() % 100 < 4)
-        levelBonus += 10; //4% chance of having a +10 level
+        levelBonus += 2; //4% chance of having a +2 level
 
     if (levelBase + levelBonus > MAX_LEVEL)
         return MAX_LEVEL;
@@ -1270,6 +1271,7 @@ static u8 DexNavTryGenerateMonLevel(u16 species, u8 environment)
         return levelBase + levelBonus;
 }
 
+// Egg Moves require the third badge
 static void DexNavGenerateMoveset(u16 species, u8 searchLevel, u8 encounterLevel, u16* moveDst)
 {
     bool8 genMove = FALSE;
@@ -1280,42 +1282,42 @@ static void DexNavGenerateMoveset(u16 species, u8 searchLevel, u8 encounterLevel
     // see if first move slot should be an egg move
     if (searchLevel < 5)
     {
-        #if (SEARCHLEVEL0_MOVECHANCE != 0)
+        #if (SEARCHLEVEL0_MOVECHANCE != 0 && FLAG_BADGE03_GET)
         if (randVal < SEARCHLEVEL0_MOVECHANCE)
             genMove = TRUE;
         #endif
     }
     else if (searchLevel < 10)
     {
-        #if (SEARCHLEVEL5_MOVECHANCE != 0)
+        #if (SEARCHLEVEL5_MOVECHANCE != 0 && FLAG_BADGE03_GET)
         if (randVal < SEARCHLEVEL5_MOVECHANCE)
             genMove = TRUE;
         #endif
     }
     else if (searchLevel < 25)
     {
-        #if (SEARCHLEVEL10_MOVECHANCE != 0)
+        #if (SEARCHLEVEL10_MOVECHANCE != 0 && FLAG_BADGE03_GET)
         if (randVal < SEARCHLEVEL10_MOVECHANCE)
             genMove = TRUE;
         #endif
     }
     else if (searchLevel < 50)
     {
-        #if (SEARCHLEVEL25_MOVECHANCE != 0)
+        #if (SEARCHLEVEL25_MOVECHANCE != 0 && FLAG_BADGE03_GET)
         if (randVal < SEARCHLEVEL25_MOVECHANCE)
             genMove = TRUE;
         #endif
     }
     else if (searchLevel < 100)
     {
-        #if (SEARCHLEVEL50_MOVECHANCE != 0)
+        #if (SEARCHLEVEL50_MOVECHANCE != 0 && FLAG_BADGE03_GET)
         if (randVal < SEARCHLEVEL50_MOVECHANCE)
             genMove = TRUE;
         #endif
     }
     else
     {
-        #if (SEARCHLEVEL100_MOVECHANCE != 0)
+        #if (SEARCHLEVEL100_MOVECHANCE != 0 && FLAG_BADGE03_GET)
         if (randVal < SEARCHLEVEL100_MOVECHANCE)
             genMove = TRUE;
         #endif
@@ -1365,6 +1367,7 @@ static u16 DexNavGenerateHeldItem(u16 species, u8 searchLevel)
     return ITEM_NONE;
 }
 
+// Hidden Abilities require the fifth badge
 static u8 DexNavGetAbilityNum(u16 species, u8 searchLevel)
 {
     bool8 genAbility = FALSE;
@@ -1373,42 +1376,42 @@ static u8 DexNavGetAbilityNum(u16 species, u8 searchLevel)
     
     if (searchLevel < 5)
     {
-        #if (SEARCHLEVEL0_ABILITYCHANCE != 0)
+        #if (SEARCHLEVEL0_ABILITYCHANCE != 0 && FLAG_BADGE_05_GET)
         if (randVal < SEARCHLEVEL0_ABILITYCHANCE)
             genAbility = TRUE;
         #endif
     }
     else if (searchLevel < 10)
     {
-        #if (SEARCHLEVEL5_ABILITYCHANCE != 0)
+        #if (SEARCHLEVEL5_ABILITYCHANCE != 0 && FLAG_BADGE_05_GET)
         if (randVal < SEARCHLEVEL5_ABILITYCHANCE)
             genAbility = TRUE;
         #endif
     }
     else if (searchLevel < 25)
     {
-        #if (SEARCHLEVEL10_ABILITYCHANCE != 0)
+        #if (SEARCHLEVEL10_ABILITYCHANCE != 0 && FLAG_BADGE_05_GET)
         if (randVal < SEARCHLEVEL10_ABILITYCHANCE)
             genAbility = TRUE;
         #endif
     }
     else if (searchLevel < 50)
     {
-        #if (SEARCHLEVEL25_ABILITYCHANCE != 0)
+        #if (SEARCHLEVEL25_ABILITYCHANCE != 0 && FLAG_BADGE_05_GET)
         if (randVal < SEARCHLEVEL25_ABILITYCHANCE)
             genAbility = TRUE;
         #endif
     }
     else if (searchLevel < 100)
     {
-        #if (SEARCHLEVEL50_ABILITYCHANCE != 0)
+        #if (SEARCHLEVEL50_ABILITYCHANCE != 0 && FLAG_BADGE_05_GET)
         if (randVal < SEARCHLEVEL50_ABILITYCHANCE)
             genAbility = TRUE;
         #endif
     }
     else
     {
-        #if (SEARCHLEVEL100_ABILITYCHANCE != 0)
+        #if (SEARCHLEVEL100_ABILITYCHANCE != 0 && FLAG_BADGE_05_GET)
         if (randVal < SEARCHLEVEL100_ABILITYCHANCE)
             genAbility = TRUE;
         #endif
@@ -1435,96 +1438,97 @@ static u8 DexNavGetAbilityNum(u16 species, u8 searchLevel)
     return abilityNum;
 }
 
+// Higher potential requires the first badge
 static u8 DexNavGeneratePotential(u8 searchLevel)
 {
     u8 genChance = 0;
     int randVal = Random() % 100;
-    
-    if (searchLevel < 5)
-    {
-        genChance = SEARCHLEVEL0_ONESTAR + SEARCHLEVEL0_TWOSTAR + SEARCHLEVEL0_THREESTAR;
-        if (randVal < genChance)
-        {
-            // figure out which star it is
-            if (randVal < SEARCHLEVEL0_ONESTAR)
-                return 1;
-            else if (randVal < (SEARCHLEVEL0_ONESTAR + SEARCHLEVEL0_TWOSTAR))
-                return 2;
-            else
-                return 3;
-        }
-    }
-    else if (searchLevel < 10)
-    {
-        genChance = SEARCHLEVEL5_ONESTAR + SEARCHLEVEL5_TWOSTAR + SEARCHLEVEL5_THREESTAR;
-        if (randVal < genChance)
-        {
-            // figure out which star it is
-            if (randVal < SEARCHLEVEL5_ONESTAR)
-                return 1;
-            else if (randVal < (SEARCHLEVEL5_ONESTAR + SEARCHLEVEL5_TWOSTAR))
-                return 2;
-            else
-                return 3;
-        }
-    }
-    else if (searchLevel < 25)
-    {
-        genChance = SEARCHLEVEL10_ONESTAR + SEARCHLEVEL10_TWOSTAR + SEARCHLEVEL10_THREESTAR;
-        if (randVal < genChance)
-        {
-            // figure out which star it is
-            if (randVal < SEARCHLEVEL10_ONESTAR)
-                return 1;
-            else if (randVal < (SEARCHLEVEL10_ONESTAR + SEARCHLEVEL10_TWOSTAR))
-                return 2;
-            else
-                return 3;
-        }
-    }
-    else if (searchLevel < 50)
-    {
-        genChance = SEARCHLEVEL25_ONESTAR + SEARCHLEVEL25_TWOSTAR + SEARCHLEVEL25_THREESTAR;
-        if (randVal < genChance)
-        {
-            // figure out which star it is
-            if (randVal < SEARCHLEVEL25_ONESTAR)
-                return 1;
-            else if (randVal < (SEARCHLEVEL25_ONESTAR + SEARCHLEVEL25_TWOSTAR))
-                return 2;
-            else
-                return 3;
-        }
-    }
-    else if (searchLevel < 100)
-    {
-        genChance = SEARCHLEVEL50_ONESTAR + SEARCHLEVEL50_TWOSTAR + SEARCHLEVEL50_THREESTAR;
-        if (randVal < genChance)
-        {
-            // figure out which star it is
-            if (randVal < SEARCHLEVEL50_ONESTAR)
-                return 1;
-            else if (randVal < (SEARCHLEVEL50_ONESTAR + SEARCHLEVEL50_TWOSTAR))
-                return 2;
-            else
-                return 3;
-        }
-    }
-    else
-    {
-        genChance = SEARCHLEVEL100_ONESTAR + SEARCHLEVEL100_TWOSTAR + SEARCHLEVEL100_THREESTAR;
-        if (randVal < genChance)
-        {
-            // figure out which star it is
-            if (randVal < SEARCHLEVEL100_ONESTAR)
-                return 1;
-            else if (randVal < (SEARCHLEVEL100_ONESTAR + SEARCHLEVEL100_TWOSTAR))
-                return 2;
-            else
-                return 3;
-        }
-    }
-    
+	if FLAG_BADGE01_GET{
+	if (searchLevel < 5)
+	{
+		genChance = SEARCHLEVEL0_ONESTAR + SEARCHLEVEL0_TWOSTAR + SEARCHLEVEL0_THREESTAR;
+		if (randVal < genChance)
+		{
+			// figure out which star it is
+			if (randVal < SEARCHLEVEL0_ONESTAR)
+				return 1;
+			else if (randVal < (SEARCHLEVEL0_ONESTAR + SEARCHLEVEL0_TWOSTAR))
+				return 2;
+			else
+				return 3;
+		}
+	}
+	else if (searchLevel < 10)
+	{
+		genChance = SEARCHLEVEL5_ONESTAR + SEARCHLEVEL5_TWOSTAR + SEARCHLEVEL5_THREESTAR;
+		if (randVal < genChance)
+		{
+			// figure out which star it is
+			if (randVal < SEARCHLEVEL5_ONESTAR)
+				return 1;
+			else if (randVal < (SEARCHLEVEL5_ONESTAR + SEARCHLEVEL5_TWOSTAR))
+				return 2;
+			else
+				return 3;
+		}
+	}
+	else if (searchLevel < 25)
+	{
+		genChance = SEARCHLEVEL10_ONESTAR + SEARCHLEVEL10_TWOSTAR + SEARCHLEVEL10_THREESTAR;
+		if (randVal < genChance)
+		{
+			// figure out which star it is
+			if (randVal < SEARCHLEVEL10_ONESTAR)
+				return 1;
+			else if (randVal < (SEARCHLEVEL10_ONESTAR + SEARCHLEVEL10_TWOSTAR))
+				return 2;
+			else
+				return 3;
+		}
+	}
+	else if (searchLevel < 50)
+	{
+		genChance = SEARCHLEVEL25_ONESTAR + SEARCHLEVEL25_TWOSTAR + SEARCHLEVEL25_THREESTAR;
+		if (randVal < genChance)
+		{
+			// figure out which star it is
+			if (randVal < SEARCHLEVEL25_ONESTAR)
+				return 1;
+			else if (randVal < (SEARCHLEVEL25_ONESTAR + SEARCHLEVEL25_TWOSTAR))
+				return 2;
+			else
+				return 3;
+		}
+	}
+	else if (searchLevel < 100)
+	{
+		genChance = SEARCHLEVEL50_ONESTAR + SEARCHLEVEL50_TWOSTAR + SEARCHLEVEL50_THREESTAR;
+		if (randVal < genChance)
+		{
+			// figure out which star it is
+			if (randVal < SEARCHLEVEL50_ONESTAR)
+				return 1;
+			else if (randVal < (SEARCHLEVEL50_ONESTAR + SEARCHLEVEL50_TWOSTAR))
+				return 2;
+			else
+				return 3;
+		}
+	}
+	else
+	{
+		genChance = SEARCHLEVEL100_ONESTAR + SEARCHLEVEL100_TWOSTAR + SEARCHLEVEL100_THREESTAR;
+		if (randVal < genChance)
+		{
+			// figure out which star it is
+			if (randVal < SEARCHLEVEL100_ONESTAR)
+				return 1;
+			else if (randVal < (SEARCHLEVEL100_ONESTAR + SEARCHLEVEL100_TWOSTAR))
+				return 2;
+			else
+				return 3;
+		}
+	}
+	}
     return 0;   // No potential
 }
 

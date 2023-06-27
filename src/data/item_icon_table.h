@@ -854,6 +854,8 @@ const u32 *const gItemIconTable[ITEMS_COUNT + 1][2] =
 		[ITEM_CARBOS_MINUS] = { gItemIcon_Vitamin, gItemIconPalette_Glalitite },
 		[ITEM_CALCIUM_MINUS] = { gItemIcon_Vitamin, gItemIconPalette_Glalitite },
 		[ITEM_ZINC_MINUS] = { gItemIcon_Vitamin, gItemIconPalette_Glalitite },
+		[ITEM_POKE_VIAL] = { gItemIcon_Potion, gItemIconPalette_DuskStone },
+		[ITEM_BLANK_STONE] = { gItemIcon_ShinyStone, gItemIconPalette_IceStone },
     // Return to field arrow
     [ITEMS_COUNT] = {gItemIcon_ReturnToFieldArrow, gItemIconPalette_ReturnToFieldArrow},
 };
