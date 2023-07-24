@@ -9635,7 +9635,15 @@ static u32 CalcDefenseStat(u16 move, u8 battlerAtk, u8 battlerDef, u8 moveType, 
             MulModifier(&modifier, UQ_4_12(2.0));
         break;
     case HOLD_EFFECT_EVIOLITE:
-        if (CanEvolve(gBattleMons[battlerDef].species))
+        if (CanEvolve(gBattleMons[battlerDef].species)
+			&& gBattleMons[battlerDef].species != SPECIES_VAPOREON
+			&& gBattleMons[battlerDef].species != SPECIES_FLAREON
+			&& gBattleMons[battlerDef].species != SPECIES_JOLTEON
+			&& gBattleMons[battlerDef].species != SPECIES_UMBREON
+			&& gBattleMons[battlerDef].species != SPECIES_ESPEON
+			&& gBattleMons[battlerDef].species != SPECIES_LEAFEON
+			&& gBattleMons[battlerDef].species != SPECIES_GLACEON
+			&& gBattleMons[battlerDef].species != SPECIES_SYLVEON)
             MulModifier(&modifier, UQ_4_12(1.5));
         break;
     case HOLD_EFFECT_ASSAULT_VEST:

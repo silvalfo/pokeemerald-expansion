@@ -2095,6 +2095,8 @@ u8 CreateNPCTrainerPartyFromTrainer(struct Pokemon *party, const struct Trainer 
                     fixedOtId = HIHALF(personalityValue) ^ LOHALF(personalityValue);
                 }
 				switch (partyData[i].lvl) {
+				case LVL_MINUS2:
+					dynamicLevel = dynamicLevel - 2;
 				case LVL_MINOR:
 					dynamicLevel = dynamicLevel - 1;
 					break;

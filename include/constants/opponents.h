@@ -861,6 +861,8 @@
 //       More space can be made by shifting flags around in constants/flags.h or changing how trainer flags are handled
 //       MAX_TRAINERS_COUNT can be increased but will take up additional saveblock space
 
+// 9 additional trainers originally, removed 3 for each kind of gym leader rematch, now there's a total of 33 new trainers.
+
 #define TRAINERS_COUNT                      855
 #define MAX_TRAINERS_COUNT                  864
 
