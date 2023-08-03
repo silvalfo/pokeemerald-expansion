@@ -1333,6 +1333,9 @@ const struct CompressedSpriteSheet gMonFrontPicTable[] =
     SPECIES_SPRITE(ENAMORUS_THERIAN, gMonFrontPic_EnamorusTherian),
 
     SPECIES_SPRITE(BASCULEGION_FEMALE, gMonFrontPic_BasculegionFemale),
+
+		SPECIES_SPRITE(KINGDRA_MEGA, gMonFrontPic_KingdraMega),
+		SPECIES_SPRITE(MILOTIC_MEGA, gMonFrontPic_MiloticMega),
 #endif
     SPECIES_SPRITE(EGG, gMonFrontPic_Egg),
 };

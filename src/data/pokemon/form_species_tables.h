@@ -443,6 +443,18 @@ static const u16 sAggronFormSpeciesIdTable[] = {
     FORM_SPECIES_END,
 };
 
+static const u16 sKingdraFormSpeciesIdTable[] = {
+	SPECIES_KINGDRA,
+	SPECIES_KINGDRA_MEGA,
+	FORM_SPECIES_END,
+};
+
+static const u16 sMiloticFormSpeciesIdTable[] = {
+	SPECIES_MILOTIC,
+	SPECIES_MILOTIC_MEGA,
+	FORM_SPECIES_END,
+};
+
 static const u16 sMedichamFormSpeciesIdTable[] = {
     SPECIES_MEDICHAM,
     SPECIES_MEDICHAM_MEGA,

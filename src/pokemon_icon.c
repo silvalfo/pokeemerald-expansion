@@ -995,6 +995,10 @@ const u8 *const gMonIconTable[] =
 #if P_GEN_6_POKEMON == TRUE
     [SPECIES_DIANCIE_MEGA] = gMonIcon_DiancieMega,
 #endif
+		// new megas
+		[SPECIES_KINGDRA_MEGA] = gMonIcon_KingdraMega,
+	[SPECIES_MILOTIC_MEGA] = gMonIcon_MiloticMega,
+		// back to regulars
     [SPECIES_RAYQUAZA_MEGA] = gMonIcon_RayquazaMega,
     [SPECIES_KYOGRE_PRIMAL] = gMonIcon_KyogrePrimal,
     [SPECIES_GROUDON_PRIMAL] = gMonIcon_GroudonPrimal,
@@ -2275,6 +2279,8 @@ const u8 gMonIconPaletteIndices[] =
     [SPECIES_METAGROSS_MEGA] = 0,
     [SPECIES_LATIAS_MEGA] = 2,
     [SPECIES_LATIOS_MEGA] = 2,
+		[SPECIES_MILOTIC_MEGA] = 2,
+		[SPECIES_KINGDRA_MEGA] = 0,
     [SPECIES_KYOGRE_PRIMAL] = 0,
     [SPECIES_GROUDON_PRIMAL] = 0,
     [SPECIES_RAYQUAZA_MEGA] = 1,

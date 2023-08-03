@@ -988,7 +988,10 @@
 
 #define ITEM_BLANK_STONE 808
 
-#define ITEMS_COUNT 809
+#define ITEM_KINGDRANITE 809
+#define ITEM_MILOTICTITE 810
+
+#define ITEMS_COUNT 811
 #define ITEM_FIELD_ARROW ITEMS_COUNT
 
 // A special item id associated with "Cancel"/"Exit" etc. in a list of items or decorations

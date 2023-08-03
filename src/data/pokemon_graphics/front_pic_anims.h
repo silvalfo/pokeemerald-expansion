@@ -9681,6 +9681,18 @@ static const union AnimCmd sAnim_AggronMega_1[] =
     ANIMCMD_END,
 };
 
+static const union AnimCmd sAnim_KingdraMega_1[] =
+{
+	ANIMCMD_FRAME(0, 1),
+	ANIMCMD_END,
+};
+
+static const union AnimCmd sAnim_MiloticMega_1[] =
+{
+	ANIMCMD_FRAME(0, 1),
+	ANIMCMD_END,
+};
+
 static const union AnimCmd sAnim_MedichamMega_1[] =
 {
     ANIMCMD_FRAME(0, 1),
@@ -11496,6 +11508,8 @@ SINGLE_ANIMATION(GardevoirMega);
 SINGLE_ANIMATION(SableyeMega);
 SINGLE_ANIMATION(MawileMega);
 SINGLE_ANIMATION(AggronMega);
+SINGLE_ANIMATION(KingdraMega);
+SINGLE_ANIMATION(MiloticMega);
 SINGLE_ANIMATION(MedichamMega);
 SINGLE_ANIMATION(ManectricMega);
 SINGLE_ANIMATION(SharpedoMega);
@@ -12583,6 +12597,8 @@ const union AnimCmd *const *const gMonFrontAnimsPtrTable[] =
     [SPECIES_SABLEYE_MEGA] = sAnims_SableyeMega,
     [SPECIES_MAWILE_MEGA] = sAnims_MawileMega,
     [SPECIES_AGGRON_MEGA] = sAnims_AggronMega,
+		[SPECIES_KINGDRA_MEGA] = sAnims_KingdraMega,
+		[SPECIES_MILOTIC_MEGA] = sAnims_MiloticMega,
     [SPECIES_MEDICHAM_MEGA] = sAnims_MedichamMega,
     [SPECIES_MANECTRIC_MEGA] = sAnims_ManectricMega,
     [SPECIES_SHARPEDO_MEGA] = sAnims_SharpedoMega,

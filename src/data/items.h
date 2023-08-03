@@ -4159,6 +4159,34 @@ const struct Item gItems[] =
         .flingPower = 80,
     },
 
+
+	[ITEM_KINGDRANITE] =
+		{
+			.name = _("Kingdranite"),
+			.itemId = ITEM_KINGDRANITE,
+			.price = 0,
+			.holdEffect = HOLD_EFFECT_MEGA_STONE,
+			.description = sKingdraniteDesc,
+			.pocket = POCKET_ITEMS,
+			.type = ITEM_USE_BAG_MENU,
+			.fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+			.flingPower = 80,
+		},
+
+
+		[ITEM_MILOTICTITE] =
+		{
+			.name = _("Milotictite"),
+			.itemId = ITEM_MILOTICTITE,
+			.price = 0,
+			.holdEffect = HOLD_EFFECT_MEGA_STONE,
+			.description = sMilotictiteDesc,
+			.pocket = POCKET_ITEMS,
+			.type = ITEM_USE_BAG_MENU,
+			.fieldUseFunc = ItemUseOutOfBattle_CannotUse,
+			.flingPower = 80,
+		},
+
     [ITEM_MEDICHAMITE] =
     {
         .name = _("Medichamite"),

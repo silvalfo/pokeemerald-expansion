@@ -886,6 +886,12 @@ const u32 gItemIconPalette_Mawilite[] = INCBIN_U32("graphics/items/icon_palettes
 const u32 gItemIcon_Aggronite[] = INCBIN_U32("graphics/items/icons/aggronite.4bpp.lz");
 const u32 gItemIconPalette_Aggronite[] = INCBIN_U32("graphics/items/icon_palettes/aggronite.gbapal.lz");
 
+const u32 gItemIcon_Kingdranite[] = INCBIN_U32("graphics/items/icons/swampertite.4bpp.lz");
+const u32 gItemIconPalette_Kingdranite[] = INCBIN_U32("graphics/items/icon_palettes/swampertite.gbapal.lz");
+
+const u32 gItemIcon_Milotictite[] = INCBIN_U32("graphics/items/icons/manectite.4bpp.lz");
+const u32 gItemIconPalette_Milotictite[] = INCBIN_U32("graphics/items/icon_palettes/manectite.gbapal.lz");
+
 const u32 gItemIcon_Medichamite[] = INCBIN_U32("graphics/items/icons/medichamite.4bpp.lz");
 const u32 gItemIconPalette_Medichamite[] = INCBIN_U32("graphics/items/icon_palettes/medichamite.gbapal.lz");
 

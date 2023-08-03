@@ -217,6 +217,16 @@ static const struct FormChange sRayquazaFormChangeTable[] = {
     {FORM_CHANGE_TERMINATOR},
 };
 
+static const struct FormChange sKingdraFormChangeTable[] = {
+	{ FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM,    SPECIES_KINGDRA_MEGA, ITEM_KINGDRANITE },
+	{ FORM_CHANGE_TERMINATOR },
+};
+
+static const struct FormChange sMiloticFormChangeTable[] = {
+	{ FORM_CHANGE_BATTLE_MEGA_EVOLUTION_ITEM,    SPECIES_MILOTIC_MEGA, ITEM_MILOTICTITE },
+	{ FORM_CHANGE_TERMINATOR },
+};
+
 #if P_GEN_4_POKEMON == TRUE
 static const struct FormChange sBurmyFormChangeTable[] = {
     {FORM_CHANGE_END_BATTLE_TERRAIN, SPECIES_BURMY,             BATTLE_TERRAIN_GRASS},
