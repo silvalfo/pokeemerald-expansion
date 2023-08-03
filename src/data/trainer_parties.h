@@ -7499,9 +7499,10 @@ static const struct TrainerMonCustomized sParty_MayRoute119Treecko[] = {
 
 static const struct TrainerMonCustomized sParty_MayRoute103Torchic[] = {
 	{
-		.species = SPECIES_MUDKIP,
+		.iv = 0,
 		.lvl = LVL_MAJOR,
-		.moves = { MOVE_TACKLE, MOVE_GROWL, MOVE_NONE, MOVE_NONE },
+		.species = SPECIES_MILOTIC,
+		.heldItem = ITEM_MILOTICTITE,
 	}
 };
 

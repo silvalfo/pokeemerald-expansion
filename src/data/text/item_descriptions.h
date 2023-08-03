@@ -1681,6 +1681,16 @@ static const u8 sAggroniteDesc[] = _(
     "Aggron to Mega\n"
     "Evolve in battle.");
 
+static const u8 sKingdraniteDesc[] = _(
+	"This stone enables\n"
+	"Kingdra to Mega\n"
+	"Evolve in battle.");
+
+static const u8 sMilotictiteDesc[] = _(
+	"This stone enables\n"
+	"Milotic to Mega\n"
+	"Evolve in battle.");
+
 static const u8 sMedichamiteDesc[] = _(
     "This stone enables\n"
     "Medicham to Mega\n"
