@@ -168,6 +168,7 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
     [ABILITY_PIXILATE] = 8,
     [ABILITY_PLUS] = 0,
     [ABILITY_POISON_HEAL] = 8,
+	[ABILITY_HOT_AIR] = 8,
     [ABILITY_POISON_POINT] = 4,
     [ABILITY_POISON_TOUCH] = 4,
     [ABILITY_POWER_CONSTRUCT] = 10,
@@ -243,6 +244,7 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
     [ABILITY_SWARM] = 5,
     [ABILITY_SWEET_VEIL] = 4,
     [ABILITY_SWIFT_SWIM] = 6,
+	[ABILITY_STORM_SNIPER] = 7,
     [ABILITY_SYMBIOSIS] = 0,
     [ABILITY_SYNCHRONIZE] = 4,
     [ABILITY_TANGLED_FEET] = 2,
@@ -303,6 +305,7 @@ static const s8 sAiAbilityRatings[ABILITIES_COUNT] =
     [ABILITY_WANDERING_SPIRIT] = 2,
     [ABILITY_GORILLA_TACTICS] = 4,
 	[ABILITY_HEAVY_ARMOR] = 7,
+	[ABILITY_BEAUTY_VEIL] = 7,
 };
 
 static const u16 sEncouragedEncoreEffects[] =
@@ -1632,6 +1635,7 @@ bool32 ShouldSetRain(u8 battlerAtk, u16 atkAbility, u16 holdEffect)
 
     if (holdEffect != HOLD_EFFECT_UTILITY_UMBRELLA
      && (atkAbility == ABILITY_SWIFT_SWIM
+		 || atkAbility == ABILITY_STORM_SNIPER
       || atkAbility == ABILITY_FORECAST
       || atkAbility == ABILITY_HYDRATION
       || atkAbility == ABILITY_RAIN_DISH
@@ -2956,6 +2960,7 @@ bool32 ShouldBurnSelf(u8 battler, u16 ability)
     if (AI_CanBeBurned(battler, ability) && (
      ability == ABILITY_QUICK_FEET
       || ability == ABILITY_HEATPROOF
+	  || ability == ABILITY_HOT_AIR
       || ability == ABILITY_MAGIC_GUARD
       || (ability == ABILITY_FLARE_BOOST && HasMoveWithSplit(battler, SPLIT_SPECIAL))
       || (ability == ABILITY_GUTS && HasMoveWithSplit(battler, SPLIT_PHYSICAL))

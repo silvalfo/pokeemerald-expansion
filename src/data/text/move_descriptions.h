@@ -3316,6 +3316,10 @@ static const u8 sAerialRaveDescription[] = _(
 	"Comboes the foe with rising\n"
 	"intensity for each hit.");
 
+static const u8 sSoulEraserDescription[] = _(
+	"Fires a beam that damages the\n"
+	"spirit. It hurts the user.");
+
 const u8 gNotDoneYetDescription[] = _(
     "This move can't be used. Its\n"
     "effect is in development.");
@@ -4189,4 +4193,6 @@ const u8 *const gMoveDescriptionPointers[MOVES_COUNT - 1] =
 	[MOVE_CONSUME - 1] = sLeechLifeDescription,
 	[MOVE_PURE_STREAM - 1] = sJungleHealingDescription,
 	[MOVE_BOULDER_FALL - 1] = sHeavySlamDescription,
+	[MOVE_FULL_EXHAUST - 1] = sEruptionDescription,
+	[MOVE_SOUL_ERASER - 1] = sSoulEraserDescription,
 };

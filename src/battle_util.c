@@ -1007,6 +1007,7 @@ static const u8 sAbilitiesAffectedByMoldBreaker[] =
 	[ABILITY_LAVA_BUBBLE] = 1,
 	[ABILITY_NATURE_ONENESS] = 1,
 	[ABILITY_HEAVY_ARMOR] = 1,
+	[ABILITY_BEAUTY_VEIL] = 1,
 };
 
 static const u8 sAbilitiesNotTraced[ABILITIES_COUNT] =
@@ -2757,21 +2758,37 @@ u8 DoBattlerEndTurnEffects(void)
                 && gBattleMons[gActiveBattler].hp != 0)
             {
                 MAGIC_GUARD_CHECK;
-            #if B_BURN_DAMAGE >= GEN_7
-                gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 16;
-            #else
-                gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 8;
-            #endif
-                if (ability == ABILITY_HEATPROOF)
-                {
-                    if (gBattleMoveDamage > (gBattleMoveDamage / 2) + 1) // Record ability if the burn takes less damage than it normally would.
-                        RecordAbilityBattle(gActiveBattler, ABILITY_HEATPROOF);
-                    gBattleMoveDamage /= 2;
-                }
-                if (gBattleMoveDamage == 0)
-                    gBattleMoveDamage = 1;
-                BattleScriptExecute(BattleScript_BurnTurnDmg);
-                effect++;
+
+				if (ability == ABILITY_HOT_AIR)
+				{
+					if (!BATTLER_MAX_HP(gActiveBattler) && !(gStatuses3[gActiveBattler] & STATUS3_HEAL_BLOCK))
+					{
+						gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 8;
+						if (gBattleMoveDamage == 0)
+							gBattleMoveDamage = 1;
+						gBattleMoveDamage *= -1;
+						BattleScriptExecute(BattleScript_HotAirActivates);
+						effect++;
+					}
+				}
+				else
+				{
+#if B_BURN_DAMAGE >= GEN_7
+					gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 16;
+#else
+					gBattleMoveDamage = gBattleMons[gActiveBattler].maxHP / 8;
+#endif
+					if (ability == ABILITY_HEATPROOF)
+					{
+						if (gBattleMoveDamage > (gBattleMoveDamage / 2) + 1) // Record ability if the burn takes less damage than it normally would.
+							RecordAbilityBattle(gActiveBattler, ABILITY_HEATPROOF);
+						gBattleMoveDamage /= 2;
+					}
+					if (gBattleMoveDamage == 0)
+						gBattleMoveDamage = 1;
+					BattleScriptExecute(BattleScript_BurnTurnDmg);
+					effect++;
+				}
             }
             gBattleStruct->turnEffectsTracker++;
             break;
@@ -9836,6 +9853,21 @@ static u32 CalcFinalDmg(u32 dmg, u16 move, u8 battlerAtk, u8 battlerDef, u8 move
 				MulModifier(&finalModifier, UQ_4_12(0.5));
 				if (updateFlags)
 					RecordAbilityBattle(battlerDef, ABILITY_HEAVY_ARMOR);
+			}
+		}
+		break;
+	case ABILITY_BEAUTY_VEIL:
+		if (!IS_MOVE_PHYSICAL(move))
+		{
+			if (typeEffectivenessModifier == UQ_4_12(4.0)) {
+				MulModifier(&finalModifier, UQ_4_12(0.25));
+				if (updateFlags)
+					RecordAbilityBattle(battlerDef, ABILITY_BEAUTY_VEIL);
+			}
+			else if (typeEffectivenessModifier == UQ_4_12(2.0)) {
+				MulModifier(&finalModifier, UQ_4_12(0.5));
+				if (updateFlags)
+					RecordAbilityBattle(battlerDef, ABILITY_BEAUTY_VEIL);
 			}
 		}
 		break;

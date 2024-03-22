@@ -866,6 +866,8 @@ const u8 gMoveNames[MOVES_COUNT][MOVE_NAME_LENGTH + 1] =
 	[MOVE_CONSUME] = _("Consume"),
 	[MOVE_PURE_STREAM] = _("Pure Stream"),
 	[MOVE_BOULDER_FALL] = _("Boulder Fall"),
+	[MOVE_FULL_EXHAUST] = _("Full Exhaust"),
+	[MOVE_SOUL_ERASER] = _("Soul Eraser"),
 };
 #else
 // 12 letters
@@ -1735,6 +1737,8 @@ const u8 gMoveNames[MOVES_COUNT][MOVE_NAME_LENGTH + 1] =
 	[MOVE_CONSUME] = _("Consume"),
 	[MOVE_PURE_STREAM] = _("Pure Stream"),
 	[MOVE_BOULDER_FALL] = _("Boulder Fall"),
+	[MOVE_FULL_EXHAUST] = _("Full Exhaust"),
+	[MOVE_SOUL_ERASER] = _("Soul Eraser"),
 };
 #endif
 

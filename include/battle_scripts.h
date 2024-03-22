@@ -475,6 +475,7 @@ extern const u8 BattleScript_SharpThornsActivates[];
 extern const u8 BattleScript_AttackerAbilityStatRaiseRet[];
 extern const u8 BattleScript_DistressActivates[];
 extern const u8 BattleScript_DefenseDown[];
+extern const u8 BattleScript_HotAirActivates[];
 
 // zmoves
 extern const u8 BattleScript_ZMoveActivateDamaging[];

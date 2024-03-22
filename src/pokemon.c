@@ -7355,6 +7355,7 @@ u8 CanLearnTeachableMove(u16 species, u16 move)
         case MOVE_SPARKLY_SWIRL:
         case MOVE_SPLISHY_SPLASH:
         case MOVE_STEEL_BEAM:
+		case MOVE_SOUL_ERASER:
         case MOVE_VOLT_TACKLE:
         case MOVE_WATER_PLEDGE:
         case MOVE_ZIPPY_ZAP:

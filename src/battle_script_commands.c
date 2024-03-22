@@ -1187,6 +1187,7 @@ static const u8 sForbiddenMoves[MOVES_COUNT] =
     [MOVE_SPOTLIGHT] = FORBIDDEN_METRONOME | FORBIDDEN_ASSIST | FORBIDDEN_COPYCAT,
     [MOVE_STEAM_ERUPTION] = FORBIDDEN_METRONOME,
     [MOVE_STEEL_BEAM] = FORBIDDEN_METRONOME,
+	[MOVE_SOUL_ERASER] = FORBIDDEN_METRONOME,
     [MOVE_STRANGE_STEAM] = FORBIDDEN_METRONOME,
     [MOVE_SUNSTEEL_STRIKE] = FORBIDDEN_METRONOME,
     [MOVE_SURGING_STRIKES] = FORBIDDEN_METRONOME | FORBIDDEN_PARENTAL_BOND,
@@ -1912,8 +1913,10 @@ u32 GetTotalAccuracy(u32 battlerAtk, u32 battlerDef, u32 move, u32 atkAbility, u
     calc = gAccuracyStageRatios[buff].dividend * moveAcc;
     calc /= gAccuracyStageRatios[buff].divisor;
 
-    if ((atkAbility == ABILITY_COMPOUND_EYES || atkAbility == ABILITY_ILLUMINATE))
-        calc = (calc * 130) / 100; // 1.3 compound eyes boost, now illuminate too
+    if ((atkAbility == ABILITY_STORM_SNIPER && IsBattlerWeatherAffected(battlerAtk, B_WEATHER_RAIN)))
+        calc = (calc * 120) / 100; // 1.2 storm sniper in rain
+	else if ((atkAbility == ABILITY_COMPOUND_EYES || atkAbility == ABILITY_ILLUMINATE))
+		calc = (calc * 130) / 100; // 1.3 compound eyes boost, now illuminate too
     else if (atkAbility == ABILITY_VICTORY_STAR)
         calc = (calc * 110) / 100; // 1.1 victory star boost
     if (IsBattlerAlive(BATTLE_PARTNER(battlerAtk)) && GetBattlerAbility(BATTLE_PARTNER(battlerAtk)) == ABILITY_VICTORY_STAR)

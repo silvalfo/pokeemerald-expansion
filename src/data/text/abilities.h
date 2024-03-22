@@ -311,6 +311,9 @@ static const u8 sLavaBubbleDescription[] = _("Guards from water and freezes.");
 static const u8 sRuthlessDescription[] = _("High crit always crits.");
 static const u8 sNatureOnenessDescription[] = _("Nature types mastery.");
 static const u8 sHeavyArmorDescription[] = _("No physical weaknesses.");
+static const u8 sBeautyVeilDescription[] = _("No special weaknesses.");
+static const u8 sStormSniperDescription[] = _("Ups speed & acc in rain.");
+static const u8 sHotAirDescription[] = _("Restores HP if burned.");
 
 #if B_EXPANDED_ABILITY_NAMES == TRUE
 const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
@@ -638,6 +641,9 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
 	[ABILITY_RUTHLESS] = _("Ruthless"),
 	[ABILITY_NATURE_ONENESS] = _("One With Nature"),
 	[ABILITY_HEAVY_ARMOR] = _("Heavy Armor"),
+	[ABILITY_BEAUTY_VEIL] = _("Beauty Veil"),
+	[ABILITY_STORM_SNIPER] = _("Storm Sniper"),
+	[ABILITY_HOT_AIR] = _("Hot Air"),
 };
 #else   // 12 characters
 const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
@@ -965,6 +971,8 @@ const u8 gAbilityNames[ABILITIES_COUNT][ABILITY_NAME_LENGTH + 1] =
 	[ABILITY_RUTHLESS] = _("Ruthless"),
 	[ABILITY_NATURE_ONENESS] = _("OneW/Nature"),
 	[ABILITY_HEAVY_ARMOR] = _("Heavy Armor"),
+	[ABILITY_BEAUTY_VEIL] = _("Beauty Veil"),
+	[ABILITY_STORM_SNIPER] = _("Storm Sniper"),
 };
 #endif
 
@@ -1293,4 +1301,7 @@ const u8 *const gAbilityDescriptionPointers[ABILITIES_COUNT] =
 	[ABILITY_RUTHLESS] = sRuthlessDescription,
 	[ABILITY_NATURE_ONENESS] = sNatureOnenessDescription,
 	[ABILITY_HEAVY_ARMOR] = sHeavyArmorDescription,
+	[ABILITY_BEAUTY_VEIL] = sBeautyVeilDescription,
+	[ABILITY_STORM_SNIPER] = sStormSniperDescription,
+	[ABILITY_HOT_AIR] = sHotAirDescription,
 };

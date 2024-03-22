@@ -803,6 +803,7 @@ static const u8 sText_AtkTrappedDef[] = _("{B_ATK_NAME_WITH_PREFIX} trapped\nthe
 static const u8 sText_MirrorHerbCopied[] = _("{B_SCR_ACTIVE_NAME_WITH_PREFIX} used its {B_LAST_ITEM}\nto mirror its opponent's stat changes!");
 static const u8 sText_PkmnHealedWith[] = _("{B_ATK_NAME_WITH_PREFIX} is healed\nby the {B_LAST_ABILITY}!");
 static const u8 sText_PkmnHurtsTarget[] = _("{B_DEF_NAME_WITH_PREFIX} is hurt\nby the {B_LAST_ABILITY}!");
+static const u8 sText_HotAirHpUp[] = _("The burn healed {B_ATK_NAME_WITH_PREFIX}\na little bit!");
 
 const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT] =
 {
@@ -1462,6 +1463,7 @@ const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT] =
 	[STRINGID_PKMNHURTSTARGET - BATTLESTRINGS_TABLE_START] = sText_PkmnHurtsTarget,
 	[STRINGID_PKMNCUTSSPATKWITH - BATTLESTRINGS_TABLE_START] = sText_PkmnCutsSpAtkWith,
 	[STRINGID_PKMNCUTHPMAXEDSPATTACK - BATTLESTRINGS_TABLE_START] = sText_PkmnCutHPMaxedSpAttack,
+	[STRINGID_HOTAIRHPUP - BATTLESTRINGS_TABLE_START] = sText_HotAirHpUp,
 };
 
 const u16 gTrainerUsedItemStringIds[] =

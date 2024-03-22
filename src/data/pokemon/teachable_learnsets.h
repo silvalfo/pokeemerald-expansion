@@ -37479,6 +37479,7 @@ static const u16 sDrifblimTeachableLearnset[] = {
     MOVE_TRICK,
     MOVE_WEATHER_BALL,
     MOVE_WILL_O_WISP,
+	MOVE_FULL_EXHAUST,
     MOVE_UNAVAILABLE,
 };
 
