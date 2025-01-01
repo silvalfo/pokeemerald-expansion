@@ -31,7 +31,7 @@ static void Storyteller_ResetFlag(void);
 
 static u8 sSelectedStory;
 
-struct BardSong gBardSong;
+COMMON_DATA struct BardSong gBardSong = {0};
 
 static EWRAM_DATA u16 sUnknownBardRelated = 0;
 static EWRAM_DATA struct MauvilleManStoryteller * sStorytellerPtr = NULL;
@@ -320,11 +320,7 @@ static void InitGiddyTaleList(void)
     // Shuffle question list
     for (i = 0; i < GIDDY_MAX_QUESTIONS; i++)
         giddy->questionList[i] = i;
-    for (i = 0; i < GIDDY_MAX_QUESTIONS; i++)
-    {
-        var = Random() % (i + 1);
-        SWAP(giddy->questionList[i], giddy->questionList[var], temp);
-    }
+    Shuffle(giddy->questionList, GIDDY_MAX_QUESTIONS, sizeof(giddy->questionList[0]));
 
     // Count total number of words in above word groups
     totalWords = 0;
@@ -481,7 +477,9 @@ static void BardSing(struct Task *task, struct BardSong *song)
         GetWordPhonemes(song, MACRO1(word));
         song->currWord++;
         if (song->sound->songLengthId != 0xFF)
+        {
             song->state = 0;
+        }
         else
         {
             song->state = 3;
@@ -531,7 +529,9 @@ static void BardSing(struct Task *task, struct BardSong *song)
             {
                 song->currPhoneme++;
                 if (song->currPhoneme != 6 && song->sound[song->currPhoneme].songLengthId != 0xFF)
+                {
                     song->state = 0;
+                }
                 else
                 {
                     song->state = 3;
@@ -740,8 +740,7 @@ void SanitizeMauvilleOldManForRuby(union OldMan * oldMan)
     }
 }
 
-// Unused
-static void SetMauvilleOldManLanguage(union OldMan * oldMan, u32 language1, u32 language2, u32 language3)
+static void UNUSED SetMauvilleOldManLanguage(union OldMan * oldMan, u32 language1, u32 language2, u32 language3)
 {
     s32 i;
 
@@ -851,7 +850,9 @@ void SanitizeReceivedRubyOldMan(union OldMan * oldMan, u32 version, u32 language
                     trader->language[i] = LANGUAGE_JAPANESE;
                 }
                 else
+                {
                     trader->language[i] = language;
+                }
             }
         }
         else
@@ -969,7 +970,7 @@ static const struct Story sStorytellerStories[] = {
         MauvilleCity_PokemonCenter_1F_Text_PokemonCaughtStory
     },
     {
-        GAME_STAT_FISHING_CAPTURES, 1,
+        GAME_STAT_FISHING_ENCOUNTERS, 1,
         MauvilleCity_PokemonCenter_1F_Text_FishingPokemonCaughtTitle,
         MauvilleCity_PokemonCenter_1F_Text_FishingPokemonCaughtAction,
         MauvilleCity_PokemonCenter_1F_Text_FishingPokemonCaughtStory
@@ -1266,27 +1267,12 @@ static void StorytellerRecordNewStat(u32 player, u32 stat)
     sStorytellerPtr->language[player] = gGameLanguage;
 }
 
-static void ScrambleStatList(u8 *arr, s32 count)
-{
-    s32 i;
-
-    for (i = 0; i < count; i++)
-        arr[i] = i;
-    for (i = 0; i < count; i++)
-    {
-        u32 a = Random() % count;
-        u32 b = Random() % count;
-        u8 temp;
-        SWAP(arr[a], arr[b], temp);
-    }
-}
-
 static bool8 StorytellerInitializeRandomStat(void)
 {
     u8 storyIds[sNumStories];
     s32 i, j;
 
-    ScrambleStatList(storyIds, sNumStories);
+    Shuffle(storyIds, sNumStories, sizeof(storyIds[0]));
     for (i = 0; i < sNumStories; i++)
     {
         u8 stat = sStorytellerStories[storyIds[i]].stat;
@@ -1428,4 +1414,3 @@ bool8 Script_StorytellerInitializeRandomStat(void)
     sStorytellerPtr = &gSaveBlock1Ptr->oldMan.storyteller;
     return StorytellerInitializeRandomStat();
 }
-
